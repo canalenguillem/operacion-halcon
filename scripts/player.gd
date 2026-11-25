@@ -10,7 +10,9 @@ var dead: bool = false
 var shoot_cd: float = 0.0
 var last_hurt: float = 99.0
 var col: CollisionShape3D
-var model: Node3D
+var model: Humanoid
+## Segundos que el brazo sigue apuntando tras disparar.
+var aim_t: float = 0.0
 
 
 func _init() -> void:
@@ -24,13 +26,9 @@ func _ready() -> void:
 	cap.radius = 0.35
 	cap.height = 1.8
 	col = Build.collider(self, cap, Vector3(0, 0.9, 0))
-	model = Node3D.new()
+	model = Humanoid.new()
 	add_child(model)
-	Build.box(model, Vector3(0.5, 0.8, 0.28), Vector3(0, 0.4, 0), Color(0.15, 0.2, 0.4))
-	Build.box(model, Vector3(0.55, 0.7, 0.3), Vector3(0, 1.15, 0), Color(0.85, 0.3, 0.15))
-	Build.sphere(model, 0.17, Vector3(0, 1.68, 0), Color(0.9, 0.72, 0.58))
-	Build.box(model, Vector3(0.12, 0.12, 0.55), Vector3(0.33, 1.25, -0.3), Color(0.85, 0.3, 0.15))
-	Build.box(model, Vector3(0.07, 0.14, 0.3), Vector3(0.33, 1.3, -0.65), Color(0.08, 0.08, 0.08))
+	model.build(Color(0.85, 0.3, 0.15), Color(0.15, 0.2, 0.4), Color(0.9, 0.72, 0.58), Color(0.2, 0.13, 0.08), 0.28)
 
 
 func _physics_process(dt: float) -> void:
@@ -51,9 +49,12 @@ func _physics_process(dt: float) -> void:
 	else:
 		velocity.y -= data.gravity * dt
 	move_and_slide()
+	aim_t -= dt
+	model.animate(Vector2(velocity.x, velocity.z).length(), dt, aim_t > 0.0)
 
 	var shooting: bool = Input.is_action_pressed("shoot") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
 	if shooting:
+		aim_t = 0.6
 		model.rotation.y = lerp_angle(model.rotation.y, yaw, 20.0 * dt)
 		if shoot_cd <= 0.0:
 			shoot_cd = data.fire_interval

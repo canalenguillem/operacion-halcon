@@ -2,7 +2,7 @@
 
 Juego de acción **3D en tercera persona** de una sola misión: robar un coche, colarse en una base aérea, robar un caza y huir de los misiles hasta un aeródromo clandestino. Juego original: la idea de la misión viene de un vídeo, pero no se copian nombre, personajes, mapa ni arte de ningún juego existente.
 
-> **Estado:** M0–M5 hechos y validados jugando. M6 (menús) y M7 (sonido y efectos) con el código hecho y pendientes de validar jugando; de M7 falta el arte. Ver `docs/ROADMAP.md`.
+> **Estado:** M0–M7 hechos y validados jugando, salvo el arte nuevo de M7 (primitivas mejoradas), pendiente de que el humano lo mire. Lo siguiente está sin decidir. Ver `docs/ROADMAP.md`.
 
 ## Stack
 
@@ -26,7 +26,7 @@ Juego de acción **3D en tercera persona** de una sola misión: robar un coche, 
 godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
 godot --path .                                          # jugar (necesita pantalla)
 godot --path . -- --play                                # jugar sin pasar por el menú
-godot --path . -- --at=150,0.2,-1110                    # empezar a pie en esa posición (x,y,z)
+godot --path . -- --at=150,0.2,-1110 --yaw=90           # empezar a pie en esa posición (x,y,z); --yaw gira la cámara (grados)
 godot --path . -- --test-jet                            # empezar volando
 godot --path . -- --test-takeoff                        # despegue automático (imprime el estado cada segundo)
 godot --path . -- --menu | --pause | --controls | --options   # abrir directamente esa pantalla
@@ -38,7 +38,7 @@ godot --path . -- --shot=/ruta/captura.png              # se combina con los ant
 ```
 project.godot
 main.tscn          # un Node3D con scripts/main.gd; todo lo demás se crea por código
-scripts/           # main, world, hud, menu, settings, sfx, camera_logic, build, layers, mission_state, vehicle
+scripts/           # main, world, hud, menu, settings, sfx, camera_logic, build, humanoid, layers, mission_state, vehicle
                    # y por actor: <actor>.gd, <actor>_logic.gd, <actor>_data.gd (player, car, jet, soldier, missile)
 data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres
 assets/audio/      # sfx/*.ogg, music/mission.ogg

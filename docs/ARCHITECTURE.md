@@ -36,7 +36,8 @@ Main (Node3D)                    une mundo, actores, misión, cámara y efectos
 | Mundo | `World` | funciones estáticas de `World` (`in_base`, `dest_distance`, `clear_spot`) | constantes en `World` |
 
 - `Vehicle` (`scripts/vehicle.gd`) es la base de coche y caza: `is_jet`, `driver`, `dead`, `hp`, `speed`, `enter_range`, `can_exit()`, `hurt()`, `controlled()` y `resolve_bumps()` (atropellos y choques).
-- `Build` (`scripts/build.gd`): ayudas estáticas para crear mallas primitivas, materiales (con caché) y colisiones.
+- `Build` (`scripts/build.gd`): ayudas estáticas para crear mallas primitivas, materiales (con caché) y colisiones. `Build.extrude` hace un prisma a partir de un polígono convexo (alas, derivas, perfil del coche, tejados) y `Build.windows_mat` es el material de fachada con ventanas (textura generada, triplanar en coordenadas del mundo, una ventana cada 3 m).
+- `Humanoid` (`scripts/humanoid.gd`): muñeco articulado del jugador y de los soldados. `animate(velocidad, dt, apuntando)` balancea piernas y brazos; el ángulo sale de `Humanoid.swing` (con tests).
 
 ## Misión
 
@@ -90,11 +91,11 @@ Por ahora todos colisionan con todos (`Layers.ALL`). Los rayos (disparos, línea
 
 ## Tests
 
-- Lógica pura: un `tests/test_*_logic.gd` por clase, más `test_mission_state.gd` y `test_world.gd`.
+- Lógica pura: un `tests/test_*_logic.gd` por clase, más `test_mission_state.gd`, `test_world.gd` y `test_humanoid.gd`.
 - Integración: `tests/test_shooting.gd` carga `main.tscn` (con `show_menu = false`) y dispara de verdad a los soldados.
 - `./tools/check.sh` además arranca el menú, la misión y la pausa, y comprueba que el caza despega solo con W.
 
 ## Deuda
 
-- Ayudas de desarrollo (`--test-jet`, `--shot`…) dentro de `main.gd`.
+- Ayudas de desarrollo (`--test-jet`, `--shot`, `--yaw`…) dentro de `main.gd`.
 - Medidas de los modelos (cajas, colores) como literales en cada actor.

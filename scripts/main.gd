@@ -561,6 +561,8 @@ func _parse_args() -> bool:
 		elif a.begins_with("--at="):
 			var p: PackedFloat64Array = a.trim_prefix("--at=").split_floats(",")
 			player.position = Vector3(p[0], p[1], p[2])
+		elif a.begins_with("--yaw="):
+			cam_yaw = deg_to_rad(float(a.trim_prefix("--yaw=")))
 		elif a == "--menu":
 			force_menu = true
 		elif a == "--pause":

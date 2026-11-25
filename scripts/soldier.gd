@@ -10,6 +10,7 @@ var dead: bool = false
 var cd: float = 1.0
 var home: Vector3 = Vector3.ZERO
 var col: CollisionShape3D
+var model: Humanoid
 
 
 func _init() -> void:
@@ -26,12 +27,10 @@ func _ready() -> void:
 	cap.radius = 0.35
 	cap.height = 1.8
 	col = Build.collider(self, cap, Vector3(0, 0.9, 0))
-	var green := Color(0.28, 0.36, 0.2)
-	Build.box(self, Vector3(0.5, 0.8, 0.28), Vector3(0, 0.4, 0), Color(0.2, 0.26, 0.15))
-	Build.box(self, Vector3(0.58, 0.7, 0.32), Vector3(0, 1.15, 0), green)
-	Build.sphere(self, 0.17, Vector3(0, 1.66, 0), Color(0.85, 0.68, 0.55))
-	Build.sphere(self, 0.2, Vector3(0, 1.74, 0), Color(0.2, 0.26, 0.15))
-	Build.box(self, Vector3(0.08, 0.1, 0.9), Vector3(0.25, 1.25, -0.45), Color(0.05, 0.05, 0.05))
+	model = Humanoid.new()
+	add_child(model)
+	model.build(Color(0.28, 0.36, 0.2), Color(0.2, 0.26, 0.15), Color(0.85, 0.68, 0.55), Color(0.17, 0.22, 0.13), 0.85)
+	Build.box(model, Vector3(0.36, 0.42, 0.16), Vector3(0, 1.2, 0.22), Color(0.17, 0.22, 0.13))
 
 
 func _physics_process(dt: float) -> void:
@@ -55,6 +54,7 @@ func _physics_process(dt: float) -> void:
 		v = to.normalized() * data.chase_speed
 	velocity = Vector3(v.x, -1.0 if is_on_floor() else velocity.y - 25.0 * dt, v.z)
 	move_and_slide()
+	model.animate(v.length(), dt, true)
 
 	cd -= dt
 	if cd <= 0.0 and SoldierLogic.can_fire(dist, tp.y, data):

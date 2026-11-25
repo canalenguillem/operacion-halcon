@@ -58,14 +58,15 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 - [x] Opciones: sensibilidad del ratón y dificultad (daño de los soldados y recarga de las baterías); el volumen llega con el sonido en M7
 - [x] `Settings`: opciones y récord de tiempo guardados en `user://settings.cfg`, con tests
 - [x] Reiniciar (R o desde la pausa) no vuelve a pasar por el menú principal
-- [ ] **Humano:** recorrer todos los menús con ratón y con teclado; pausar en coche y en vuelo; cambiar sensibilidad y dificultad y notar la diferencia; ganar y ver el récord en el menú principal
+- [x] **Humano:** recorrer todos los menús con ratón y con teclado; pausar en coche y en vuelo; cambiar sensibilidad y dificultad y notar la diferencia; ganar y ver el récord en el menú principal
 
 ## M7 — Pulido
 - [x] `Sfx`: 10 efectos, 4 bucles (motor del coche y del caza con tono según la velocidad, alarma según la distancia a la base, aviso de misil) y música; generados con lamb (ver `docs/CREDITS.md`)
 - [x] Volumen general y de música en Opciones, guardados
 - [x] Efectos: sacudida de cámara y metralla en las explosiones, humo en vehículos tocados, fogonazo rojo al recibir daño
-- [ ] Arte CC0 o mejor modelado con primitivas
-- [ ] **Humano:** escuchar cada sonido (yo no puedo oírlos): ¿alguno suena mal, muy alto o muy bajo? ¿se nota el corte de los bucles (motores, alarma, música)? ¿la sacudida marea?
+- [x] Arte con primitivas (decisión del humano: sin packs externos): muñecos articulados que andan y apuntan (`Humanoid`), coche y caza con perfiles extruidos (`Build.extrude`), edificios con ventanas y azoteas, farolas, nubes, dos tipos de árbol, hangares abovedados, barracones con tejado, luces de pista
+- [x] **Humano:** escuchar cada sonido (yo no puedo oírlos): ¿alguno suena mal, muy alto o muy bajo? ¿se nota el corte de los bucles (motores, alarma, música)? ¿la sacudida marea?
+- [ ] **Humano:** mirar el arte nuevo: ¿se ve bien el muñeco al andar y al apuntar? ¿coche, caza y ciudad convencen? ¿va fluido?
 
 ## Por decidir
 - Policía y tráfico en la ciudad, más misiones, armas en el caza, modo online (skill `juego-online`).

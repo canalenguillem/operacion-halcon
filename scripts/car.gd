@@ -15,15 +15,26 @@ func _ready() -> void:
 	Build.collider(self, sh, Vector3(0, 0.65, 0))
 	model = Node3D.new()
 	add_child(model)
-	Build.box(model, Vector3(2.0, 0.6, 4.4), Vector3(0, 0.6, 0), color)
-	Build.box(model, Vector3(1.8, 0.55, 2.2), Vector3(0, 1.15, 0.3), Color(0.1, 0.14, 0.2))
+	# perfiles laterales (alto, largo) extruidos a lo ancho del coche
+	var side := Vector3(0, 0, PI / 2.0)
+	var body := PackedVector2Array([Vector2(0.3, -2.2), Vector2(0.78, -2.16), Vector2(0.95, -0.85), Vector2(0.95, 1.95), Vector2(0.85, 2.2), Vector2(0.3, 2.2)])
+	Build.extrude(model, body, 2.0, Vector3.ZERO, color, side)
+	var cabin := PackedVector2Array([Vector2(0.95, -0.85), Vector2(1.4, -0.15), Vector2(1.4, 1.05), Vector2(0.95, 1.7)])
+	Build.extrude(model, cabin, 1.72, Vector3.ZERO, Color(0.08, 0.12, 0.18), side)
+	Build.box(model, Vector3(1.76, 0.06, 1.24), Vector3(0, 1.42, 0.45), color)
+	var dark := Color(0.06, 0.06, 0.06)
+	for sz: float in [-1.0, 1.0]:
+		Build.box(model, Vector3(2.06, 0.2, 0.16), Vector3(0, 0.4, sz * 2.2), Color(0.12, 0.12, 0.13))
+	Build.box(model, Vector3(1.0, 0.16, 0.06), Vector3(0, 0.62, -2.19), Color(0.1, 0.1, 0.1))
 	var head := BoxMesh.new()
-	head.size = Vector3(0.4, 0.15, 0.1)
+	head.size = Vector3(0.42, 0.16, 0.1)
 	for sx: float in [-1.0, 1.0]:
 		for sz: float in [-1.4, 1.4]:
-			Build.cyl(model, 0.38, 0.3, Vector3(sx, 0.38, sz), Color(0.06, 0.06, 0.06), Vector3(0, 0, PI / 2.0))
-		Build.mesh(model, head, Vector3(sx * 0.7, 0.7, -2.2), Color(1, 1, 0.8), Vector3.ZERO, 2.0)
-		Build.mesh(model, head, Vector3(sx * 0.7, 0.7, 2.2), Color(0.9, 0.05, 0.05), Vector3.ZERO, 1.5)
+			Build.cyl(model, 0.38, 0.3, Vector3(sx * 0.92, 0.38, sz), dark, Vector3(0, 0, PI / 2.0))
+			Build.cyl(model, 0.2, 0.32, Vector3(sx * 0.92, 0.38, sz), Color(0.7, 0.7, 0.72), Vector3(0, 0, PI / 2.0))
+		Build.box(model, Vector3(0.1, 0.1, 0.18), Vector3(sx * 1.02, 1.0, -0.75), color)
+		Build.mesh(model, head, Vector3(sx * 0.68, 0.66, -2.17), Color(1, 1, 0.8), Vector3.ZERO, 2.0)
+		Build.mesh(model, head, Vector3(sx * 0.68, 0.72, 2.19), Color(0.9, 0.05, 0.05), Vector3.ZERO, 1.5)
 
 
 func can_exit() -> bool:
