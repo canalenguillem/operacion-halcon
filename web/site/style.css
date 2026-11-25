@@ -22,3 +22,4 @@ tr:last-child th, tr:last-child td { border-bottom: 0; }
 code { background: var(--panel); padding: 2px 6px; border-radius: 4px; }
 footer { color: var(--muted); font-size: 0.85rem; padding-top: 16px; padding-bottom: 40px; border-top: 1px solid var(--line); }
 @media (max-width: 560px) { th { white-space: normal; } th, td { display: block; } th { border-bottom: 0; padding-bottom: 0; } }
+footer a, main a { color: var(--accent); }
