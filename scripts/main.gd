@@ -698,9 +698,7 @@ func _parse_args() -> void:
 			player.position = Vector3(p[0], p[1], p[2])
 		elif a == "--test-takeoff":
 			_enter_vehicle(jets[1])
-			Input.action_press("throttle_up")
-			Input.action_press("back")
-			get_tree().create_timer(4.2).timeout.connect(func(): Input.action_release("back"))
+			Input.action_press("forward")  # lo que hace un jugador nuevo: solo W, sin soltarla
 			_debug = true
 		elif a == "--test-jet":
 			var j = jets[0]

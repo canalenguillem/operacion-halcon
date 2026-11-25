@@ -3,6 +3,8 @@ extends CharacterBody3D
 
 const MAX_SPEED := 150.0
 const TAKEOFF := 55.0
+## A esta velocidad despega solo.
+const AUTO_LIFT := 70.0
 
 var main
 var is_jet := true
@@ -15,6 +17,7 @@ var throttle := 0.0
 var grounded := true
 var flares := 12
 var flare_cd := 0.0
+var nose_lock := false
 var flame: Node3D
 var gear: Node3D
 var col: CollisionShape3D
@@ -75,6 +78,18 @@ func _physics_process(dt: float) -> void:
 			throttle = maxf(0.0, throttle - 0.9 * dt)
 		pitch_in = Input.get_axis("forward", "back")
 		roll_in = Input.get_axis("left", "right")
+		if grounded:
+			# En tierra W y S son el acelerador, como en el coche.
+			if pitch_in < 0.0:
+				throttle = minf(1.0, throttle + 0.7 * dt)
+			elif pitch_in > 0.0 and speed < TAKEOFF:
+				throttle = maxf(0.0, throttle - 0.9 * dt)
+		elif nose_lock:
+			# Tras despegar con W pulsada, W no baja el morro hasta que se suelta.
+			if pitch_in >= 0.0:
+				nose_lock = false
+			else:
+				pitch_in = 0.0
 	elif not driver:
 		throttle = 0.0
 	flame.visible = throttle > 0.03
@@ -114,8 +129,9 @@ func _ground(dt: float, pitch_in: float, roll_in: float) -> void:
 		speed *= 1.0 - head_on
 	if dead:
 		return
-	if pitch_in > 0.2 and speed >= TAKEOFF:
+	if (pitch_in > 0.2 and speed >= TAKEOFF) or speed >= AUTO_LIFT:
 		grounded = false
+		nose_lock = pitch_in < 0.0
 		gear.visible = false
 		rotate_object_local(Vector3.RIGHT, 0.14)
 		global_position.y += 0.6

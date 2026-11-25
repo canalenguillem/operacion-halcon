@@ -34,7 +34,7 @@ Se pierde si el jugador muere, si el caza que pilota se destruye o si no quedan 
 - **Jugador:** 100 de salud; se regenera tras 6 s sin recibir daño. Pistola: 25 de daño, 4,5 disparos/s.
 - **Soldados** (18): 40 de salud, disparan cada 1-1,8 s hasta 95 m, con más puntería de cerca. Hacen 5 de daño a pie, 2 al coche y 1,2 al caza. Se les puede atropellar.
 - **Coche:** 144 km/h, 100 de resistencia; los choques fuertes lo dañan y al explotar expulsa al conductor con 40 de daño.
-- **Caza:** 540 km/h, despega a partir de 200 km/h, 100 de resistencia. Por debajo de 200 km/h en el aire entra en pérdida. Chocar contra algo en vuelo lo destruye; tocar suelo plano con poco ángulo es aterrizar.
+- **Caza:** 540 km/h, 100 de resistencia. En tierra W acelera y despega solo a 250 km/h; si sigues con W pulsada al despegar, no baja el morro hasta que la sueltas. Por debajo de 200 km/h en el aire entra en pérdida. Chocar contra algo en vuelo lo destruye; tocar suelo plano con poco ángulo es aterrizar.
 - **Misiles:** 5 baterías (3 en la base, 2 en la ruta). Disparan al caza a más de 25 m de altura y entre 250 y 2600 m, cada 8-12 s, con 2 misiles en el aire como máximo. Misil: 666 km/h, giro limitado (se le puede esquivar girando fuerte), 34 de daño. **Bengalas** (12): cada una despista con un 75 % a los misiles cercanos.
 
 ## Controles
@@ -43,13 +43,13 @@ Se pierde si el jugador muere, si el caza que pilota se destruye o si no quedan 
 |---|---|
 | A pie | WASD mover · ratón cámara · clic disparar · Shift correr · Espacio saltar · E subir |
 | Coche | W/S acelerar/marcha atrás · A/D girar · Espacio freno · E bajar |
-| Caza en tierra | Shift/Ctrl potencia · A/D girar · S despegar (>200 km/h) · E bajar (parado) |
+| Caza en tierra | W acelerar · S frenar · A/D girar · despega solo a 250 km/h (o con S desde 200 km/h) · E bajar (parado) |
 | Caza en vuelo | S/W subir/bajar morro · A/D alabeo · Shift/Ctrl potencia · F bengalas |
 | General | R reiniciar · Esc soltar el ratón |
 
 ## Por decidir (se ajusta jugando)
 
-- Sensación del movimiento a pie, del coche y del vuelo (¿W para acelerar el caza en tierra?).
+- Sensación del movimiento a pie, del coche y del vuelo.
 - Dificultad de soldados y misiles.
 - ¿Policía en la ciudad? ¿Tráfico y peatones? ¿Cañón o misiles en el caza? ¿Hay que aterrizar para ganar?
 - ¿Más misiones? ¿Modo online (skill `juego-online`)?

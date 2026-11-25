@@ -134,9 +134,9 @@ func _process(dt: float) -> void:
 				h = "WASD moverse · Ratón cámara · Clic disparar · Shift correr · E subir a vehículos"
 		elif v.is_jet:
 			if v.grounded:
-				h = "Shift: potencia · Ctrl: frenar · A/D: girar · S: despegar a más de 200 km/h"
+				h = "W: acelerar (despega solo a 250 km/h) · S: frenar · A/D: girar"
 			else:
-				h = "S/W: subir/bajar morro · A/D: alabeo · Shift/Ctrl: potencia · F: bengalas"
+				h = "S: subir morro · W: bajar morro · A/D: girar · Shift/Ctrl: potencia · F: bengalas"
 		elif main.elapsed < 40.0:
 			h = "W/S acelerar/marcha atrás · A/D girar · Espacio freno · E bajar"
 	hint.text = h

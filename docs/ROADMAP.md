@@ -38,6 +38,7 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 ## M4 — El caza
 - [x] Rodaje, despegue, vuelo arcade, pérdida, aterrizaje y choque (prototipo)
 - [x] Cámara de persecución e indicadores de velocidad, altura y potencia (prototipo)
+- [x] W acelera en tierra y el caza despega solo (el humano no consiguió despegar con Shift + S)
 - [ ] Tipado y `@export` en `jet.gd`
 - [ ] **Humano:** ¿se despega a la primera? ¿se entiende Shift para acelerar? ¿el giro y el morro responden bien?
 

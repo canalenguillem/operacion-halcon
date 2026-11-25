@@ -35,6 +35,10 @@ if ! grep -q "grounded=false" "$LOG"; then
   echo "❌ El caza no ha despegado en la prueba automática"
   exit 1
 fi
+if ! grep "t=15 " "$LOG" | grep -q "grounded=false.*over=false"; then
+  echo "❌ El caza no sigue volando a los 15 s solo con W pulsada"
+  exit 1
+fi
 
 if [ -d addons/gut ] && [ -d tests ]; then
   echo "→ Ejecutando tests GUT…"
