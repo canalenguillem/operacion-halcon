@@ -2,12 +2,12 @@
 
 Juego de acción **3D en tercera persona** de una sola misión: robar un coche, colarse en una base aérea, robar un caza y huir de los misiles hasta un aeródromo clandestino. Juego original: la idea de la misión viene de un vídeo, pero no se copian nombre, personajes, mapa ni arte de ningún juego existente.
 
-> **Estado:** M0 hecho (prototipo jugable de principio a fin). Hito actual: **M1** (a pie), con el código hecho y pendiente de validar jugando. Ver `docs/ROADMAP.md`.
+> **Estado:** M0–M5 hechos y validados jugando. Hito actual: **M6** (menús). Ver `docs/ROADMAP.md`.
 
 ## Stack
 
 - **Godot 4.7.x stable**. Prohibidas las APIs de Godot 3.
-- **GDScript con tipado estático** en todo (parte del prototipo de M0 aún no lo cumple: se arregla hito a hito, ver ROADMAP).
+- **GDScript con tipado estático** en todo. `project.godot` trata `untyped_declaration` como error: sin tipo no compila.
 - **3D**, Forward+. Resolución base 1280×720, `stretch/mode = canvas_items`, `stretch/aspect = expand`.
 - Sin assets externos por ahora: todo el mundo se genera con primitivas (`scripts/build.gd`).
 - Tests con **GUT 9.x** en `addons/gut`.
@@ -36,8 +36,9 @@ godot --path . -- --shot=/ruta/captura.png              # guarda una captura a l
 ```
 project.godot
 main.tscn          # un Node3D con scripts/main.gd; todo lo demás se crea por código
-scripts/           # main, build, player, player_data, player_logic, car, jet, soldier, missile, hud
-data/              # player.tres (PlayerData)
+scripts/           # main, world, hud, build, layers, mission_state, vehicle
+                   # y por actor: <actor>.gd, <actor>_logic.gd, <actor>_data.gd (player, car, jet, soldier, missile)
+data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres
 tests/             # test_*.gd (GUT)
 docs/
 tools/             # check.sh, load_all.gd
@@ -51,7 +52,7 @@ Las mismas que `../mini-futbol-kit` y `../mini-bolidos-kit`:
 - **Señales hacia arriba, llamadas hacia abajo.**
 - **Los datos no van en el código.** Los valores de ajuste son `@export` o Resources `.tres`.
 - El input va siempre por acciones del InputMap, nunca por teclas directas.
-- Lógica pura (estado de la misión, nivel de búsqueda, guiado del misil) separada de los nodos y con tests GUT.
+- Cada actor tiene tres piezas: nodo (`car.gd`), lógica pura con tests GUT (`car_logic.gd`) y datos (`car_data.gd` + `data/car.tres`). Ver ARCHITECTURE.
 - Comentarios y mensajes de commit en español; identificadores en inglés.
 - Al editar `.tscn`/`.tres` como texto: no inventes `uid`, no toques `.godot/` ni `.import`.
 

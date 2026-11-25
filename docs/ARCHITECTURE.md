@@ -1,39 +1,66 @@
 # Arquitectura — Operación Halcón
 
-Documento provisional. Describe el juego tal como está; los cambios previstos están en `docs/ROADMAP.md`.
+Describe el juego tal como está; los cambios previstos están en `docs/ROADMAP.md`.
 
 ## Escena
 
-`main.tscn` es un único `Node3D` con `scripts/main.gd`. Todo lo demás se crea por código en `_ready`:
+`main.tscn` es un único `Node3D` con `scripts/main.gd` (`Main`). Todo lo demás se crea por código:
 
 ```
-Main (Node3D)                    scripts/main.gd
-├── WorldEnvironment, DirectionalLight3D
-├── suelo (WorldBoundaryShape3D + PlaneMesh), árboles (MultiMesh), colinas (sólidas)
-├── ciudad, base aérea, aeródromo de destino   cajas de scripts/build.gd
-├── Player (CharacterBody3D)     scripts/player.gd
-├── Car × 5 (CharacterBody3D)    scripts/car.gd      grupo "vehicles"
-├── Jet × 2 (CharacterBody3D)    scripts/jet.gd      grupo "vehicles"
-├── Soldier × 18                 scripts/soldier.gd  grupo "soldiers"
-├── Missile (Node3D, se crean al disparar)  scripts/missile.gd
+Main (Node3D)                    une mundo, actores, misión, cámara y efectos
+├── World (Node3D)               cielo, suelo, árboles, colinas, ciudad, base, aeródromo, haz del objetivo
+├── Player (CharacterBody3D)
+├── Car × 5 (Vehicle)
+├── Jet × 2 (Vehicle)
+├── Soldier × 18 (CharacterBody3D)
+├── Missile (Node3D)             se crean al disparar una batería
 ├── Camera3D
-└── CanvasLayer → Hud (Control)  scripts/hud.gd (incluye el minimapa)
+└── CanvasLayer → Hud (Control)  incluye el minimapa (`Hud.MiniMap`)
 ```
 
-- El norte es **-Z** y el frente de todos los actores también.
+- El norte es **-Z** y el frente de todos los actores también. Un giro (yaw) positivo gira a la izquierda.
+- Tipado estático obligatorio: `project.godot` trata `untyped_declaration` como error, así que `./tools/check.sh` falla si falta un tipo.
+
+## Tres piezas por actor
+
+| Actor | Nodo (aplica) | Lógica pura (decide, con tests) | Datos (`.tres`, se ajustan en el editor) |
+|---|---|---|---|
+| Jugador | `Player` | `PlayerLogic` | `PlayerData` → `data/player.tres` |
+| Coche | `Car` (hereda de `Vehicle`) | `CarLogic` | `CarData` → `data/car.tres` |
+| Caza | `Jet` (hereda de `Vehicle`) | `JetLogic` | `JetData` → `data/jet.tres` |
+| Soldado | `Soldier` | `SoldierLogic` | `SoldierData` → `data/soldier.tres` |
+| Misil y baterías | `Missile` (y `Main._update_sams`) | `MissileLogic` | `MissileData` → `data/missile.tres` |
+| Misión | `Main` | `MissionState` | constantes en `MissionState` |
+| Mundo | `World` | funciones estáticas de `World` (`in_base`, `dest_distance`, `clear_spot`) | constantes en `World` |
+
+- `Vehicle` (`scripts/vehicle.gd`) es la base de coche y caza: `is_jet`, `driver`, `dead`, `hp`, `speed`, `enter_range`, `can_exit()`, `hurt()`, `controlled()` y `resolve_bumps()` (atropellos y choques).
 - `Build` (`scripts/build.gd`): ayudas estáticas para crear mallas primitivas, materiales (con caché) y colisiones.
 
-## Quién hace qué
+## Misión
 
-- **`main.gd`** construye el mundo, lleva el estado de la misión (`stage`, `wanted`, `base_alert`, `game_over`), entrar y salir de vehículos, las baterías de misiles, la cámara (orbital a pie y en coche; de persecución en el caza) y los efectos (trazadoras, explosiones, bengalas). Se ejecuta después de los actores (`process_physics_priority = 10`) para que la cámara vea posiciones ya actualizadas.
-- **Actores**: cada uno lee el input directamente y recibe una referencia `main` sin tipo. Todos los que reciben daño tienen `hurt(d)`. Los vehículos comparten por convención `is_jet`, `driver`, `dead`, `hp`, `speed`, `enter_range`, `can_exit()`.
-- **`hud.gd`** lee el estado de `main` cada fotograma.
+`MissionState` (`RefCounted`) lleva la fase (`Stage`: `GET_CAR → GO_BASE → GET_JET → ESCAPE → WON`), las estrellas (`wanted`), la alarma (`base_alert`) y el final (`over`). `Main` le llama `step(...)` cada fotograma de física con hechos ya calculados (¿vas en vehículo?, ¿en caza?, ¿dentro de la base?, cazas que quedan, distancia al aeródromo) y escucha sus señales (`alert_raised`, `jet_stolen`, `failed(reason)`, `completed`) para mostrar los mensajes. Los actores avisan con `main.mission.raise_alert()` y `main.mission.fail(...)`.
 
-## Jugador a pie (M1)
+## Quién llama a quién
 
-- `Player` (`scripts/player.gd`) aplica a su `CharacterBody3D` lo que calcula `PlayerLogic` (`scripts/player_logic.gd`, lógica pura con tests): dirección de movimiento según la cámara, hacia dónde mira, regeneración de salud y órbita de la cámara con el ratón.
-- Todos los ajustes están en `PlayerData` (`scripts/player_data.gd`), recurso `data/player.tres`: movimiento, salud, pistola y cámara a pie. `Main` lee de ahí la cámara y el disparo.
-- Input por acciones definidas en `project.godot`: `forward`, `back`, `left`, `right`, `sprint`, `jump`, `shoot`, `interact`, `flare`, `throttle_up`, `throttle_down`, `restart`.
+- **Señales hacia arriba:** `MissionState` → `Main` → `Hud`.
+- **Llamadas hacia abajo:** `Main` crea los actores y les pasa `main`. Los actores piden a `Main` efectos y consultas (`explosion`, `tracer`, `drop_flares`, `target_node`, `hurt_target`, `eject`). Es un acoplamiento aceptado mientras haya una sola escena.
+- `Main` se ejecuta después de los actores (`process_physics_priority = 10`) para que la cámara vea posiciones ya actualizadas. La cámara es orbital a pie y en coche, y de persecución en el caza.
+- `Hud` lee el estado de `Main` cada fotograma.
+
+## Input
+
+Acciones en `project.godot`: `forward`, `back`, `left`, `right`, `sprint`, `jump`, `shoot`, `interact`, `flare`, `throttle_up`, `throttle_down`, `restart`. En el caza en tierra, `forward`/`back` son el acelerador; en vuelo, el morro.
+
+## Capas de física (`Layers`)
+
+| Bit | Nombre | Quién está |
+|---|---|---|
+| 1 | `WORLD` | suelo, edificios, valla, colinas |
+| 2 | `PLAYER` | jugador |
+| 4 | `VEHICLES` | coches y cazas |
+| 8 | `SOLDIERS` | soldados |
+
+Por ahora todos colisionan con todos (`Layers.ALL`). Los rayos (disparos, línea de visión, cámara) excluyen a quien los lanza. Los árboles no tienen colisión.
 
 ## Mundo (metros)
 
@@ -43,15 +70,16 @@ Main (Node3D)                    scripts/main.gd
 | Carretera principal | x = 0, de z = 340 a z = -700 |
 | Base aérea | x de -350 a 350, z de -1300 a -700; puerta en (0, -700) |
 | Pista | z = -1200, de x = -330 a 330; cazas en (160, -1130) y (250, -1130) mirando al norte |
+| Baterías | 3 en la base, 2 en la ruta (`World.BASE_SAMS`, `World.ROUTE_SAMS`) |
 | Aeródromo de destino | (6000, 5000) |
 
-## Capas de física
+## Tests
 
-Todo está en la capa 1 por ahora. Los rayos (disparos, línea de visión, cámara) excluyen a quien los lanza.
+- Lógica pura: un `tests/test_*_logic.gd` por clase, más `test_mission_state.gd` y `test_world.gd`.
+- Integración: `tests/test_shooting.gd` carga `main.tscn` y dispara de verdad a los soldados.
+- `./tools/check.sh` además arranca la misión y comprueba que el caza despega solo con W.
 
-## Deuda del prototipo (se paga por hitos)
+## Deuda
 
-- Sin tipado estático en coche, caza, soldado, misil, HUD y buena parte de `main.gd` (`main` es `Variant` en esos actores).
-- Sus números de ajuste son constantes o literales, no `@export` ni `.tres`.
-- Lógica de misión, alarma y guiado del misil mezclada con los nodos; sin tests.
-- Ayudas de prueba (`--test-jet`, `--shot`…) dentro de `main.gd`.
+- Ayudas de desarrollo (`--test-jet`, `--shot`…) dentro de `main.gd`.
+- Medidas de los modelos (cajas, colores) como literales en cada actor.

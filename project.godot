@@ -91,3 +91,7 @@ shoot={
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2

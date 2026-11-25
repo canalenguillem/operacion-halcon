@@ -13,6 +13,11 @@ var col: CollisionShape3D
 var model: Node3D
 
 
+func _init() -> void:
+	collision_layer = Layers.PLAYER
+	collision_mask = Layers.ALL
+
+
 func _ready() -> void:
 	health = data.max_health
 	var cap := CapsuleShape3D.new()
@@ -66,4 +71,4 @@ func hurt(d: float) -> void:
 		health = 0.0
 		dead = true
 		model.rotation.x = -PI / 2.0
-		main.fail("TE HAN ABATIDO")
+		main.mission.fail("TE HAN ABATIDO")

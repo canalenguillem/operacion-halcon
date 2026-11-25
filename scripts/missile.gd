@@ -1,19 +1,21 @@
+class_name Missile
 extends Node3D
-## Surface-to-air missile: homes on the jet with a limited turn rate.
+## Misil tierra-aire: persigue al caza con giro limitado. Los ajustes están en `data/missile.tres`.
 
-const TURN := 0.75
-const TOP_SPEED := 185.0
-
-var main
-var target
-var dir := Vector3.UP
-var speed := 60.0
-var life := 16.0
-var decoyed := false
-var dead := false
+var main: Main
+var data: MissileData
+var target: Jet
+var dir: Vector3 = Vector3.UP
+var speed: float = 60.0
+var life: float = 16.0
+## Una bengala lo ha despistado: sigue recto.
+var decoyed: bool = false
+var dead: bool = false
 
 
 func _ready() -> void:
+	speed = data.launch_speed
+	life = data.lifetime
 	Build.cyl(self, 0.25, 3.0, Vector3.ZERO, Color(0.9, 0.9, 0.9), Vector3(-PI / 2.0, 0, 0))
 	Build.sphere(self, 0.6, Vector3(0, 0, 1.8), Color(1.0, 0.6, 0.1), 5.0)
 	var p := CPUParticles3D.new()
@@ -45,23 +47,16 @@ func _physics_process(dt: float) -> void:
 	if dead:
 		return
 	life -= dt
-	speed = minf(speed + 90.0 * dt, TOP_SPEED)
-	var d := 1e9
-	if is_instance_valid(target) and not target.dead:
-		d = distance()
-		if not decoyed:
-			var tv: Vector3 = target.velocity
-			var aim: Vector3 = target.global_position + tv * 0.4 * (d / speed)
-			var want := (aim - global_position).normalized()
-			var ang := dir.angle_to(want)
-			var axis := dir.cross(want)
-			if ang > 0.001 and axis.length() > 0.0001:
-				dir = dir.rotated(axis.normalized(), minf(ang, TURN * dt)).normalized()
+	speed = MissileLogic.next_speed(speed, dt, data)
+	var chasing: bool = is_instance_valid(target) and not target.dead
+	if chasing and not decoyed:
+		var aim: Vector3 = MissileLogic.aim_point(global_position, speed, target.global_position, target.velocity, data)
+		dir = MissileLogic.steer(dir, global_position, aim, dt, data)
 	global_position += dir * speed * dt
 	look_at(global_position + dir, Vector3.UP if absf(dir.y) < 0.99 else Vector3.RIGHT)
 
-	if d < 10.0:
-		target.hurt(34.0)
+	if chasing and distance() < data.hit_radius:
+		target.hurt(data.damage)
 		_boom()
 	elif life <= 0.0 or global_position.y < 0.5:
 		_boom()

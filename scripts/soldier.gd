@@ -1,19 +1,26 @@
+class_name Soldier
 extends CharacterBody3D
+## Soldado de la base. Los ajustes están en `data/soldier.tres`.
 
-
-var main
-var hp := 40.0
-var alert := false
-var dead := false
-var cd := 1.0
-var home := Vector3.ZERO
+var main: Main
+var data: SoldierData = preload("res://data/soldier.tres")
+var hp: float = 40.0
+var alert: bool = false
+var dead: bool = false
+var cd: float = 1.0
+var home: Vector3 = Vector3.ZERO
 var col: CollisionShape3D
 
 
+func _init() -> void:
+	collision_layer = Layers.SOLDIERS
+	collision_mask = Layers.ALL
+
+
 func _ready() -> void:
-	add_to_group("soldiers")
+	hp = data.max_hp
 	home = global_position
-	cd = randf_range(0.5, 1.8)
+	cd = randf_range(0.5, data.fire_interval_max)
 	rotation.y = randf() * TAU
 	var cap := CapsuleShape3D.new()
 	cap.radius = 0.35
@@ -30,48 +37,44 @@ func _ready() -> void:
 func _physics_process(dt: float) -> void:
 	if dead or main.game_over:
 		return
-	var t = main.target_node()
-	var tp: Vector3 = t.global_position
-	var to := tp - global_position
-	var d := to.length()
+	var target: Node3D = main.target_node()
+	var tp: Vector3 = target.global_position
+	var to: Vector3 = tp - global_position
+	var dist: float = to.length()
 
 	if not alert:
-		if d < 45.0 or (main.base_alert and d < 500.0):
+		if SoldierLogic.should_alert(dist, main.mission.base_alert, data):
 			alert = true
-			main.raise_alert()
+			main.mission.raise_alert()
 		return
 
 	to.y = 0.0
-	rotation.y = lerp_angle(rotation.y, atan2(-to.x, -to.z), 8.0 * dt)
-	var chase := d > 25.0 and d < 300.0 and global_position.distance_to(home) < 350.0
-	var v := to.normalized() * 4.5 if chase else Vector3.ZERO
-	velocity = Vector3(v.x, velocity.y - 25.0 * dt if not is_on_floor() else -1.0, v.z)
+	rotation.y = lerp_angle(rotation.y, PlayerLogic.facing_yaw(to), data.turn_speed * dt)
+	var v: Vector3 = Vector3.ZERO
+	if SoldierLogic.should_chase(dist, global_position.distance_to(home), data):
+		v = to.normalized() * data.chase_speed
+	velocity = Vector3(v.x, -1.0 if is_on_floor() else velocity.y - 25.0 * dt, v.z)
 	move_and_slide()
 
 	cd -= dt
-	if cd <= 0.0 and d < 95.0 and tp.y < 25.0:
-		cd = randf_range(1.0, 1.8)
-		_fire(t, tp, d)
+	if cd <= 0.0 and SoldierLogic.can_fire(dist, tp.y, data):
+		cd = randf_range(data.fire_interval_min, data.fire_interval_max)
+		_fire(target, tp, dist)
 
 
-func _fire(t, tp: Vector3, d: float) -> void:
-	var from := global_position + Vector3(0, 1.4, 0)
-	var aim := tp + Vector3(0, 1.0, 0)
+func _fire(target: Node3D, tp: Vector3, dist: float) -> void:
+	var from: Vector3 = global_position + Vector3(0, 1.4, 0)
+	var aim: Vector3 = tp + Vector3(0, 1.0, 0)
 	var q := PhysicsRayQueryParameters3D.create(from, aim)
 	q.exclude = [get_rid()]
-	var hit := get_world_3d().direct_space_state.intersect_ray(q)
-	if not hit.is_empty() and hit.collider != t and not hit.collider.is_in_group("soldiers"):
-		return  # no line of sight
-	var chance := clampf(0.75 - d / 130.0, 0.1, 0.7)
-	if randf() < chance:
-		var dmg := 5.0
-		if t != main.player:
-			dmg = 1.2 if t.is_jet else 2.0
-		t.hurt(dmg)
-		main.tracer(from, aim, Color(1, 0.4, 0.3))
+	var hit: Dictionary = get_world_3d().direct_space_state.intersect_ray(q)
+	if not hit.is_empty() and hit.collider != target and not hit.collider is Soldier:
+		return  # sin línea de visión
+	if randf() < SoldierLogic.hit_chance(dist, data):
+		main.hurt_target(data)
 	else:
-		var miss := Vector3(randf_range(-2, 2), randf_range(0, 2), randf_range(-2, 2))
-		main.tracer(from, aim + miss, Color(1, 0.4, 0.3))
+		aim += Vector3(randf_range(-2, 2), randf_range(0, 2), randf_range(-2, 2))
+	main.tracer(from, aim, Color(1, 0.4, 0.3))
 
 
 func hurt(d: float) -> void:
@@ -80,12 +83,9 @@ func hurt(d: float) -> void:
 	hp -= d
 	if not alert:
 		alert = true
-		main.raise_alert()
+		main.mission.raise_alert()
 	if hp <= 0.0:
 		dead = true
 		col.set_deferred("disabled", true)
 		main.kills += 1
-		var tw := create_tween()
-		tw.tween_property(self, "rotation:x", -PI / 2.0, 0.3)
-		tw.tween_interval(8.0)
-		tw.tween_callback(queue_free)
+		create_tween().tween_property(self, "rotation:x", -PI / 2.0, 0.3)

@@ -1,6 +1,6 @@
 # Roadmap — Operación Halcón
 
-Hito actual: **M1** (código hecho; falta la validación del humano). M0 es el prototipo completo que se hizo de una vez; a partir de aquí se revisa por fases, cada una validada jugando.
+Hito actual: **M6**. M1–M5 hechos y validados por el humano (lo probaron también sus alumnos). M0 es el prototipo completo que se hizo de una vez; a partir de aquí se revisa por fases, cada una validada jugando.
 
 Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el humano haya validado lo que hay que probar jugando.
 
@@ -20,35 +20,38 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 - [x] Tipado estático en `player.gd`; `class_name` en `Main`, `Player` y `Build`; ajustes en `PlayerData` (`data/player.tres`)
 - [x] GUT instalado; `PlayerLogic` (lógica pura) con 11 tests
 - [x] Ayuda de puntería (`aim_assist_degrees`), marca de impacto y contador de bajas (el humano disparaba y no abatía a nadie)
-- [ ] **Humano:** ¿se mueve y apunta bien? Ajustar en `data/player.tres`: `walk_speed`, `sprint_speed`, `mouse_sensitivity`, `cam_offset`, `fire_interval`, `damage`
+- [x] **Humano:** se mueve, apunta y dispara bien
 
 ## M2 — Coche
 - [x] Coche arcade: acelerar, frenar, girar, daño por choque, explosión (prototipo)
 - [x] Subir y bajar con E; la cámara se recoloca detrás al conducir (prototipo)
-- [ ] Tipado y `@export` en `car.gd`
-- [ ] **Humano:** ¿se conduce bien? Velocidad máxima, giro, freno; ¿se llega a la base sin aburrirse (≈30 s)?
+- [x] `Vehicle` (base de coche y caza), `CarData` (`data/car.tres`) y `CarLogic` con tests
+- [x] **Humano:** se conduce bien
 
 ## M3 — La base y los soldados
 - [x] Recinto con valla, puerta con barrera, hangares, torre y barracones (prototipo)
 - [x] Soldados: alerta, persecución, disparo con línea de visión, atropello (prototipo)
 - [x] Alarma y estrellas (prototipo)
-- [ ] `MissionState` y `WantedLevel` como lógica pura con tests
-- [ ] Capas de física definidas en ARCHITECTURE
-- [ ] **Humano:** ¿se puede llegar al caza? ¿demasiado fácil o difícil? ¿se entiende por qué te disparan?
+- [x] `MissionState` (fases, estrellas y alarma) como lógica pura con señales y tests; `SoldierData`, `SoldierLogic` con tests
+- [x] `World` separado de `Main`, con tests de la geometría
+- [x] Test de integración del disparo (`tests/test_shooting.gd`)
+- [x] Capas de física (`Layers`) definidas en ARCHITECTURE
+- [x] **Humano:** se llega al caza y se abate a los soldados
 
 ## M4 — El caza
 - [x] Rodaje, despegue, vuelo arcade, pérdida, aterrizaje y choque (prototipo)
 - [x] Cámara de persecución e indicadores de velocidad, altura y potencia (prototipo)
 - [x] W acelera en tierra y el caza despega solo (el humano no consiguió despegar con Shift + S)
-- [ ] Tipado y `@export` en `jet.gd`
+- [x] `JetData` (`data/jet.tres`) y `JetLogic` con tests
 - [x] **Humano:** despega con W; giro y morro bien
 
 ## M5 — Misiles y huida
 - [x] Baterías, misiles guiados, bengalas, aviso en pantalla (prototipo)
 - [x] Victoria al llegar al aeródromo; pantalla con tiempo y bajas (prototipo)
-- [ ] Guiado del misil como lógica pura con tests
+- [x] `MissileData` (`data/missile.tres`) y `MissileLogic` (guiado y baterías) con tests
 - [x] **Humano:** llega al aeródromo y ve «Misión cumplida»
-- [ ] **Humano:** ¿dificultad de los misiles? ¿bastan las bengalas? ¿el viaje de 60 s se hace largo?
+- [x] **Humano:** dificultad y duración del vuelo bien
+- [x] Tipado estático en todo el proyecto; `untyped_declaration` es error
 
 ## M6 — Menús
 - [ ] Menú principal, pausa, pantalla de controles y opciones (volumen, sensibilidad, dificultad)
