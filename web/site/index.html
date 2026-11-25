@@ -14,6 +14,7 @@
     <p class="lead">Roba un coche, cuélate en la base aérea, roba un caza y huye de los misiles.</p>
     <div class="buttons">
       <a class="btn" id="dl-windows" href="downloads/operacion-halcon-windows.zip">Descargar para Windows <small></small></a>
+      <a class="btn" id="dl-macos" href="downloads/operacion-halcon-macos.zip">Descargar para macOS <small></small></a>
       <a class="btn" id="dl-linux" href="downloads/operacion-halcon-linux.tar.gz">Descargar para Linux <small></small></a>
     </div>
     <p class="version" id="version"></p>
@@ -58,12 +59,18 @@
       <li>Abre la carpeta y haz doble clic en <code>Operacion-Halcon.exe</code>.</li>
       <li>Si aparece «Windows protegió su equipo», pulsa «Más información» y «Ejecutar de todas formas». Sale porque el programa no tiene firma digital de pago.</li>
     </ol>
+    <h3>macOS</h3>
+    <ol>
+      <li>Descarga el .zip, descomprímelo y arrastra «Operación Halcón» a Aplicaciones.</li>
+      <li>La primera vez macOS avisará de que no puede comprobar la app (no está firmada). En macOS 14 o anterior: clic derecho → «Abrir» → «Abrir». En macOS 15 o posterior: intenta abrirla, ve a Ajustes del Sistema → Privacidad y seguridad y pulsa «Abrir igualmente».</li>
+      <li>Si dice que la app «está dañada», ejecuta en la Terminal: <code>xattr -dr com.apple.quarantine "/Applications/Operación Halcón.app"</code></li>
+    </ol>
     <h3>Linux</h3>
     <ol>
       <li>Descarga el .tar.gz y descomprímelo.</li>
       <li>Ejecuta <code>./operacion-halcon.x86_64</code> desde una terminal en esa carpeta.</li>
     </ol>
-    <p>Requisitos: 64 bits y una tarjeta gráfica con Vulkan (recomendado) u OpenGL 3.3. No hace falta instalar nada.</p>
+    <p>Requisitos: 64 bits y una tarjeta gráfica con Vulkan (recomendado) u OpenGL 3.3; en Mac, macOS 10.13 o posterior (Intel o Apple Silicon). No hace falta instalar nada.</p>
     <p class="sha" id="sha"></p>
   </section>
 </main>

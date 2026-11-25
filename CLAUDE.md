@@ -31,7 +31,7 @@ godot --path . -- --test-jet                            # empezar volando
 godot --path . -- --test-takeoff                        # despegue automático (imprime el estado cada segundo)
 godot --path . -- --menu | --pause | --controls | --options   # abrir directamente esa pantalla
 godot --path . -- --shot=/ruta/captura.png              # se combina con los anteriores: captura a los 2,5 s y sale
-./tools/export.sh                                       # ejecutables de Linux y Windows en build/ (necesita las plantillas de exportación)
+./tools/export.sh                                       # ejecutables de Linux, Windows y macOS en build/ (necesita las plantillas de exportación)
 ./web/deploy.sh                                         # publica la web y las descargas en servidor (antes: ./tools/export.sh)
 ```
 

@@ -95,3 +95,7 @@ enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 [debug]
 
 gdscript/warnings/untyped_declaration=2
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

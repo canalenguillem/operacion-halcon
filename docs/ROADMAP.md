@@ -69,9 +69,9 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 - [ ] **Humano:** mirar el arte nuevo: ¿se ve bien el muñeco al andar y al apuntar? ¿coche, caza y ciudad convencen? ¿va fluido?
 
 ## M8 — Publicación
-- [x] Exportación a Linux y Windows (`tools/export.sh`, `export_presets.cfg`)
+- [x] Exportación a Linux, Windows y macOS (universal, sin firmar) (`tools/export.sh`, `export_presets.cfg`)
 - [x] Web estática con descargas (`web/`) desplegada en `servidor`, puerto 8080
-- [ ] **Humano:** dar de alta `halcon.enguillem.es` en el proxy hacia el puerto 8080; descargar y probar el `.exe` en un PC del aula
+- [ ] **Humano:** dar de alta `halcon.enguillem.es` en el proxy hacia el puerto 8080; descargar y probar el `.exe` en un PC del aula y la app en un Mac
 
 ## Por decidir
 - Policía y tráfico en la ciudad, más misiones, armas en el caza, modo online (skill `juego-online`).
