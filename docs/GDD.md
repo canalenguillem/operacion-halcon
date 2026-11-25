@@ -51,7 +51,7 @@ Se pierde si el jugador muere, si el caza que pilota se destruye o si no quedan 
 
 - **Menú principal:** Jugar, Controles, Opciones, Salir. Muestra el mejor tiempo.
 - **Pausa (Esc):** Continuar, Reiniciar misión, Controles, Opciones, Menú principal.
-- **Opciones:** sensibilidad del ratón (×0,3 a ×3) y dificultad. Fácil: los soldados hacen la mitad de daño y las baterías recargan un 60 % más lento. Difícil: 60 % más de daño y recarga un 35 % más rápida.
+- **Opciones:** volumen general, volumen de la música, sensibilidad del ratón (×0,3 a ×3) y dificultad. Fácil: los soldados hacen la mitad de daño y las baterías recargan un 60 % más lento. Difícil: 60 % más de daño y recarga un 35 % más rápida.
 - **Récord:** al completar la misión se guarda el mejor tiempo.
 
 ## Por decidir (se ajusta jugando)

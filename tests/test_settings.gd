@@ -29,9 +29,13 @@ func test_guardar_y_cargar_conserva_las_opciones() -> void:
 	Settings.mouse_scale = 2.0
 	Settings.difficulty = 2
 	Settings.best_time = 123.0
+	Settings.volume = 0.25
+	Settings.music_volume = 0.0
 	Settings.save_file()
 	Settings.reset()
 	Settings.load_file()
+	assert_eq(Settings.volume, 0.25)
+	assert_eq(Settings.music_volume, 0.0)
 	assert_eq(Settings.mouse_scale, 2.0)
 	assert_eq(Settings.difficulty, 2)
 	assert_eq(Settings.best_time, 123.0)

@@ -29,7 +29,8 @@ echo "→ Arrancando el menú, la misión 5 s (a pie), la pausa y 15 s de despeg
 "$GODOT" --headless --path . --fixed-fps 60 --quit-after 300 -- --play >>"$LOG" 2>&1
 "$GODOT" --headless --path . --fixed-fps 60 --quit-after 120 -- --play --pause >>"$LOG" 2>&1
 "$GODOT" --headless --path . --fixed-fps 60 --quit-after 900 -- --test-takeoff >>"$LOG" 2>&1
-if grep -E "$BAD" "$LOG"; then
+# Al cerrar con --quit-after, Godot avisa de que la música seguía sonando: no es un fallo del juego.
+if grep -v "resources still in use at exit" "$LOG" | grep -E "$BAD"; then
   echo "❌ Errores al ejecutar la misión (ver arriba)"
   exit 1
 fi

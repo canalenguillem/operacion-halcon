@@ -8,6 +8,11 @@ var kills: int = 0
 ## Segundos que queda visible la marca de impacto.
 var hit_t: float = 0.0
 var hit_kill: bool = false
+## Segundos que queda visible el fogonazo rojo de daño.
+var hurt_t: float = 0.0
+## Sacudida de cámara actual (ver `CameraLogic`).
+var shake: float = 0.0
+var sfx: Sfx
 var elapsed: float = 0.0
 
 var cam: Camera3D
@@ -47,6 +52,8 @@ func _ready() -> void:
 	world = World.new()
 	add_child(world)
 	world.build()
+	sfx = Sfx.new()
+	add_child(sfx)
 	for i: int in world.sam_positions.size():
 		sam_cooldowns.append(rng.randf_range(missile_data.first_shot_min, missile_data.first_shot_max))
 	_spawn_actors()
@@ -74,6 +81,7 @@ func _ready() -> void:
 	menu.play_pressed.connect(_on_play_pressed)
 	menu.restart_pressed.connect(restart)
 	menu.main_menu_pressed.connect(_on_main_menu_pressed)
+	menu.clicked.connect(sfx.play.bind("click", -6.0))
 	var menu_layer := CanvasLayer.new()
 	menu_layer.layer = 10
 	add_child(menu_layer)
@@ -194,6 +202,7 @@ func _enter_vehicle(v: Vehicle) -> void:
 	player.col.set_deferred("disabled", true)
 	cam_yaw = v.rotation.y
 	cam_dir = v.global_transform.basis.z
+	sfx.play("door", -4.0)
 
 
 func _exit_vehicle() -> void:
@@ -206,6 +215,7 @@ func _exit_vehicle() -> void:
 	player.col.set_deferred("disabled", false)
 	v.driver = false
 	vehicle = null
+	sfx.play("door", -4.0)
 
 
 ## Saca al jugador del vehículo (porque ha explotado) y le hace daño.
@@ -287,10 +297,12 @@ func _on_jet_stolen() -> void:
 
 
 func _on_failed(reason: String) -> void:
+	sfx.play("fail")
 	hud.big(reason, "Pulsa R para reintentar", Color(1, 0.25, 0.2))
 
 
 func _on_completed() -> void:
+	sfx.play("win")
 	var record: String = "  ·  ¡NUEVO RÉCORD!" if Settings.submit_time(elapsed) else ""
 	hud.big("MISIÓN CUMPLIDA", "Tiempo %s%s  ·  Bajas %d  ·  R para volver a jugar" % [Settings.format_time(elapsed), record, kills], Color(0.4, 1.0, 0.5))
 
@@ -298,6 +310,7 @@ func _on_completed() -> void:
 func _physics_process(dt: float) -> void:
 	elapsed += dt
 	hit_t -= dt
+	hurt_t -= dt
 	if vehicle != null:
 		player.global_position = vehicle.global_position
 	if not game_over:
@@ -305,6 +318,8 @@ func _physics_process(dt: float) -> void:
 		_update_sams(dt)
 	world.set_marker(objective_pos(), mission.stage == MissionState.Stage.ESCAPE, mission.stage != MissionState.Stage.WON)
 	_update_camera(dt)
+	_update_shake(dt)
+	_update_audio()
 	_dev_tick()
 
 
@@ -339,6 +354,7 @@ func _update_sams(dt: float) -> void:
 			add_child(m)
 			missiles.append(m)
 			explosion(pos + Vector3(0, 4, 0), 3.0)
+			sfx.play_at("launch", pos, 0.0, 500.0)
 
 
 func _update_camera(dt: float) -> void:
@@ -377,6 +393,34 @@ func _update_camera(dt: float) -> void:
 		want = pivot.lerp(hit.position as Vector3, 0.9)
 	want.y = maxf(want.y, 0.3)
 	cam.global_transform = Transform3D(cb, want)
+
+
+func _update_shake(dt: float) -> void:
+	shake = CameraLogic.decay(shake, dt)
+	cam.h_offset = rng.randf_range(-1.0, 1.0) * shake * 0.6
+	cam.v_offset = rng.randf_range(-1.0, 1.0) * shake * 0.6
+
+
+func _update_audio() -> void:
+	var car: Car = vehicle as Car
+	var jet: Jet = vehicle as Jet
+	if car != null and not car.dead:
+		sfx.set_loop("car_engine", true, -12.0, Sfx.engine_pitch(absf(car.speed) / car.data.max_speed))
+	else:
+		sfx.set_loop("car_engine", false)
+	if jet != null and not jet.dead:
+		sfx.set_loop("jet_engine", true, lerpf(-24.0, -8.0, jet.throttle), Sfx.engine_pitch(jet.speed / jet.data.max_speed))
+	else:
+		sfx.set_loop("jet_engine", false)
+	var base_dist: float = target_pos().distance_to(World.BASE_CENTER)
+	var alarm: bool = mission.base_alert and not game_over and base_dist < 1500.0
+	sfx.set_loop("alarm", alarm, Sfx.fade_db(base_dist, 400.0, 1500.0) - 16.0)
+	sfx.set_loop("missile_warning", not game_over and nearest_missile() < 1e8, -8.0)
+
+
+func on_player_hurt() -> void:
+	hurt_t = 0.35
+	shake = CameraLogic.add(shake, 0.12)
 
 
 # ---------------------------------------------------------------- combate y efectos
@@ -425,12 +469,14 @@ func player_shoot() -> void:
 		var veh: Vehicle = hit.collider as Vehicle
 		if soldier != null:
 			soldier.hurt(player.data.damage)
+			sfx.play("hit", -3.0)
 			hit_t = 0.18
 			hit_kill = soldier.dead
 			explosion(end, 0.35)
 		elif veh != null:
 			veh.hurt(player.data.damage)
 	tracer(player.global_position + Vector3(0, 1.35, 0), end, Color(1, 0.9, 0.4))
+	sfx.play("pistol", -6.0, rng.randf_range(0.94, 1.06))
 	for s: Soldier in soldiers:
 		if not s.dead and not s.alert and s.global_position.distance_to(player.global_position) < player.data.noise_radius:
 			s.alert = true
@@ -463,6 +509,28 @@ func explosion(pos: Vector3, radius: float) -> void:
 	tw2.parallel().tween_property(smoke, "position", pos + Vector3(0, radius, 0), 1.6)
 	tw2.tween_property(smoke, "scale", Vector3.ONE * 0.01, 0.7)
 	tw2.tween_callback(smoke.queue_free)
+	if radius < 3.0:
+		return  # chispazo de impacto: sin ruido, metralla ni sacudida
+	sfx.play_at("explosion", pos, 0.0, radius * 14.0)
+	shake = CameraLogic.add(shake, CameraLogic.shake_amount(radius, cam.global_position.distance_to(pos)))
+	var debris := CPUParticles3D.new()
+	debris.one_shot = true
+	debris.explosiveness = 1.0
+	debris.amount = 18
+	debris.lifetime = 1.4
+	debris.direction = Vector3.UP
+	debris.spread = 70.0
+	debris.initial_velocity_min = radius * 1.5
+	debris.initial_velocity_max = radius * 3.5
+	debris.gravity = Vector3(0, -20, 0)
+	var chunk := BoxMesh.new()
+	chunk.size = Vector3.ONE * clampf(radius * 0.05, 0.15, 0.6)
+	chunk.material = Build.mat(Color(1.0, 0.5, 0.1), 3.0)
+	debris.mesh = chunk
+	debris.position = pos
+	add_child(debris)
+	debris.emitting = true
+	get_tree().create_timer(2.0, false).timeout.connect(debris.queue_free)
 
 
 func drop_flares(pos: Vector3, vel: Vector3) -> void:
@@ -472,6 +540,7 @@ func drop_flares(pos: Vector3, vel: Vector3) -> void:
 		var tw: Tween = create_tween()
 		tw.tween_property(f, "position", end, 2.5)
 		tw.tween_callback(f.queue_free)
+	sfx.play("flare", -4.0)
 	for m: Missile in missiles:
 		if is_instance_valid(m) and m.global_position.distance_to(pos) < missile_data.flare_radius and rng.randf() < missile_data.flare_chance:
 			m.decoyed = true

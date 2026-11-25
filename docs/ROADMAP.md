@@ -1,6 +1,6 @@
 # Roadmap — Operación Halcón
 
-Hito actual: **M6** (código hecho; falta la validación del humano). M1–M5 hechos y validados por el humano (lo probaron también sus alumnos). M0 es el prototipo completo que se hizo de una vez; a partir de aquí se revisa por fases, cada una validada jugando.
+Hito actual: **M7** (sonido y efectos hechos; falta el arte y la validación del humano). M6 con el código hecho, también pendiente de validar. M1–M5 hechos y validados por el humano (lo probaron también sus alumnos). M0 es el prototipo completo que se hizo de una vez; a partir de aquí se revisa por fases, cada una validada jugando.
 
 Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el humano haya validado lo que hay que probar jugando.
 
@@ -61,10 +61,11 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 - [ ] **Humano:** recorrer todos los menús con ratón y con teclado; pausar en coche y en vuelo; cambiar sensibilidad y dificultad y notar la diferencia; ganar y ver el récord en el menú principal
 
 ## M7 — Pulido
-- [ ] Sonido (motor, disparos, explosiones, alarma, aviso de misil) y música
-- [ ] Efectos: humo, partículas, sacudida de cámara
+- [x] `Sfx`: 10 efectos, 4 bucles (motor del coche y del caza con tono según la velocidad, alarma según la distancia a la base, aviso de misil) y música; generados con lamb (ver `docs/CREDITS.md`)
+- [x] Volumen general y de música en Opciones, guardados
+- [x] Efectos: sacudida de cámara y metralla en las explosiones, humo en vehículos tocados, fogonazo rojo al recibir daño
 - [ ] Arte CC0 o mejor modelado con primitivas
-- [ ] **Humano:** ver y escuchar
+- [ ] **Humano:** escuchar cada sonido (yo no puedo oírlos): ¿alguno suena mal, muy alto o muy bajo? ¿se nota el corte de los bucles (motores, alarma, música)? ¿la sacudida marea?
 
 ## Por decidir
 - Policía y tráfico en la ciudad, más misiones, armas en el caza, modo online (skill `juego-online`).

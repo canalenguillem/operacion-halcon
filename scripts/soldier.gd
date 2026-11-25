@@ -75,6 +75,7 @@ func _fire(target: Node3D, tp: Vector3, dist: float) -> void:
 	else:
 		aim += Vector3(randf_range(-2, 2), randf_range(0, 2), randf_range(-2, 2))
 	main.tracer(from, aim, Color(1, 0.4, 0.3))
+	main.sfx.play_at("rifle", from, -2.0, 18.0)
 
 
 func hurt(d: float) -> void:

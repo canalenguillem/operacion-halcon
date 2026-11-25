@@ -17,9 +17,15 @@ static var mouse_scale: float = 1.0
 static var difficulty: int = 1
 ## Mejor tiempo de la misión en segundos (0 = aún no se ha completado).
 static var best_time: float = 0.0
+## Volumen general, de 0 a 1.
+static var volume: float = 0.8
+## Volumen de la música, de 0 a 1 (además del general).
+static var music_volume: float = 0.5
 
 
 static func reset() -> void:
+	volume = 0.8
+	music_volume = 0.5
 	mouse_scale = 1.0
 	difficulty = 1
 	best_time = 0.0
@@ -33,6 +39,8 @@ static func load_file() -> void:
 	mouse_scale = clampf(float(cfg.get_value("options", "mouse_scale", 1.0)), SENSITIVITY_MIN, SENSITIVITY_MAX)
 	difficulty = clampi(int(cfg.get_value("options", "difficulty", 1)), 0, DIFFICULTY_NAMES.size() - 1)
 	best_time = maxf(0.0, float(cfg.get_value("records", "best_time", 0.0)))
+	volume = clampf(float(cfg.get_value("options", "volume", 0.8)), 0.0, 1.0)
+	music_volume = clampf(float(cfg.get_value("options", "music_volume", 0.5)), 0.0, 1.0)
 
 
 static func save_file() -> void:
@@ -40,6 +48,8 @@ static func save_file() -> void:
 	cfg.set_value("options", "mouse_scale", mouse_scale)
 	cfg.set_value("options", "difficulty", difficulty)
 	cfg.set_value("records", "best_time", best_time)
+	cfg.set_value("options", "volume", volume)
+	cfg.set_value("options", "music_volume", music_volume)
 	cfg.save(path)
 
 

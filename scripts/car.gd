@@ -45,6 +45,7 @@ func _physics_process(dt: float) -> void:
 	velocity = forward * speed + Vector3(0, -3, 0)
 	move_and_slide()
 	resolve_bumps(forward, data.min_impact, data.impact_damage, data.run_over_speed)
+	update_smoke(data.max_hp, Vector3(0, 1.0, -1.6))
 
 
 func hurt(d: float) -> void:

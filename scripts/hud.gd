@@ -170,6 +170,8 @@ func _star(c: Vector2, r: float, color: Color) -> void:
 
 func _draw() -> void:
 	var s: Vector2 = size
+	if main.hurt_t > 0.0:  # fogonazo rojo al recibir daño
+		draw_rect(Rect2(Vector2.ZERO, s), Color(1, 0, 0, minf(0.35, main.hurt_t)))
 	var wanted: int = main.mission.wanted
 	for i: int in 5:
 		var lit: bool = (4 - i) < wanted

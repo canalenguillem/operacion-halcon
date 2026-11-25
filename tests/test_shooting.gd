@@ -65,3 +65,20 @@ func test_un_tiro_muy_desviado_no_da() -> void:
 func test_disparar_en_la_base_dispara_la_alarma() -> void:
 	main.player_shoot()
 	assert_true(main.mission.base_alert)
+
+
+func test_los_bucles_de_sonido_siguen_al_juego() -> void:
+	await _frames(2)
+	assert_false(main.sfx.loop_playing("car_engine"))
+	assert_false(main.sfx.loop_playing("jet_engine"))
+	assert_true(main.mission.base_alert, "el jugador empieza el test dentro de la base")
+	assert_true(main.sfx.loop_playing("alarm"), "con la alarma y cerca de la base, suena la sirena")
+	main._enter_vehicle(main.jets[0])
+	await _frames(2)
+	assert_true(main.sfx.loop_playing("jet_engine"))
+	assert_false(main.sfx.loop_playing("missile_warning"))
+
+
+func test_una_explosion_cercana_sacude_la_camara() -> void:
+	main.explosion(main.cam.global_position + Vector3(0, 0, -8), 7.0)
+	assert_gt(main.shake, 0.3)

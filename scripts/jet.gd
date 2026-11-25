@@ -82,6 +82,7 @@ func _physics_process(dt: float) -> void:
 				pitch_in = 0.0
 	elif not driver:
 		throttle = 0.0
+	update_smoke(data.max_hp, Vector3(0, 1.8, 5.0))
 	flame.visible = throttle > 0.03
 	flame.scale = Vector3(1, 1, 0.2 + throttle * 1.4)
 

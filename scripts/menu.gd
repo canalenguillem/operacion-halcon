@@ -5,6 +5,8 @@ extends Control
 signal play_pressed
 signal restart_pressed
 signal main_menu_pressed
+## Se ha pulsado cualquier botón (para el sonido).
+signal clicked
 
 enum Screen { MAIN, PAUSE, CONTROLS, OPTIONS }
 
@@ -138,6 +140,7 @@ func _button(text: String, action: Callable, focus: bool = false) -> Button:
 	b.text = text
 	b.custom_minimum_size.y = 44
 	b.add_theme_font_size_override("font_size", 22)
+	b.pressed.connect(clicked.emit)
 	b.pressed.connect(action)
 	_box.add_child(b)
 	if focus:
@@ -192,22 +195,37 @@ func _build_controls() -> void:
 	_button("Volver", show_screen.bind(_home), true)
 
 
+## Deslizador con su etiqueta. `text` recibe el valor y devuelve la etiqueta; `changed` lo guarda.
+func _slider(min_value: float, max_value: float, step: float, value: float, text: Callable, changed: Callable) -> void:
+	var l: Label = _label(text.call(value) as String, 18)
+	var slider := HSlider.new()
+	slider.min_value = min_value
+	slider.max_value = max_value
+	slider.step = step
+	slider.value = value
+	slider.custom_minimum_size.y = 26
+	_box.add_child(slider)
+	slider.value_changed.connect(func(v: float) -> void:
+		changed.call(v)
+		Settings.save_file()
+		l.text = text.call(v) as String)
+
+
 func _build_options() -> void:
 	_label("OPCIONES", 32, Color(1, 0.9, 0.35))
-	var sens_label: Label = _label("", 18)
-	var slider := HSlider.new()
-	slider.min_value = Settings.SENSITIVITY_MIN
-	slider.max_value = Settings.SENSITIVITY_MAX
-	slider.step = 0.1
-	slider.value = Settings.mouse_scale
-	slider.custom_minimum_size.y = 28
-	_box.add_child(slider)
-	var show_sens: Callable = func(v: float) -> void: sens_label.text = "Sensibilidad del ratón: ×%.1f" % v
-	show_sens.call(Settings.mouse_scale)
-	slider.value_changed.connect(func(v: float) -> void:
-		Settings.mouse_scale = v
-		Settings.save_file()
-		show_sens.call(v))
+	_slider(0.0, 1.0, 0.05, Settings.volume,
+		func(v: float) -> String: return "Volumen: %d %%" % roundi(v * 100.0),
+		func(v: float) -> void:
+			Settings.volume = v
+			Sfx.apply_volume())
+	_slider(0.0, 1.0, 0.05, Settings.music_volume,
+		func(v: float) -> String: return "Música: %d %%" % roundi(v * 100.0),
+		func(v: float) -> void:
+			Settings.music_volume = v
+			Sfx.apply_volume())
+	_slider(Settings.SENSITIVITY_MIN, Settings.SENSITIVITY_MAX, 0.1, Settings.mouse_scale,
+		func(v: float) -> String: return "Sensibilidad del ratón: ×%.1f" % v,
+		func(v: float) -> void: Settings.mouse_scale = v)
 
 	_label("Dificultad (soldados y misiles)", 18)
 	var option := OptionButton.new()

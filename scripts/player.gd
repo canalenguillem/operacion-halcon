@@ -67,6 +67,7 @@ func hurt(d: float) -> void:
 		return
 	health -= d
 	last_hurt = 0.0
+	main.on_player_hurt()
 	if health <= 0.0:
 		health = 0.0
 		dead = true

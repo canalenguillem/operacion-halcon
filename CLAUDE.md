@@ -2,14 +2,14 @@
 
 Juego de acción **3D en tercera persona** de una sola misión: robar un coche, colarse en una base aérea, robar un caza y huir de los misiles hasta un aeródromo clandestino. Juego original: la idea de la misión viene de un vídeo, pero no se copian nombre, personajes, mapa ni arte de ningún juego existente.
 
-> **Estado:** M0–M5 hechos y validados jugando. Hito actual: **M6** (menús), con el código hecho y pendiente de validar jugando. Ver `docs/ROADMAP.md`.
+> **Estado:** M0–M5 hechos y validados jugando. M6 (menús) y M7 (sonido y efectos) con el código hecho y pendientes de validar jugando; de M7 falta el arte. Ver `docs/ROADMAP.md`.
 
 ## Stack
 
 - **Godot 4.7.x stable**. Prohibidas las APIs de Godot 3.
 - **GDScript con tipado estático** en todo. `project.godot` trata `untyped_declaration` como error: sin tipo no compila.
 - **3D**, Forward+. Resolución base 1280×720, `stretch/mode = canvas_items`, `stretch/aspect = expand`.
-- Sin assets externos por ahora: todo el mundo se genera con primitivas (`scripts/build.gd`).
+- Gráficos sin assets: todo el mundo se genera con primitivas (`scripts/build.gd`). Audio en `assets/audio/` (ver `docs/CREDITS.md`).
 - Tests con **GUT 9.x** en `addons/gut`.
 - Plataforma: escritorio Linux.
 
@@ -38,9 +38,10 @@ godot --path . -- --shot=/ruta/captura.png              # se combina con los ant
 ```
 project.godot
 main.tscn          # un Node3D con scripts/main.gd; todo lo demás se crea por código
-scripts/           # main, world, hud, menu, settings, build, layers, mission_state, vehicle
+scripts/           # main, world, hud, menu, settings, sfx, camera_logic, build, layers, mission_state, vehicle
                    # y por actor: <actor>.gd, <actor>_logic.gd, <actor>_data.gd (player, car, jet, soldier, missile)
 data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres
+assets/audio/      # sfx/*.ogg, music/mission.ogg
 tests/             # test_*.gd (GUT)
 docs/
 tools/             # check.sh, load_all.gd

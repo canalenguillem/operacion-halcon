@@ -5,6 +5,7 @@ extends Node3D
 
 const BASE_MIN: Vector2 = Vector2(-350, -1300)  # x, z
 const BASE_MAX: Vector2 = Vector2(350, -700)
+const BASE_CENTER: Vector3 = Vector3(0, 0, -1000)
 const GATE: Vector3 = Vector3(0, 0, -700)
 const DEST: Vector3 = Vector3(6000, 0, 5000)
 const BASE_SAMS: Array[Vector3] = [Vector3(-300, 0, -760), Vector3(300, 0, -1270), Vector3(-300, 0, -1270)]

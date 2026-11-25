@@ -9,6 +9,7 @@ Describe el juego tal como está; los cambios previstos están en `docs/ROADMAP.
 ```
 Main (Node3D)                    une mundo, actores, misión, cámara y efectos
 ├── World (Node3D)               cielo, suelo, árboles, colinas, ciudad, base, aeródromo, haz del objetivo
+├── Sfx (Node)                   efectos, bucles y música
 ├── Player (CharacterBody3D)
 ├── Car × 5 (Vehicle)
 ├── Jet × 2 (Vehicle)
@@ -53,6 +54,13 @@ Main (Node3D)                    une mundo, actores, misión, cámara y efectos
 - `Menu` (`scripts/menu.gd`) tiene `process_mode = ALWAYS` y es quien pone y quita la pausa del árbol: `open(MAIN | PAUSE)` pausa y suelta el ratón; `close()` reanuda y lo captura. Avisa a `Main` con señales (`play_pressed`, `restart_pressed`, `main_menu_pressed`). La pantalla de controles sale de `Menu.CONTROLS` y lee las teclas del InputMap.
 - `Main` abre el menú principal al arrancar, salvo al reiniciar (`Main.skip_menu`, estático), con argumentos de desarrollo o si `show_menu` es false (tests). Esc durante la partida abre la pausa.
 - `Settings` (`scripts/settings.gd`, estático) guarda en `user://settings.cfg` la sensibilidad (`mouse_scale`), la dificultad y el mejor tiempo. La dificultad multiplica el daño de los soldados (`Main.hurt_target`) y la recarga de las baterías (`Main._update_sams`).
+
+## Sonido y efectos
+
+- `Sfx` (`scripts/sfx.gd`, `process_mode = ALWAYS`) carga `assets/audio/sfx/*.ogg` y la música. Tres formas de sonar: `play` (sin posición), `play_at` (en un punto del mundo) y `set_loop` (motores, alarma, aviso de misil). `Main._update_audio` ajusta los bucles cada fotograma; en pausa se detienen solos. Buses `SFX` y `Music` creados por código; `Sfx.apply_volume` aplica los volúmenes de `Settings`.
+- Sacudida de cámara: `Main.shake` (lógica en `CameraLogic`) mueve `Camera3D.h_offset`/`v_offset`. La suman las explosiones (según radio y distancia) y el daño al jugador.
+- `Main.explosion(pos, radio)`: bola de fuego y humo siempre; con radio ≥ 3 añade sonido, metralla y sacudida.
+- `Vehicle.update_smoke` echa humo por debajo del 40 % de resistencia. `Hud` pinta un fogonazo rojo mientras `Main.hurt_t` > 0.
 
 ## Input
 
