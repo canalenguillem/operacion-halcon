@@ -47,7 +47,7 @@ assets/audio/      # sfx/*.ogg, music/mission.ogg
 tests/             # test_*.gd (GUT)
 docs/
 tools/             # check.sh, load_all.gd, export.sh
-web/               # web estática de descargas: site/, nginx.conf, docker-compose.yml, deploy.sh
+web/               # web de descargas: site/, counter/ (contador), nginx.conf, docker-compose.yml, deploy.sh
 ```
 
 ## Convenciones

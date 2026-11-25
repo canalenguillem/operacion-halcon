@@ -98,7 +98,8 @@ Por ahora todos colisionan con todos (`Layers.ALL`). Los rayos (disparos, línea
 ## Publicación
 
 - `./tools/export.sh` genera en `build/` los paquetes de Linux (`.tar.gz`), Windows (`.zip`) y macOS (`.zip` con la app universal, sin firmar ni notarizar) y `manifest.json` (versión, tamaños y SHA-256).
-- `web/` es una web estática (portada, controles, instrucciones y descargas) servida por un único contenedor nginx: sin cuentas, sin bases de datos, sin cookies. `app.js` lee `downloads/manifest.json`.
+- `web/` es una web estática (portada, controles, instrucciones y descargas) servida por nginx: sin cuentas ni cookies. `app.js` lee `downloads/manifest.json` y `/api/stats`.
+- Contador de descargas (`web/counter/counter.py`, Python sin dependencias, SQLite en el volumen `counter-data`): los botones van a `/api/download/<windows|macos|linux>`, que suma uno por sistema y versión y entrega el archivo con `X-Accel-Redirect`; `/downloads/` directo da 404. No cuenta las reanudaciones (`Range` que no empieza en 0). Solo guarda números: ni IP ni datos personales. `/api/stats` da los totales y el desglose por versión. Pruebas: `web/counter/test_counter.py` (las lanza `check.sh`).
 - `./web/deploy.sh` copia los paquetes a `web/site/downloads/` y sincroniza con `servidor:/srv/operacion-halcon-web` (compose `halcon`, puerto 8080, subred 172.30.60.0/24). El dominio `halcon.enguillem.es` y el HTTPS los gestiona el humano en su proxy.
 - El juego usa Forward+ (Vulkan); en equipos sin Vulkan Godot cae a OpenGL 3.3.
 

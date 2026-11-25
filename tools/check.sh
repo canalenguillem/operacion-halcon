@@ -54,4 +54,9 @@ else
   echo "⚠ GUT o tests/ no encontrados: tests omitidos"
 fi
 
+if [ -d web/counter ]; then
+  echo "→ Pruebas del contador de descargas…"
+  (cd web/counter && python3 -m unittest -q) || { echo "❌ Pruebas del contador fallidas"; exit 1; }
+fi
+
 echo "✅ Proyecto OK"

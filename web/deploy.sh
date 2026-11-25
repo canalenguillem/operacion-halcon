@@ -10,4 +10,4 @@ ssh "$HOST" "mkdir -p '$DIR'"
 find site/downloads -type f ! -name .gitkeep -delete
 cp ../build/manifest.json ../build/*.tar.gz ../build/*.zip site/downloads/
 rsync -az --delete ./ "$HOST:$DIR/"
-ssh "$HOST" "cd '$DIR' && docker compose up -d && docker compose restart web && docker compose ps"
+ssh "$HOST" "cd '$DIR' && docker compose up -d && docker compose restart counter web && docker compose ps"
