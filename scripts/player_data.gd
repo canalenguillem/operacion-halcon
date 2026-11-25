@@ -24,6 +24,8 @@ extends Resource
 @export var fire_range: float = 250.0
 ## Radio en el que los soldados oyen un disparo.
 @export var noise_radius: float = 120.0
+## Grados alrededor de la mira en los que el disparo se corrige hacia un soldado (0 = sin ayuda).
+@export var aim_assist_degrees: float = 3.0
 
 @export_group("Cámara")
 ## Radianes por píxel de ratón.

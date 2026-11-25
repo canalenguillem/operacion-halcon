@@ -31,3 +31,20 @@ static func orbit(yaw: float, pitch: float, relative: Vector2, data: PlayerData)
 	var new_yaw: float = yaw - relative.x * data.mouse_sensitivity
 	var new_pitch: float = clampf(pitch - relative.y * data.mouse_sensitivity, data.pitch_min, data.pitch_max)
 	return Vector2(new_yaw, new_pitch)
+
+
+## Ayuda de puntería: índice del objetivo más cercano a la línea de tiro (el que forma menos ángulo
+## con `dir` desde `origin`), o -1 si ninguno está a menos de `max_degrees` y entre `min_dist` y `max_dist`.
+static func aim_assist(origin: Vector3, dir: Vector3, targets: Array[Vector3], max_degrees: float, min_dist: float, max_dist: float) -> int:
+	var best: int = -1
+	var best_angle: float = deg_to_rad(max_degrees)
+	for i: int in targets.size():
+		var to: Vector3 = targets[i] - origin
+		var dist: float = to.length()
+		if dist < min_dist or dist > max_dist:
+			continue
+		var angle: float = dir.angle_to(to)
+		if angle <= best_angle:
+			best_angle = angle
+			best = i
+	return best

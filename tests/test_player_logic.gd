@@ -59,3 +59,28 @@ func test_raton_a_la_derecha_gira_la_camara_a_la_derecha() -> void:
 func test_el_cabeceo_de_la_camara_tiene_tope() -> void:
 	assert_almost_eq(PlayerLogic.orbit(0.0, 0.0, Vector2(0, 100000), data).y, data.pitch_min, 0.0001)
 	assert_almost_eq(PlayerLogic.orbit(0.0, 0.0, Vector2(0, -100000), data).y, data.pitch_max, 0.0001)
+
+
+func test_la_ayuda_elige_al_objetivo_casi_en_la_mira() -> void:
+	var targets: Array[Vector3] = [Vector3(20, 0, -30), Vector3(1, 0, -30), Vector3(-10, 0, -30)]
+	assert_eq(PlayerLogic.aim_assist(Vector3.ZERO, Vector3.FORWARD, targets, 3.0, 1.0, 250.0), 1)
+
+
+func test_la_ayuda_no_corrige_si_apuntas_lejos() -> void:
+	var targets: Array[Vector3] = [Vector3(10, 0, -30)]
+	assert_eq(PlayerLogic.aim_assist(Vector3.ZERO, Vector3.FORWARD, targets, 3.0, 1.0, 250.0), -1)
+
+
+func test_la_ayuda_elige_el_de_menor_angulo() -> void:
+	var targets: Array[Vector3] = [Vector3(1.2, 0, -30), Vector3(0.3, 0, -30)]
+	assert_eq(PlayerLogic.aim_assist(Vector3.ZERO, Vector3.FORWARD, targets, 3.0, 1.0, 250.0), 1)
+
+
+func test_la_ayuda_respeta_el_alcance() -> void:
+	var targets: Array[Vector3] = [Vector3(0, 0, -300), Vector3(0, 0, -0.5), Vector3(0, 0, 30)]
+	assert_eq(PlayerLogic.aim_assist(Vector3.ZERO, Vector3.FORWARD, targets, 3.0, 1.0, 250.0), -1)
+
+
+func test_sin_grados_no_hay_ayuda_salvo_tiro_perfecto() -> void:
+	var targets: Array[Vector3] = [Vector3(0.5, 0, -30)]
+	assert_eq(PlayerLogic.aim_assist(Vector3.ZERO, Vector3.FORWARD, targets, 0.0, 1.0, 250.0), -1)

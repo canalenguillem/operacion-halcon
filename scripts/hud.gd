@@ -119,7 +119,7 @@ func _process(dt: float) -> void:
 	var v = main.vehicle
 	var hp: int = ceili(main.player.health)
 	if v == null:
-		info.text = "Salud %d" % hp
+		info.text = "Salud %d    Bajas %d" % [hp, main.kills]
 	elif v.is_jet:
 		info.text = "Caza %d%%    %d km/h    Alt %d m    Potencia %d%%    Bengalas %d" % [ceili(v.hp), int(v.speed * 3.6), int(v.altitude()), int(v.throttle * 100.0), v.flares]
 	else:
@@ -171,6 +171,10 @@ func _draw() -> void:
 		var c := s / 2.0
 		for d in [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]:
 			draw_line(c + d * 5.0, c + d * 12.0, Color(1, 1, 1, 0.85), 2.0)
+		if main.hit_t > 0.0:  # marca de impacto: aspa blanca, roja si lo has abatido
+			var hc := Color(1, 0.2, 0.15) if main.hit_kill else Color.WHITE
+			for d in [Vector2(1, 1), Vector2(-1, 1), Vector2(1, -1), Vector2(-1, -1)]:
+				draw_line(c + d * 6.0, c + d * 15.0, hc, 3.0)
 	# health bar above the minimap
 	var hpf: float = main.player.health / 100.0
 	draw_rect(Rect2(16, s.y - 214, 180, 10), Color(0, 0, 0, 0.6))

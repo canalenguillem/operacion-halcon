@@ -31,7 +31,7 @@ Se pierde si el jugador muere, si el caza que pilota se destruye o si no quedan 
 
 - **Nivel de búsqueda** (0-5 estrellas): 1 al robar un coche, 4 al ser detectado en la base, 5 al robar el caza. Por ahora solo se muestra; en la ciudad no hay policía.
 - **Alarma de la base:** salta al entrar en el recinto, al acercarse a menos de 45 m de un soldado o al disparar cerca. Con la alarma, todos los soldados a menos de 500 m te persiguen y disparan.
-- **Jugador:** 100 de salud; se regenera tras 6 s sin recibir daño. Pistola: 25 de daño, 4,5 disparos/s.
+- **Jugador:** 100 de salud; se regenera tras 6 s sin recibir daño. Pistola: 25 de daño, 4,5 disparos/s, con ayuda de puntería (3° alrededor de la mira) y marca de impacto (aspa blanca; roja si lo abates).
 - **Soldados** (18): 40 de salud, disparan cada 1-1,8 s hasta 95 m, con más puntería de cerca. Hacen 5 de daño a pie, 2 al coche y 1,2 al caza. Se les puede atropellar.
 - **Coche:** 144 km/h, 100 de resistencia; los choques fuertes lo dañan y al explotar expulsa al conductor con 40 de daño.
 - **Caza:** 540 km/h, 100 de resistencia. En tierra W acelera y despega solo a 250 km/h; si sigues con W pulsada al despegar, no baja el morro hasta que la sueltas. Por debajo de 200 km/h en el aire entra en pérdida. Chocar contra algo en vuelo lo destruye; tocar suelo plano con poco ángulo es aterrizar.

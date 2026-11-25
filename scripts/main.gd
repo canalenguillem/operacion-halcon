@@ -20,6 +20,8 @@ enum { GET_CAR, GO_BASE, GET_JET, ESCAPE, WON }
 var stage := GET_CAR
 var wanted := 0
 var kills := 0
+var hit_t := 0.0  # segundos que queda visible la marca de impacto
+var hit_kill := false
 var base_alert := false
 var game_over := false
 var elapsed := 0.0
@@ -238,6 +240,7 @@ func _win() -> void:
 
 func _physics_process(dt: float) -> void:
 	elapsed += dt
+	hit_t -= dt
 	if vehicle:
 		player.global_position = vehicle.global_position
 	if not game_over:
@@ -358,17 +361,41 @@ func _update_camera(dt: float) -> void:
 # ---------------------------------------------------------------- combat / effects
 
 func player_shoot() -> void:
+	var space := get_world_3d().direct_space_state
 	var fwd := -cam.global_transform.basis.z
-	var from := cam.global_position + fwd * (player.data.cam_offset.z + 0.3)
+	var reach: float = player.data.cam_offset.z + 0.3  # el rayo sale por delante del jugador
+	var from := cam.global_position + fwd * reach
 	var to := from + fwd * player.data.fire_range
 	var q := PhysicsRayQueryParameters3D.create(from, to)
 	q.exclude = [player.get_rid()]
-	var hit := get_world_3d().direct_space_state.intersect_ray(q)
+	var hit := space.intersect_ray(q)
+
+	# Ayuda de puntería: si no has dado a un soldado pero hay uno casi en la mira y a la vista, le das.
+	if hit.is_empty() or not hit.collider.is_in_group("soldiers"):
+		var alive: Array = []
+		var chests: Array[Vector3] = []
+		for s in get_tree().get_nodes_in_group("soldiers"):
+			if not s.dead:
+				alive.append(s)
+				chests.append(s.global_position + Vector3(0, 1.1, 0))
+		var i: int = PlayerLogic.aim_assist(cam.global_position, fwd, chests, player.data.aim_assist_degrees, reach, player.data.fire_range)
+		if i >= 0:
+			var q2 := PhysicsRayQueryParameters3D.create(from, chests[i])
+			q2.exclude = [player.get_rid()]
+			var hit2 := space.intersect_ray(q2)
+			if not hit2.is_empty() and hit2.collider == alive[i]:
+				hit = hit2
+
 	var end := to
 	if not hit.is_empty():
 		end = hit.position
-		if hit.collider.has_method("hurt"):
-			hit.collider.hurt(player.data.damage)
+		var target = hit.collider
+		if target.has_method("hurt"):
+			target.hurt(player.data.damage)
+			if target.is_in_group("soldiers"):
+				hit_t = 0.18
+				hit_kill = target.dead
+				explosion(end, 0.35)
 	tracer(player.global_position + Vector3(0, 1.35, 0), end, Color(1, 0.9, 0.4))
 	for s in get_tree().get_nodes_in_group("soldiers"):
 		if not s.dead and not s.alert and s.global_position.distance_to(player.global_position) < player.data.noise_radius:

@@ -19,6 +19,7 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 - [x] Acciones del InputMap en `project.godot` (incluida `shoot`)
 - [x] Tipado estático en `player.gd`; `class_name` en `Main`, `Player` y `Build`; ajustes en `PlayerData` (`data/player.tres`)
 - [x] GUT instalado; `PlayerLogic` (lógica pura) con 11 tests
+- [x] Ayuda de puntería (`aim_assist_degrees`), marca de impacto y contador de bajas (el humano disparaba y no abatía a nadie)
 - [ ] **Humano:** ¿se mueve y apunta bien? Ajustar en `data/player.tres`: `walk_speed`, `sprint_speed`, `mouse_sensitivity`, `cam_offset`, `fire_interval`, `damage`
 
 ## M2 — Coche
@@ -40,13 +41,14 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 - [x] Cámara de persecución e indicadores de velocidad, altura y potencia (prototipo)
 - [x] W acelera en tierra y el caza despega solo (el humano no consiguió despegar con Shift + S)
 - [ ] Tipado y `@export` en `jet.gd`
-- [ ] **Humano:** ¿se despega a la primera? ¿se entiende Shift para acelerar? ¿el giro y el morro responden bien?
+- [x] **Humano:** despega con W; giro y morro bien
 
 ## M5 — Misiles y huida
 - [x] Baterías, misiles guiados, bengalas, aviso en pantalla (prototipo)
 - [x] Victoria al llegar al aeródromo; pantalla con tiempo y bajas (prototipo)
 - [ ] Guiado del misil como lógica pura con tests
-- [ ] **Humano:** ¿se puede sobrevivir? ¿bastan las bengalas? ¿el viaje de 60 s se hace largo?
+- [x] **Humano:** llega al aeródromo y ve «Misión cumplida»
+- [ ] **Humano:** ¿dificultad de los misiles? ¿bastan las bengalas? ¿el viaje de 60 s se hace largo?
 
 ## M6 — Menús
 - [ ] Menú principal, pausa, pantalla de controles y opciones (volumen, sensibilidad, dificultad)
