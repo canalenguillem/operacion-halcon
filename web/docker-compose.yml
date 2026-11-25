@@ -1,0 +1,17 @@
+# Web estática de Operación Halcón: portada y descargas. Un solo contenedor, sin datos.
+name: halcon
+services:
+  web:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "${HALCON_PORT:-8080}:80"
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    mem_limit: 64m
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: ${HALCON_SUBNET:-172.30.60.0/24}

@@ -1,0 +1,24 @@
+:root { --bg: #12151c; --panel: #1b202b; --text: #e8eaf0; --muted: #9aa3b5; --accent: #ffd94a; --line: #2c3342; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+.hero { background: linear-gradient(rgba(18, 21, 28, 0.8), var(--bg)), url("img/vuelo.jpg") center / cover; padding: 72px 0 40px; text-align: center; }
+h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4rem); letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
+.lead { font-size: 1.2rem; margin: 12px auto 28px; max-width: 34em; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8); }
+.buttons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.btn { background: var(--accent); color: #1a1500; font-weight: 700; text-decoration: none; padding: 14px 22px; border-radius: 8px; }
+.btn:hover, .btn:focus { filter: brightness(1.1); }
+.btn small { display: block; font-weight: 400; font-size: 0.8rem; }
+.version, .sha { color: var(--muted); font-size: 0.85rem; }
+.sha { overflow-wrap: anywhere; }
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 12px; margin: 24px 0; }
+.shots img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); display: block; }
+section { margin: 36px 0; }
+h2 { color: var(--accent); border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+table { width: 100%; border-collapse: collapse; background: var(--panel); border-radius: 8px; overflow: hidden; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { white-space: nowrap; color: var(--accent); }
+tr:last-child th, tr:last-child td { border-bottom: 0; }
+code { background: var(--panel); padding: 2px 6px; border-radius: 4px; }
+footer { color: var(--muted); font-size: 0.85rem; padding-top: 16px; padding-bottom: 40px; border-top: 1px solid var(--line); }
+@media (max-width: 560px) { th { white-space: normal; } th, td { display: block; } th { border-bottom: 0; padding-bottom: 0; } }

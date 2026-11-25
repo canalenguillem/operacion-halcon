@@ -95,6 +95,13 @@ Por ahora todos colisionan con todos (`Layers.ALL`). Los rayos (disparos, línea
 - Integración: `tests/test_shooting.gd` carga `main.tscn` (con `show_menu = false`) y dispara de verdad a los soldados.
 - `./tools/check.sh` además arranca el menú, la misión y la pausa, y comprueba que el caza despega solo con W.
 
+## Publicación
+
+- `./tools/export.sh` genera en `build/` los paquetes de Linux (`.tar.gz`) y Windows (`.zip`) y `manifest.json` (versión, tamaños y SHA-256).
+- `web/` es una web estática (portada, controles, instrucciones y descargas) servida por un único contenedor nginx: sin cuentas, sin bases de datos, sin cookies. `app.js` lee `downloads/manifest.json`.
+- `./web/deploy.sh` copia los paquetes a `web/site/downloads/` y sincroniza con `servidor:/srv/operacion-halcon-web` (compose `halcon`, puerto 8080, subred 172.30.60.0/24). El dominio `halcon.enguillem.es` y el HTTPS los gestiona el humano en su proxy.
+- El juego usa Forward+ (Vulkan); en equipos sin Vulkan Godot cae a OpenGL 3.3.
+
 ## Deuda
 
 - Ayudas de desarrollo (`--test-jet`, `--shot`, `--yaw`…) dentro de `main.gd`.

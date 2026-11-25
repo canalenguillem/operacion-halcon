@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operación Halcón</title>
+<meta name="description" content="Juego de acción 3D: roba un coche, cuélate en la base aérea, roba un caza y huye de los misiles.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <h1>Operación Halcón</h1>
+    <p class="lead">Roba un coche, cuélate en la base aérea, roba un caza y huye de los misiles.</p>
+    <div class="buttons">
+      <a class="btn" id="dl-windows" href="downloads/operacion-halcon-windows.zip">Descargar para Windows <small></small></a>
+      <a class="btn" id="dl-linux" href="downloads/operacion-halcon-linux.tar.gz">Descargar para Linux <small></small></a>
+    </div>
+    <p class="version" id="version"></p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="shots">
+    <img src="img/ciudad.jpg" alt="El jugador en la ciudad, junto a un coche" width="1280" height="720">
+    <img src="img/coche.jpg" alt="Un coche aparcado en la carretera" width="1280" height="720" loading="lazy">
+    <img src="img/base.jpg" alt="Un caza delante del hangar de la base aérea" width="1280" height="720" loading="lazy">
+    <img src="img/vuelo.jpg" alt="El caza en vuelo" width="1280" height="720" loading="lazy">
+  </section>
+
+  <section>
+    <h2>La misión</h2>
+    <ol>
+      <li>Consigue un coche en la ciudad.</li>
+      <li>Conduce hasta la base aérea y entra.</li>
+      <li>Ábrete paso entre los soldados y sube a un caza.</li>
+      <li>Despega y vuela 8,7 km hasta el aeródromo clandestino esquivando los misiles.</li>
+    </ol>
+    <p>Una partida dura unos 5 minutos. Se guarda tu mejor tiempo.</p>
+  </section>
+
+  <section>
+    <h2>Controles</h2>
+    <table>
+      <tr><th>A pie</th><td>WASD mover · ratón cámara · clic disparar · Shift correr · Espacio saltar · E subir a un vehículo</td></tr>
+      <tr><th>Coche</th><td>W/S acelerar y marcha atrás · A/D girar · Espacio freno · E bajar</td></tr>
+      <tr><th>Caza en tierra</th><td>W acelerar (despega solo a 250 km/h) · S frenar · A/D girar</td></tr>
+      <tr><th>Caza en vuelo</th><td>S subir el morro · W bajarlo · A/D girar · Shift/Ctrl potencia · F bengalas</td></tr>
+      <tr><th>General</th><td>Esc pausa · R reiniciar</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Cómo instalarlo</h2>
+    <h3>Windows</h3>
+    <ol>
+      <li>Descarga el .zip y extráelo: clic derecho → «Extraer todo…».</li>
+      <li>Abre la carpeta y haz doble clic en <code>Operacion-Halcon.exe</code>.</li>
+      <li>Si aparece «Windows protegió su equipo», pulsa «Más información» y «Ejecutar de todas formas». Sale porque el programa no tiene firma digital de pago.</li>
+    </ol>
+    <h3>Linux</h3>
+    <ol>
+      <li>Descarga el .tar.gz y descomprímelo.</li>
+      <li>Ejecuta <code>./operacion-halcon.x86_64</code> desde una terminal en esa carpeta.</li>
+    </ol>
+    <p>Requisitos: 64 bits y una tarjeta gráfica con Vulkan (recomendado) u OpenGL 3.3. No hace falta instalar nada.</p>
+    <p class="sha" id="sha"></p>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>Juego original hecho con Godot. Sonido y música generados con IA. Esta web no usa cookies ni guarda datos.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

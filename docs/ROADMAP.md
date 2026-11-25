@@ -68,5 +68,10 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 - [x] **Humano:** escuchar cada sonido (yo no puedo oírlos): ¿alguno suena mal, muy alto o muy bajo? ¿se nota el corte de los bucles (motores, alarma, música)? ¿la sacudida marea?
 - [ ] **Humano:** mirar el arte nuevo: ¿se ve bien el muñeco al andar y al apuntar? ¿coche, caza y ciudad convencen? ¿va fluido?
 
+## M8 — Publicación
+- [x] Exportación a Linux y Windows (`tools/export.sh`, `export_presets.cfg`)
+- [x] Web estática con descargas (`web/`) desplegada en `servidor`, puerto 8080
+- [ ] **Humano:** dar de alta `halcon.enguillem.es` en el proxy hacia el puerto 8080; descargar y probar el `.exe` en un PC del aula
+
 ## Por decidir
 - Policía y tráfico en la ciudad, más misiones, armas en el caza, modo online (skill `juego-online`).

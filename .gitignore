@@ -1,1 +1,4 @@
 .godot/
+build/
+web/site/downloads/*
+!web/site/downloads/.gitkeep
