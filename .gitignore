@@ -2,3 +2,5 @@
 build/
 web/site/downloads/*
 !web/site/downloads/.gitkeep
+web/.deploy.env
+web/.env

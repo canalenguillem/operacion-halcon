@@ -70,9 +70,9 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 
 ## M8 — Publicación
 - [x] Exportación a Linux, Windows y macOS (universal, sin firmar) (`tools/export.sh`, `export_presets.cfg`)
-- [x] Web estática con descargas (`web/`) desplegada en `servidor`, puerto 8080
+- [x] Web estática con descargas (`web/`) desplegada en el servidor
 - [x] Contador de descargas por sistema y versión, visible en cada botón (`web/counter/`)
-- [ ] **Humano:** dar de alta `halcon.enguillem.es` en el proxy hacia el puerto 8080; descargar y probar el `.exe` en un PC del aula y la app en un Mac
+- [ ] **Humano:** dar de alta `halcon.enguillem.es` en el proxy; descargar y probar el `.exe` en un PC del aula y la app en un Mac
 
 ## Por decidir
 - Policía y tráfico en la ciudad, más misiones, armas en el caza, modo online (skill `juego-online`).
