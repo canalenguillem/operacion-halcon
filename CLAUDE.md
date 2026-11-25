@@ -2,7 +2,7 @@
 
 Juego de acción **3D en tercera persona** de una sola misión: robar un coche, colarse en una base aérea, robar un caza y huir de los misiles hasta un aeródromo clandestino. Juego original: la idea de la misión viene de un vídeo, pero no se copian nombre, personajes, mapa ni arte de ningún juego existente.
 
-> **Estado:** M0–M5 hechos y validados jugando. Hito actual: **M6** (menús). Ver `docs/ROADMAP.md`.
+> **Estado:** M0–M5 hechos y validados jugando. Hito actual: **M6** (menús), con el código hecho y pendiente de validar jugando. Ver `docs/ROADMAP.md`.
 
 ## Stack
 
@@ -25,10 +25,12 @@ Juego de acción **3D en tercera persona** de una sola misión: robar un coche, 
 ./tools/check.sh                                        # verificación completa (importa, carga todo, arranca la misión, tests)
 godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
 godot --path .                                          # jugar (necesita pantalla)
+godot --path . -- --play                                # jugar sin pasar por el menú
 godot --path . -- --at=150,0.2,-1110                    # empezar a pie en esa posición (x,y,z)
 godot --path . -- --test-jet                            # empezar volando
 godot --path . -- --test-takeoff                        # despegue automático (imprime el estado cada segundo)
-godot --path . -- --shot=/ruta/captura.png              # guarda una captura a los 150 fotogramas y sale
+godot --path . -- --menu | --pause | --controls | --options   # abrir directamente esa pantalla
+godot --path . -- --shot=/ruta/captura.png              # se combina con los anteriores: captura a los 2,5 s y sale
 ```
 
 ## Estructura
@@ -36,7 +38,7 @@ godot --path . -- --shot=/ruta/captura.png              # guarda una captura a l
 ```
 project.godot
 main.tscn          # un Node3D con scripts/main.gd; todo lo demás se crea por código
-scripts/           # main, world, hud, build, layers, mission_state, vehicle
+scripts/           # main, world, hud, menu, settings, build, layers, mission_state, vehicle
                    # y por actor: <actor>.gd, <actor>_logic.gd, <actor>_data.gd (player, car, jet, soldier, missile)
 data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres
 tests/             # test_*.gd (GUT)

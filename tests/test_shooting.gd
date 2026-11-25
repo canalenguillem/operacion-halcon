@@ -6,6 +6,7 @@ var main: Main
 
 func before_each() -> void:
 	main = (load("res://main.tscn") as PackedScene).instantiate() as Main
+	main.show_menu = false
 	add_child_autofree(main)
 	await get_tree().physics_frame
 	main.player.global_position = Vector3(150, 0.2, -1125)

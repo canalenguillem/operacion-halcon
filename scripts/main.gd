@@ -27,14 +27,17 @@ var missile_data: MissileData = preload("res://data/missile.tres")
 ## Segundos hasta el próximo disparo de cada batería (mismo orden que `world.sam_positions`).
 var sam_cooldowns: Array[float] = []
 var hud: Hud
+var menu: Menu
+## Ponlo a false antes de añadir la escena para arrancar sin menú (tests).
+var show_menu: bool = true
+## Al reiniciar la misión no se vuelve a pasar por el menú principal.
+static var skip_menu: bool = false
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var game_over: bool:
 	get:
 		return mission.over
 
-var _shot_path: String = ""
-var _shot_frames: int = 0
 var _debug: bool = false
 
 
@@ -65,8 +68,25 @@ func _ready() -> void:
 	mission.jet_stolen.connect(_on_jet_stolen)
 	mission.failed.connect(_on_failed)
 	mission.completed.connect(_on_completed)
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	_parse_args()
+
+	Settings.load_file()
+	menu = Menu.new()
+	menu.play_pressed.connect(_on_play_pressed)
+	menu.restart_pressed.connect(restart)
+	menu.main_menu_pressed.connect(_on_main_menu_pressed)
+	var menu_layer := CanvasLayer.new()
+	menu_layer.layer = 10
+	add_child(menu_layer)
+	menu_layer.add_child(menu)
+
+	var dev: bool = _parse_args()
+	_update_camera(0.0)
+	if show_menu and not skip_menu and not dev:
+		hud.visible = false
+		menu.open(Menu.Screen.MAIN)
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	skip_menu = false
 
 
 func _spawn_actors() -> void:
@@ -100,7 +120,7 @@ func _spawn_actors() -> void:
 func _unhandled_input(e: InputEvent) -> void:
 	if e is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			var o: Vector2 = PlayerLogic.orbit(cam_yaw, cam_pitch, (e as InputEventMouseMotion).relative, player.data)
+			var o: Vector2 = PlayerLogic.orbit(cam_yaw, cam_pitch, (e as InputEventMouseMotion).relative * Settings.mouse_scale, player.data)
 			cam_yaw = o.x
 			cam_pitch = o.y
 			mouse_idle = 0.0
@@ -108,11 +128,29 @@ func _unhandled_input(e: InputEvent) -> void:
 		if e.is_pressed() and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	elif e.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		get_viewport().set_input_as_handled()
+		menu.open(Menu.Screen.PAUSE)
 	elif e.is_action_pressed("restart"):
-		get_tree().reload_current_scene()
+		restart()
 	elif e.is_action_pressed("interact") and not game_over:
 		_interact()
+
+
+## Vuelve a empezar la misión sin pasar por el menú principal.
+func restart() -> void:
+	skip_menu = true
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+func _on_play_pressed() -> void:
+	hud.visible = true
+
+
+func _on_main_menu_pressed() -> void:
+	skip_menu = false
+	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 
 func vehicles() -> Array[Vehicle]:
@@ -253,9 +291,8 @@ func _on_failed(reason: String) -> void:
 
 
 func _on_completed() -> void:
-	var t: int = int(elapsed)
-	@warning_ignore("integer_division")
-	hud.big("MISIÓN CUMPLIDA", "Tiempo %d:%02d  ·  Bajas %d  ·  R para volver a jugar" % [t / 60, t % 60, kills], Color(0.4, 1.0, 0.5))
+	var record: String = "  ·  ¡NUEVO RÉCORD!" if Settings.submit_time(elapsed) else ""
+	hud.big("MISIÓN CUMPLIDA", "Tiempo %s%s  ·  Bajas %d  ·  R para volver a jugar" % [Settings.format_time(elapsed), record, kills], Color(0.4, 1.0, 0.5))
 
 
 func _physics_process(dt: float) -> void:
@@ -293,7 +330,7 @@ func _update_sams(dt: float) -> void:
 		var pos: Vector3 = world.sam_positions[i]
 		sam_cooldowns[i] -= dt
 		if sam_cooldowns[i] <= 0.0 and MissileLogic.can_fire(pos.distance_to(jp), jp.y, missiles.size(), missile_data):
-			sam_cooldowns[i] = rng.randf_range(missile_data.reload_min, missile_data.reload_max)
+			sam_cooldowns[i] = rng.randf_range(missile_data.reload_min, missile_data.reload_max) * Settings.sam_reload_scale()
 			var m := Missile.new()
 			m.main = self
 			m.data = missile_data
@@ -346,12 +383,13 @@ func _update_camera(dt: float) -> void:
 
 ## Un soldado ha acertado a lo que conduces (o a ti).
 func hurt_target(d: SoldierData) -> void:
+	var k: float = Settings.soldier_damage_scale()
 	if vehicle == null:
-		player.hurt(d.damage_player)
+		player.hurt(d.damage_player * k)
 	elif vehicle.is_jet:
-		vehicle.hurt(d.damage_jet)
+		vehicle.hurt(d.damage_jet * k)
 	else:
-		vehicle.hurt(d.damage_car)
+		vehicle.hurt(d.damage_car * k)
 
 
 func player_shoot() -> void:
@@ -440,15 +478,27 @@ func drop_flares(pos: Vector3, vel: Vector3) -> void:
 
 
 # ---------------------------------------------------------------- ayudas de desarrollo
-# godot --path . -- --at=x,y,z --test-jet --test-takeoff --shot=/ruta/captura.png
+# godot --path . -- [--play] [--at=x,y,z] [--test-jet] [--test-takeoff] [--menu] [--pause] [--controls] [--options] [--shot=/ruta/captura.png]
 
-func _parse_args() -> void:
+## Lee los argumentos de desarrollo. Devuelve true si hay que saltarse el menú principal.
+func _parse_args() -> bool:
+	var dev: bool = false
+	var force_menu: bool = false
 	for a: String in OS.get_cmdline_user_args():
+		dev = true
 		if a.begins_with("--shot="):
-			_shot_path = a.trim_prefix("--shot=")
+			# captura a los 2,5 s (también con el juego en pausa) y sale
+			get_tree().create_timer(2.5).timeout.connect(_take_shot.bind(a.trim_prefix("--shot=")))
 		elif a.begins_with("--at="):
 			var p: PackedFloat64Array = a.trim_prefix("--at=").split_floats(",")
 			player.position = Vector3(p[0], p[1], p[2])
+		elif a == "--menu":
+			force_menu = true
+		elif a == "--pause":
+			menu.open.call_deferred(Menu.Screen.PAUSE)
+		elif a == "--controls" or a == "--options":
+			menu.open.call_deferred(Menu.Screen.PAUSE)
+			menu.show_screen.call_deferred(Menu.Screen.CONTROLS if a == "--controls" else Menu.Screen.OPTIONS)
 		elif a == "--test-takeoff":
 			_enter_vehicle(jets[1])
 			Input.action_press("forward")  # lo que hace un jugador nuevo: solo W, sin soltarla
@@ -462,14 +512,15 @@ func _parse_args() -> void:
 			j.gear.visible = false
 			j.throttle = 1.0
 			j.speed = 120.0
+	return dev and not force_menu
+
+
+func _take_shot(path: String) -> void:
+	get_viewport().get_texture().get_image().save_png(path)
+	get_tree().quit()
 
 
 func _dev_tick() -> void:
 	var jet: Jet = vehicle as Jet
 	if _debug and jet != null and Engine.get_physics_frames() % 60 == 0:
 		print("t=%.0f pos=%s speed=%.0f grounded=%s hp=%.0f stage=%d over=%s" % [elapsed, jet.global_position.round(), jet.speed, jet.grounded, jet.hp, mission.stage, game_over])
-	if _shot_path != "":
-		_shot_frames += 1
-		if _shot_frames == 150:
-			get_viewport().get_texture().get_image().save_png(_shot_path)
-			get_tree().quit()

@@ -15,7 +15,8 @@ Main (Node3D)                    une mundo, actores, misión, cámara y efectos
 ├── Soldier × 18 (CharacterBody3D)
 ├── Missile (Node3D)             se crean al disparar una batería
 ├── Camera3D
-└── CanvasLayer → Hud (Control)  incluye el minimapa (`Hud.MiniMap`)
+├── CanvasLayer → Hud (Control)  incluye el minimapa (`Hud.MiniMap`)
+└── CanvasLayer (capa 10) → Menu (Control)  menú principal, pausa, controles y opciones
 ```
 
 - El norte es **-Z** y el frente de todos los actores también. Un giro (yaw) positivo gira a la izquierda.
@@ -47,6 +48,12 @@ Main (Node3D)                    une mundo, actores, misión, cámara y efectos
 - `Main` se ejecuta después de los actores (`process_physics_priority = 10`) para que la cámara vea posiciones ya actualizadas. La cámara es orbital a pie y en coche, y de persecución en el caza.
 - `Hud` lee el estado de `Main` cada fotograma.
 
+## Menús y opciones
+
+- `Menu` (`scripts/menu.gd`) tiene `process_mode = ALWAYS` y es quien pone y quita la pausa del árbol: `open(MAIN | PAUSE)` pausa y suelta el ratón; `close()` reanuda y lo captura. Avisa a `Main` con señales (`play_pressed`, `restart_pressed`, `main_menu_pressed`). La pantalla de controles sale de `Menu.CONTROLS` y lee las teclas del InputMap.
+- `Main` abre el menú principal al arrancar, salvo al reiniciar (`Main.skip_menu`, estático), con argumentos de desarrollo o si `show_menu` es false (tests). Esc durante la partida abre la pausa.
+- `Settings` (`scripts/settings.gd`, estático) guarda en `user://settings.cfg` la sensibilidad (`mouse_scale`), la dificultad y el mejor tiempo. La dificultad multiplica el daño de los soldados (`Main.hurt_target`) y la recarga de las baterías (`Main._update_sams`).
+
 ## Input
 
 Acciones en `project.godot`: `forward`, `back`, `left`, `right`, `sprint`, `jump`, `shoot`, `interact`, `flare`, `throttle_up`, `throttle_down`, `restart`. En el caza en tierra, `forward`/`back` son el acelerador; en vuelo, el morro.
@@ -76,8 +83,8 @@ Por ahora todos colisionan con todos (`Layers.ALL`). Los rayos (disparos, línea
 ## Tests
 
 - Lógica pura: un `tests/test_*_logic.gd` por clase, más `test_mission_state.gd` y `test_world.gd`.
-- Integración: `tests/test_shooting.gd` carga `main.tscn` y dispara de verdad a los soldados.
-- `./tools/check.sh` además arranca la misión y comprueba que el caza despega solo con W.
+- Integración: `tests/test_shooting.gd` carga `main.tscn` (con `show_menu = false`) y dispara de verdad a los soldados.
+- `./tools/check.sh` además arranca el menú, la misión y la pausa, y comprueba que el caza despega solo con W.
 
 ## Deuda
 

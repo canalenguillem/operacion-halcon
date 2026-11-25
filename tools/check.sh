@@ -24,8 +24,10 @@ if [ "$LOAD_EXIT" -ne 0 ]; then
 fi
 tail -n 1 "$LOG"
 
-echo "→ Arrancando la misión 5 s (a pie) y 15 s (despegue automático)…"
-"$GODOT" --headless --path . --fixed-fps 60 --quit-after 300 >"$LOG" 2>&1
+echo "→ Arrancando el menú, la misión 5 s (a pie), la pausa y 15 s de despegue automático…"
+"$GODOT" --headless --path . --fixed-fps 60 --quit-after 120 >"$LOG" 2>&1   # menú principal
+"$GODOT" --headless --path . --fixed-fps 60 --quit-after 300 -- --play >>"$LOG" 2>&1
+"$GODOT" --headless --path . --fixed-fps 60 --quit-after 120 -- --play --pause >>"$LOG" 2>&1
 "$GODOT" --headless --path . --fixed-fps 60 --quit-after 900 -- --test-takeoff >>"$LOG" 2>&1
 if grep -E "$BAD" "$LOG"; then
   echo "❌ Errores al ejecutar la misión (ver arriba)"

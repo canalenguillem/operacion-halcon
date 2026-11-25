@@ -1,6 +1,6 @@
 # Roadmap — Operación Halcón
 
-Hito actual: **M6**. M1–M5 hechos y validados por el humano (lo probaron también sus alumnos). M0 es el prototipo completo que se hizo de una vez; a partir de aquí se revisa por fases, cada una validada jugando.
+Hito actual: **M6** (código hecho; falta la validación del humano). M1–M5 hechos y validados por el humano (lo probaron también sus alumnos). M0 es el prototipo completo que se hizo de una vez; a partir de aquí se revisa por fases, cada una validada jugando.
 
 Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el humano haya validado lo que hay que probar jugando.
 
@@ -54,9 +54,11 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 - [x] Tipado estático en todo el proyecto; `untyped_declaration` es error
 
 ## M6 — Menús
-- [ ] Menú principal, pausa, pantalla de controles y opciones (volumen, sensibilidad, dificultad)
-- [ ] Récord de tiempo guardado
-- [ ] **Humano:** recorrer todos los menús
+- [x] `Menu`: menú principal, pausa (Esc), controles (leídos del InputMap) y opciones
+- [x] Opciones: sensibilidad del ratón y dificultad (daño de los soldados y recarga de las baterías); el volumen llega con el sonido en M7
+- [x] `Settings`: opciones y récord de tiempo guardados en `user://settings.cfg`, con tests
+- [x] Reiniciar (R o desde la pausa) no vuelve a pasar por el menú principal
+- [ ] **Humano:** recorrer todos los menús con ratón y con teclado; pausar en coche y en vuelo; cambiar sensibilidad y dificultad y notar la diferencia; ganar y ver el récord en el menú principal
 
 ## M7 — Pulido
 - [ ] Sonido (motor, disparos, explosiones, alarma, aviso de misil) y música
