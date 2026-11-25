@@ -1,9 +1,8 @@
+class_name Main
 extends Node3D
 ## Operación Halcón: steal a car, break into the air base, steal a jet and escape.
 ## The whole world is generated here from primitives. North is -Z.
 
-const Build = preload("res://scripts/build.gd")
-const Player = preload("res://scripts/player.gd")
 const Car = preload("res://scripts/car.gd")
 const Jet = preload("res://scripts/jet.gd")
 const Soldier = preload("res://scripts/soldier.gd")
@@ -31,7 +30,7 @@ var cam_pitch := -0.15
 var cam_dir := Vector3.BACK
 var mouse_idle := 9.0
 
-var player
+var player: Player
 var vehicle = null
 var jets: Array = []
 var cars: Array = []
@@ -51,7 +50,6 @@ var _debug := false
 func _ready() -> void:
 	process_physics_priority = 10  # run after the actors so the camera sees fresh positions
 	rng.seed = 7
-	_setup_input()
 	_build_sky()
 	_build_ground()
 	_build_city()
@@ -77,29 +75,12 @@ func _ready() -> void:
 
 # ---------------------------------------------------------------- input
 
-func _setup_input() -> void:
-	var keys := {
-		"forward": [KEY_W, KEY_UP], "back": [KEY_S, KEY_DOWN],
-		"left": [KEY_A, KEY_LEFT], "right": [KEY_D, KEY_RIGHT],
-		"sprint": [KEY_SHIFT], "jump": [KEY_SPACE], "interact": [KEY_E],
-		"flare": [KEY_F], "throttle_up": [KEY_SHIFT], "throttle_down": [KEY_CTRL],
-		"restart": [KEY_R],
-	}
-	for action in keys:
-		if InputMap.has_action(action):
-			continue
-		InputMap.add_action(action)
-		for k in keys[action]:
-			var e := InputEventKey.new()
-			e.physical_keycode = k
-			InputMap.action_add_event(action, e)
-
-
 func _unhandled_input(e: InputEvent) -> void:
 	if e is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			cam_yaw -= e.relative.x * 0.003
-			cam_pitch = clampf(cam_pitch - e.relative.y * 0.003, -1.2, 0.6)
+			var o: Vector2 = PlayerLogic.orbit(cam_yaw, cam_pitch, (e as InputEventMouseMotion).relative, player.data)
+			cam_yaw = o.x
+			cam_pitch = o.y
 			mouse_idle = 0.0
 	elif e is InputEventMouseButton:
 		if e.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
@@ -358,9 +339,9 @@ func _update_camera(dt: float) -> void:
 	if is_car and mouse_idle > 1.0 and absf(vehicle.speed) > 3.0:
 		cam_yaw = lerp_angle(cam_yaw, vehicle.rotation.y, 3.0 * dt)
 		cam_pitch = lerpf(cam_pitch, -0.22, 3.0 * dt)
-	var pivot: Vector3 = t.global_position + Vector3(0, 1.9 if is_car else 1.6, 0)
+	var pivot: Vector3 = t.global_position + Vector3(0, 1.9 if is_car else player.data.cam_pivot_height, 0)
 	var cb := Basis.from_euler(Vector3(cam_pitch, cam_yaw, 0))
-	var off := Vector3(0, 0.4, 9.5) if is_car else Vector3(0.7, 0.25, 4.2)
+	var off: Vector3 = Vector3(0, 0.4, 9.5) if is_car else player.data.cam_offset
 	var want := pivot + cb * off
 	var q := PhysicsRayQueryParameters3D.create(pivot, want)
 	var ex: Array[RID] = [player.get_rid()]
@@ -378,8 +359,8 @@ func _update_camera(dt: float) -> void:
 
 func player_shoot() -> void:
 	var fwd := -cam.global_transform.basis.z
-	var from := cam.global_position + fwd * 4.5
-	var to := from + fwd * 250.0
+	var from := cam.global_position + fwd * (player.data.cam_offset.z + 0.3)
+	var to := from + fwd * player.data.fire_range
 	var q := PhysicsRayQueryParameters3D.create(from, to)
 	q.exclude = [player.get_rid()]
 	var hit := get_world_3d().direct_space_state.intersect_ray(q)
@@ -387,10 +368,10 @@ func player_shoot() -> void:
 	if not hit.is_empty():
 		end = hit.position
 		if hit.collider.has_method("hurt"):
-			hit.collider.hurt(25.0)
+			hit.collider.hurt(player.data.damage)
 	tracer(player.global_position + Vector3(0, 1.35, 0), end, Color(1, 0.9, 0.4))
 	for s in get_tree().get_nodes_in_group("soldiers"):
-		if not s.dead and not s.alert and s.global_position.distance_to(player.global_position) < 120.0:
+		if not s.dead and not s.alert and s.global_position.distance_to(player.global_position) < player.data.noise_radius:
 			s.alert = true
 			raise_alert()
 

@@ -2,15 +2,15 @@
 
 Juego de acción **3D en tercera persona** de una sola misión: robar un coche, colarse en una base aérea, robar un caza y huir de los misiles hasta un aeródromo clandestino. Juego original: la idea de la misión viene de un vídeo, pero no se copian nombre, personajes, mapa ni arte de ningún juego existente.
 
-> **Estado:** M0 hecho (prototipo jugable de principio a fin, sin validar). Hito actual: **M1**. Ver `docs/ROADMAP.md`.
+> **Estado:** M0 hecho (prototipo jugable de principio a fin). Hito actual: **M1** (a pie), con el código hecho y pendiente de validar jugando. Ver `docs/ROADMAP.md`.
 
 ## Stack
 
 - **Godot 4.7.x stable**. Prohibidas las APIs de Godot 3.
-- **GDScript con tipado estático** en todo (el prototipo de M0 aún no lo cumple: se arregla hito a hito, ver ROADMAP).
+- **GDScript con tipado estático** en todo (parte del prototipo de M0 aún no lo cumple: se arregla hito a hito, ver ROADMAP).
 - **3D**, Forward+. Resolución base 1280×720, `stretch/mode = canvas_items`, `stretch/aspect = expand`.
 - Sin assets externos por ahora: todo el mundo se genera con primitivas (`scripts/build.gd`).
-- Tests con **GUT 9.x** en `addons/gut` (se añade en M1, copiado de `../mini-futbol-kit`).
+- Tests con **GUT 9.x** en `addons/gut`.
 - Plataforma: escritorio Linux.
 
 ## Documentación (léela antes de cualquier tarea grande)
@@ -23,6 +23,7 @@ Juego de acción **3D en tercera persona** de una sola misión: robar un coche, 
 
 ```bash
 ./tools/check.sh                                        # verificación completa (importa, carga todo, arranca la misión, tests)
+godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
 godot --path .                                          # jugar (necesita pantalla)
 godot --path . -- --at=150,0.2,-1110                    # empezar a pie en esa posición (x,y,z)
 godot --path . -- --test-jet                            # empezar volando
@@ -35,7 +36,9 @@ godot --path . -- --shot=/ruta/captura.png              # guarda una captura a l
 ```
 project.godot
 main.tscn          # un Node3D con scripts/main.gd; todo lo demás se crea por código
-scripts/           # main, build, player, car, jet, soldier, missile, hud
+scripts/           # main, build, player, player_data, player_logic, car, jet, soldier, missile, hud
+data/              # player.tres (PlayerData)
+tests/             # test_*.gd (GUT)
 docs/
 tools/             # check.sh, load_all.gd
 ```

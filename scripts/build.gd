@@ -1,3 +1,4 @@
+class_name Build
 extends RefCounted
 ## Helpers to build the whole game out of primitive meshes (no external assets).
 

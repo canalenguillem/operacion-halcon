@@ -1,7 +1,6 @@
 extends Node3D
 ## Surface-to-air missile: homes on the jet with a limited turn rate.
 
-const Build = preload("res://scripts/build.gd")
 const TURN := 0.75
 const TOP_SPEED := 185.0
 

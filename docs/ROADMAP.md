@@ -1,6 +1,6 @@
 # Roadmap — Operación Halcón
 
-Hito actual: **M1**. M0 es el prototipo completo que se hizo de una vez; a partir de aquí se revisa por fases, cada una validada jugando.
+Hito actual: **M1** (código hecho; falta la validación del humano). M0 es el prototipo completo que se hizo de una vez; a partir de aquí se revisa por fases, cada una validada jugando.
 
 Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el humano haya validado lo que hay que probar jugando.
 
@@ -16,10 +16,10 @@ Regla: no empezar un hito hasta que el anterior pase `./tools/check.sh` y el hum
 - [x] `Player` con movimiento, sprint, salto y regeneración (prototipo)
 - [x] Cámara orbital con colisión y mira (prototipo)
 - [x] Pistola con trazadora (prototipo)
-- [ ] Acciones del InputMap en `project.godot`
-- [ ] Tipado estático en `player.gd` y en lo que toca de `main.gd`; ajustes como `@export`
-- [ ] GUT instalado y primer test
-- [ ] **Humano:** ¿se mueve y apunta bien? Velocidad andando/corriendo, sensibilidad del ratón, distancia de la cámara, cadencia de la pistola
+- [x] Acciones del InputMap en `project.godot` (incluida `shoot`)
+- [x] Tipado estático en `player.gd`; `class_name` en `Main`, `Player` y `Build`; ajustes en `PlayerData` (`data/player.tres`)
+- [x] GUT instalado; `PlayerLogic` (lógica pura) con 11 tests
+- [ ] **Humano:** ¿se mueve y apunta bien? Ajustar en `data/player.tres`: `walk_speed`, `sprint_speed`, `mouse_sensitivity`, `cam_offset`, `fire_interval`, `damage`
 
 ## M2 — Coche
 - [x] Coche arcade: acelerar, frenar, girar, daño por choque, explosión (prototipo)

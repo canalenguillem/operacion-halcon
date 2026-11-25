@@ -1,7 +1,6 @@
 extends CharacterBody3D
 ## Arcade fighter jet. Forward is -Z.
 
-const Build = preload("res://scripts/build.gd")
 const MAX_SPEED := 150.0
 const TAKEOFF := 55.0
 

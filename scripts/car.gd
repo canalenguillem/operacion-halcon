@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-const Build = preload("res://scripts/build.gd")
 const MAX_SPEED := 40.0
 
 var main

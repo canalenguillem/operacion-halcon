@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-const Build = preload("res://scripts/build.gd")
 
 var main
 var hp := 40.0
