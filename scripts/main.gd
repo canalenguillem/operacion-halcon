@@ -21,6 +21,7 @@ var game_audio: GameAudio
 var dev: DevTools
 var hud: Hud
 var menu: Menu
+var map_screen: MapScreen
 var elapsed: float = 0.0
 
 var player: Player
@@ -77,10 +78,15 @@ func _ready() -> void:
 	menu.restart_pressed.connect(restart)
 	menu.main_menu_pressed.connect(_on_main_menu_pressed)
 	menu.clicked.connect(sfx.play.bind("click", -6.0))
+	menu.map_pressed.connect(_on_map_pressed)
 	var menu_layer := CanvasLayer.new()
 	menu_layer.layer = 10
 	add_child(menu_layer)
 	menu_layer.add_child(menu)
+	map_screen = MapScreen.new()
+	map_screen.main = self
+	map_screen.closed.connect(_on_map_closed)
+	menu_layer.add_child(map_screen)
 
 	var dev_args: bool = dev.parse_args()
 	camera.tick(0.0)
@@ -150,6 +156,9 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		menu.open(Menu.Screen.PAUSE)
+	elif e.is_action_pressed("map"):
+		get_viewport().set_input_as_handled()
+		map_screen.open(false)
 	elif e.is_action_pressed("restart"):
 		restart()
 	elif e.is_action_pressed("interact") and not game_over:
@@ -161,6 +170,16 @@ func restart() -> void:
 	skip_menu = true
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+
+func _on_map_pressed() -> void:
+	menu.visible = false
+	map_screen.open(true)
+
+
+func _on_map_closed(to_pause: bool) -> void:
+	if to_pause:
+		menu.open(Menu.Screen.PAUSE)
 
 
 func _on_play_pressed() -> void:

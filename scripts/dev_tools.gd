@@ -2,7 +2,7 @@ class_name DevTools
 extends Node
 ## Ayudas de desarrollo por línea de órdenes:
 ## godot --path . -- [--play] [--at=x,y,z] [--yaw=grados] [--test-jet] [--test-takeoff]
-##                   [--menu] [--pause] [--controls] [--options] [--shot=/ruta/captura.png] [--fps]
+##                   [--menu] [--pause] [--controls] [--options] [--map] [--shot=/ruta/captura.png] [--fps]
 
 var main: Main
 ## Imprime el estado del caza cada segundo (lo usa `tools/check.sh`).
@@ -25,6 +25,8 @@ func parse_args() -> bool:
 			main.player.position = Vector3(p[0], p[1], p[2])
 		elif a.begins_with("--yaw="):
 			main.camera.yaw = deg_to_rad(float(a.trim_prefix("--yaw=")))
+		elif a == "--map":
+			main.map_screen.open.call_deferred(false)
 		elif a == "--fps":
 			show_fps = true
 		elif a == "--menu":

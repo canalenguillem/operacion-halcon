@@ -24,10 +24,11 @@ if [ "$LOAD_EXIT" -ne 0 ]; then
 fi
 tail -n 1 "$LOG"
 
-echo "→ Arrancando el menú, la misión 5 s (a pie), la pausa y 15 s de despegue automático…"
+echo "→ Arrancando el menú, la misión 5 s (a pie), la pausa, el mapa y 15 s de despegue automático…"
 "$GODOT" --headless --path . --fixed-fps 60 --quit-after 120 >"$LOG" 2>&1   # menú principal
 "$GODOT" --headless --path . --fixed-fps 60 --quit-after 300 -- --play >>"$LOG" 2>&1
 "$GODOT" --headless --path . --fixed-fps 60 --quit-after 120 -- --play --pause >>"$LOG" 2>&1
+"$GODOT" --headless --path . --fixed-fps 60 --quit-after 120 -- --play --map >>"$LOG" 2>&1
 "$GODOT" --headless --path . --fixed-fps 60 --quit-after 900 -- --test-takeoff >>"$LOG" 2>&1
 # Al cerrar con --quit-after, Godot avisa de que la música seguía sonando: no es un fallo del juego.
 if grep -v "resources still in use at exit" "$LOG" | grep -E "$BAD"; then

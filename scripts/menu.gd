@@ -5,6 +5,7 @@ extends Control
 signal play_pressed
 signal restart_pressed
 signal main_menu_pressed
+signal map_pressed
 ## Se ha pulsado cualquier botón (para el sonido).
 signal clicked
 
@@ -165,6 +166,7 @@ func _build_main() -> void:
 func _build_pause() -> void:
 	_label("PAUSA", 40, Color(1, 0.9, 0.35))
 	_button("Continuar", close, true)
+	_button("Mapa", map_pressed.emit)
 	_button("Reiniciar misión", restart_pressed.emit)
 	_button("Controles", show_screen.bind(Screen.CONTROLS))
 	_button("Opciones", show_screen.bind(Screen.OPTIONS))
