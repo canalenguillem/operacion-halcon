@@ -6,6 +6,8 @@ signal play_pressed
 signal restart_pressed
 signal main_menu_pressed
 signal map_pressed
+## Han cambiado opciones que debe aplicar el juego (gráficos).
+signal options_changed
 ## Se ha pulsado cualquier botón (para el sonido).
 signal clicked
 
@@ -65,23 +67,40 @@ static func keys_text(actions: String) -> String:
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.6)
-	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(dim)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(center)
-	var panel := PanelContainer.new()
-	center.add_child(panel)
+	theme = UiStyle.menu_theme()
+	# degradado oscuro a la izquierda: deja ver la ciudad detrás
+	var grad := Gradient.new()
+	grad.set_color(0, Color(0, 0, 0, 0.9))
+	grad.set_color(1, Color(0, 0, 0, 0.0))
+	grad.add_point(0.42, Color(0, 0, 0, 0.72))
+	var tex := GradientTexture2D.new()
+	tex.gradient = grad
+	tex.width = 256
+	tex.height = 4
+	var bg := TextureRect.new()
+	bg.texture = tex
+	bg.stretch_mode = TextureRect.STRETCH_SCALE
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(bg)
+	var stripe := ColorRect.new()
+	stripe.color = UiStyle.ACCENT
+	stripe.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE)
+	stripe.offset_right = 6
+	add_child(stripe)
 	var margin := MarginContainer.new()
-	for side: String in ["margin_left", "margin_right", "margin_top", "margin_bottom"]:
-		margin.add_theme_constant_override(side, 32)
-	panel.add_child(margin)
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", 70)
+	margin.add_theme_constant_override("margin_top", 40)
+	margin.add_theme_constant_override("margin_bottom", 30)
+	add_child(margin)
+	var column := VBoxContainer.new()
+	column.alignment = BoxContainer.ALIGNMENT_CENTER
+	margin.add_child(column)
 	_box = VBoxContainer.new()
-	_box.custom_minimum_size.x = 440
-	_box.add_theme_constant_override("separation", 10)
-	margin.add_child(_box)
+	_box.custom_minimum_size.x = 480
+	_box.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	_box.add_theme_constant_override("separation", 6)
+	column.add_child(_box)
 	visible = false
 
 
@@ -127,21 +146,32 @@ func show_screen(s: Screen) -> void:
 			_build_options()
 
 
-func _label(text: String, font_size: int, color: Color = Color.WHITE) -> Label:
+func _label(text: String, font_size: int, color: Color = UiStyle.TEXT) -> Label:
 	var l := Label.new()
 	l.text = text
-	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.add_theme_font_size_override("font_size", font_size)
 	l.add_theme_color_override("font_color", color)
+	l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
+	l.add_theme_constant_override("outline_size", 4)
 	_box.add_child(l)
 	return l
+
+
+## Título grande con la fuente de títulos.
+func _title(text: String, font_size: int) -> void:
+	var l: Label = _label(text, font_size, UiStyle.ACCENT)
+	l.add_theme_font_override("font", UiStyle.title_font())
+	l.add_theme_constant_override("outline_size", 10)
 
 
 func _button(text: String, action: Callable, focus: bool = false) -> Button:
 	var b := Button.new()
 	b.text = text
-	b.custom_minimum_size.y = 44
-	b.add_theme_font_size_override("font_size", 22)
+	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	b.custom_minimum_size = Vector2(360, 42)
+	b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	b.add_theme_font_size_override("font_size", 24)
+	b.add_theme_font_override("font", UiStyle.title_font())
 	b.pressed.connect(clicked.emit)
 	b.pressed.connect(action)
 	_box.add_child(b)
@@ -153,10 +183,12 @@ func _button(text: String, action: Callable, focus: bool = false) -> Button:
 
 
 func _build_main() -> void:
-	_label("OPERACIÓN HALCÓN", 46, Color(1, 0.9, 0.35))
-	_label("Roba un caza de la base aérea y huye de los misiles", 18)
+	_title("OPERACIÓN
+HALCÓN", 72)
+	_label("Roba un caza de la base aérea y huye de los misiles", 18, UiStyle.MUTED)
 	if Settings.best_time > 0.0:
-		_label("Mejor tiempo: %s" % Settings.format_time(Settings.best_time), 18, Color(0.5, 1, 0.6))
+		_label("Mejor tiempo: %s" % Settings.format_time(Settings.best_time), 18, UiStyle.WIN)
+	_spacer(18)
 	_button("Jugar", _on_play, true)
 	_button("Controles", show_screen.bind(Screen.CONTROLS))
 	_button("Opciones", show_screen.bind(Screen.OPTIONS))
@@ -164,7 +196,8 @@ func _build_main() -> void:
 
 
 func _build_pause() -> void:
-	_label("PAUSA", 40, Color(1, 0.9, 0.35))
+	_title("PAUSA", 56)
+	_spacer(10)
 	_button("Continuar", close, true)
 	_button("Mapa", map_pressed.emit)
 	_button("Reiniciar misión", restart_pressed.emit)
@@ -174,7 +207,7 @@ func _build_pause() -> void:
 
 
 func _build_controls() -> void:
-	_label("CONTROLES", 26, Color(1, 0.9, 0.35))
+	_title("CONTROLES", 40)
 	var grid := GridContainer.new()
 	grid.columns = 2
 	grid.add_theme_constant_override("h_separation", 28)
@@ -188,7 +221,7 @@ func _build_controls() -> void:
 				var head := Label.new()
 				head.text = text
 				head.add_theme_font_size_override("font_size", 15)
-				head.add_theme_color_override("font_color", Color(0.5, 0.85, 1.0))
+				head.add_theme_color_override("font_color", UiStyle.ACCENT)
 				grid.add_child(head)
 		for text: String in [keys_text(row[1] as String), row[2] as String]:
 			var cell := Label.new()
@@ -215,7 +248,7 @@ func _slider(min_value: float, max_value: float, step: float, value: float, text
 
 
 func _build_options() -> void:
-	_label("OPCIONES", 32, Color(1, 0.9, 0.35))
+	_title("OPCIONES", 40)
 	_slider(0.0, 1.0, 0.05, Settings.volume,
 		func(v: float) -> String: return "Volumen: %d %%" % roundi(v * 100.0),
 		func(v: float) -> void:
@@ -241,7 +274,42 @@ func _build_options() -> void:
 		Settings.difficulty = i
 		Settings.save_file())
 	_box.add_child(option)
+
+	_label("Gráficos", 18, UiStyle.ACCENT)
+	_check("Pantalla completa", Settings.fullscreen, func(on: bool) -> void: Settings.fullscreen = on)
+	_check("Sincronización vertical (sin tirones de imagen)", Settings.vsync, func(on: bool) -> void: Settings.vsync = on)
+	var shadows := OptionButton.new()
+	shadows.add_theme_font_size_override("font_size", 18)
+	for n: String in Settings.SHADOW_NAMES:
+		shadows.add_item("Sombras: " + n)
+	shadows.selected = Settings.shadows
+	shadows.item_selected.connect(func(i: int) -> void:
+		Settings.shadows = i
+		Settings.save_file()
+		options_changed.emit())
+	_box.add_child(shadows)
+	_spacer(8)
 	_button("Volver", show_screen.bind(_home), true)
+
+
+## Casilla que guarda las opciones y avisa al juego al cambiar.
+func _check(text: String, value: bool, changed: Callable) -> void:
+	var c := CheckButton.new()
+	c.text = text
+	c.button_pressed = value
+	c.add_theme_font_size_override("font_size", 17)
+	c.toggled.connect(func(on: bool) -> void:
+		changed.call(on)
+		Settings.save_file()
+		Settings.apply_display()
+		options_changed.emit())
+	_box.add_child(c)
+
+
+func _spacer(h: float) -> void:
+	var c := Control.new()
+	c.custom_minimum_size.y = h
+	_box.add_child(c)
 
 
 func _on_play() -> void:

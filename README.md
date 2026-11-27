@@ -26,7 +26,7 @@ godot --path .
 | Coche | W/S acelerar y marcha atrás · A/D girar · Espacio freno · E bajar |
 | Caza en tierra | W acelerar (despega solo a 250 km/h) · S frenar · A/D girar |
 | Caza en vuelo | S subir el morro · W bajarlo · A/D girar · Shift/Ctrl potencia · F bengalas |
-| General | Esc pausa · R reiniciar |
+| General | M mapa · Esc pausa · R reiniciar |
 
 ## Cómo está hecho
 

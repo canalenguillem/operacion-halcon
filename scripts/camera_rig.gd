@@ -13,12 +13,30 @@ var mouse_idle: float = 9.0
 ## Sacudida actual (ver `CameraLogic`).
 var shake: float = 0.0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+## Vuelo de cine alrededor de la ciudad (fondo del menú principal).
+var cinematic: bool = false
+## Centro, radio, altura y velocidad (rad/s) del vuelo de cine.
+@export var cine_center: Vector3 = Vector3(250, 40, 450)
+@export var cine_radius: float = 950.0
+@export var cine_height: float = 280.0
+@export var cine_speed: float = 0.035
+var _cine_angle: float = 2.2
 
 
 func _init() -> void:
 	near = 0.2
 	far = 20000.0
 	fov = 70.0
+	process_mode = Node.PROCESS_MODE_ALWAYS  # el vuelo de cine sigue con el juego en pausa
+
+
+func _process(dt: float) -> void:
+	if not cinematic:
+		return
+	_cine_angle += cine_speed * dt
+	var bob: float = sin(_cine_angle * 3.0) * 40.0
+	global_position = cine_center + Vector3(cos(_cine_angle) * cine_radius, cine_height + bob, sin(_cine_angle) * cine_radius)
+	look_at(cine_center, Vector3.UP)
 
 
 ## Gira la cámara con el movimiento del ratón.

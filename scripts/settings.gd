@@ -7,6 +7,9 @@ const DIFFICULTY_NAMES: Array[String] = ["Fácil", "Normal", "Difícil"]
 const SOLDIER_DAMAGE: Array[float] = [0.5, 1.0, 1.6]
 ## Multiplicador del tiempo de recarga de las baterías según la dificultad.
 const SAM_RELOAD: Array[float] = [1.6, 1.0, 0.65]
+const SHADOW_NAMES: Array[String] = ["Sin sombras", "Medias", "Altas"]
+## Distancia a la que llegan las sombras del sol según la calidad (m).
+const SHADOW_DISTANCE: Array[float] = [0.0, 150.0, 350.0]
 const SENSITIVITY_MIN: float = 0.3
 const SENSITIVITY_MAX: float = 3.0
 
@@ -21,6 +24,10 @@ static var best_time: float = 0.0
 static var volume: float = 0.8
 ## Volumen de la música, de 0 a 1 (además del general).
 static var music_volume: float = 0.5
+static var fullscreen: bool = false
+static var vsync: bool = true
+## Calidad de las sombras: 0 sin sombras, 1 medias, 2 altas.
+static var shadows: int = 2
 
 
 static func reset() -> void:
@@ -29,6 +36,9 @@ static func reset() -> void:
 	mouse_scale = 1.0
 	difficulty = 1
 	best_time = 0.0
+	fullscreen = false
+	vsync = true
+	shadows = 2
 
 
 static func load_file() -> void:
@@ -41,6 +51,9 @@ static func load_file() -> void:
 	best_time = maxf(0.0, float(cfg.get_value("records", "best_time", 0.0)))
 	volume = clampf(float(cfg.get_value("options", "volume", 0.8)), 0.0, 1.0)
 	music_volume = clampf(float(cfg.get_value("options", "music_volume", 0.5)), 0.0, 1.0)
+	fullscreen = bool(cfg.get_value("graphics", "fullscreen", false))
+	vsync = bool(cfg.get_value("graphics", "vsync", true))
+	shadows = clampi(int(cfg.get_value("graphics", "shadows", 2)), 0, SHADOW_NAMES.size() - 1)
 
 
 static func save_file() -> void:
@@ -50,6 +63,9 @@ static func save_file() -> void:
 	cfg.set_value("records", "best_time", best_time)
 	cfg.set_value("options", "volume", volume)
 	cfg.set_value("options", "music_volume", music_volume)
+	cfg.set_value("graphics", "fullscreen", fullscreen)
+	cfg.set_value("graphics", "vsync", vsync)
+	cfg.set_value("graphics", "shadows", shadows)
 	cfg.save(path)
 
 
@@ -79,3 +95,13 @@ static func soldier_damage_scale() -> float:
 
 static func sam_reload_scale() -> float:
 	return SAM_RELOAD[difficulty]
+
+
+## Aplica pantalla completa y sincronización vertical a la ventana (no hace nada sin pantalla).
+static func apply_display() -> void:
+	if DisplayServer.get_name() == "headless":
+		return
+	var mode: DisplayServer.WindowMode = DisplayServer.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED
+	if DisplayServer.window_get_mode() != mode:
+		DisplayServer.window_set_mode(mode)
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)

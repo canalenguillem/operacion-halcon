@@ -45,13 +45,14 @@ Se pierde si el jugador muere, si el caza que pilota se destruye o si no quedan 
 | Coche | W/S acelerar/marcha atrás · A/D girar · Espacio freno · E bajar |
 | Caza en tierra | W acelerar · S frenar · A/D girar · despega solo a 250 km/h (o con S desde 200 km/h) · E bajar (parado) |
 | Caza en vuelo | S/W subir/bajar morro · A/D alabeo · Shift/Ctrl potencia · F bengalas |
-| General | Esc pausa · R reiniciar |
+| General | M mapa · Esc pausa · R reiniciar |
 
 ## Menús
 
 - **Menú principal:** Jugar, Controles, Opciones, Salir. Muestra el mejor tiempo.
-- **Pausa (Esc):** Continuar, Reiniciar misión, Controles, Opciones, Menú principal.
-- **Opciones:** volumen general, volumen de la música, sensibilidad del ratón (×0,3 a ×3) y dificultad. Fácil: los soldados hacen la mitad de daño y las baterías recargan un 60 % más lento. Difícil: 60 % más de daño y recarga un 35 % más rápida.
+- **Pausa (Esc):** Continuar, Mapa, Reiniciar misión, Controles, Opciones, Menú principal.
+- **Mapa (M):** toda la isla con barrios y lugares; clic para marcar un destino y el GPS traza la ruta por las calles.
+- **Opciones:** volumen general, volumen de la música, sensibilidad del ratón (×0,3 a ×3), dificultad, pantalla completa, sincronización vertical y calidad de sombras. Fácil: los soldados hacen la mitad de daño y las baterías recargan un 60 % más lento. Difícil: 60 % más de daño y recarga un 35 % más rápida.
 - **Récord:** al completar la misión se guarda el mejor tiempo.
 
 ## Por decidir (se ajusta jugando)

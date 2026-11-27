@@ -45,6 +45,16 @@ var game_over: bool:
 
 func _ready() -> void:
 	process_physics_priority = 10  # después de los actores, para que la cámara vea posiciones ya actualizadas
+	Settings.load_file()
+	Settings.apply_display()
+	var loading: LoadingScreen = null
+	if show_menu:  # pantalla de carga mientras se construye la isla (los tests la saltan)
+		set_physics_process(false)
+		set_process_unhandled_input(false)
+		loading = LoadingScreen.new()
+		add_child(loading)
+		await get_tree().process_frame
+		await get_tree().process_frame
 	world = World.new()
 	add_child(world)
 	world.build()
@@ -72,13 +82,13 @@ func _ready() -> void:
 	add_child(layer)
 	layer.add_child(hud)
 
-	Settings.load_file()
 	menu = Menu.new()
 	menu.play_pressed.connect(_on_play_pressed)
 	menu.restart_pressed.connect(restart)
 	menu.main_menu_pressed.connect(_on_main_menu_pressed)
 	menu.clicked.connect(sfx.play.bind("click", -6.0))
 	menu.map_pressed.connect(_on_map_pressed)
+	menu.options_changed.connect(world.apply_graphics)
 	var menu_layer := CanvasLayer.new()
 	menu_layer.layer = 10
 	add_child(menu_layer)
@@ -92,10 +102,15 @@ func _ready() -> void:
 	camera.tick(0.0)
 	if show_menu and not skip_menu and not dev_args:
 		hud.visible = false
+		camera.cinematic = true
 		menu.open(Menu.Screen.MAIN)
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	skip_menu = false
+	if loading != null:
+		loading.queue_free()
+		set_physics_process(true)
+		set_process_unhandled_input(true)
 
 
 ## Añade un sistema como hijo y le da la referencia a `Main`.
@@ -184,6 +199,8 @@ func _on_map_closed(to_pause: bool) -> void:
 
 func _on_play_pressed() -> void:
 	hud.visible = true
+	camera.cinematic = false
+	camera.tick(0.0)
 
 
 func _on_main_menu_pressed() -> void:

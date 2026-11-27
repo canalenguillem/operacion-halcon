@@ -23,8 +23,10 @@ Main (Node3D)                    raíz: crea todo, reparte el input y llama a lo
 ├── Soldier × 18 (CharacterBody3D)
 ├── Missile (Node3D)             se crean al disparar una batería
 ├── CameraRig (Camera3D)         orbital a pie y en coche, persecución en el caza, sacudida
-├── CanvasLayer → Hud (Control)  incluye el minimapa (`Hud.MiniMap`)
-└── CanvasLayer (capa 10) → Menu (Control)  menú principal, pausa, controles y opciones
+├── Gps (Node)                   ruta por las calles al objetivo o al destino marcado
+├── CanvasLayer → Hud (Control)  incluye el radar (`Radar`)
+├── CanvasLayer (capa 10) → Menu, MapScreen  menús y mapa a pantalla completa
+└── LoadingScreen (CanvasLayer)  solo mientras se construye la isla
 ```
 - El norte es **-Z** y el frente de todos los actores también. Un giro (yaw) positivo gira a la izquierda.
 - Tipado estático obligatorio: `project.godot` trata `untyped_declaration` como error, así que `./tools/check.sh` falla si falta un tipo.
@@ -61,6 +63,7 @@ Main (Node3D)                    raíz: crea todo, reparte el input y llama a lo
 | `effects` | `Effects` | `tracer`, `explosion(pos, radio)`, `flares` |
 | `air_defense` | `AirDefense` | baterías, `missiles`, `drop_flares`, `nearest_missile()` |
 | `halcon` | `HalconMission` | `objective_pos()`, `objective_text()`, mensajes de fin |
+| `gps` | `Gps` | `route`, `set_waypoint(p)`, `clear_waypoint()`, `destination()` (usa `RoadRouter`) |
 | `game_audio` | `GameAudio` | bucles de sonido |
 | `dev` | `DevTools` | ayudas de desarrollo |
 
@@ -71,9 +74,20 @@ Main (Node3D)                    raíz: crea todo, reparte el input y llama a lo
 - `Main` se ejecuta después de los actores (`process_physics_priority = 10`) para que la cámara vea posiciones ya actualizadas.
 - `Hud` lee el estado de `Main` y sus sistemas cada fotograma.
 
+## Interfaz
+
+- `UiStyle` (`scripts/ui_style.gd`): colores, fuentes propias (variaciones en negrita y cursiva de la fuente de Godot), iconos dibujados por código (estrella, pistola, coche, avión, flecha, lugares) y el tema de los menús. Sin fuentes ni imágenes externas.
+- `Hud` lo dibuja todo en `_draw`: caja de ayuda (consejos y avisos con `flash`), estrellas, arma, tiempo y bajas, salud y vehículo bajo el radar, nombre de la zona y velocímetro (o instrumentos del caza), objetivo como subtítulo, mira dinámica, marca de impacto, indicador de por dónde te disparan (`Combat.hit_from`), aviso de misil y franja de fin de misión (`big`).
+- `Radar` (`scripts/radar.gd`): círculo recortado con `clip_children`; gira con la cámara y se aleja con la velocidad. `MapDraw` (`scripts/map_draw.gd`) pinta la isla con una transformación mundo → pantalla; lo comparten el radar y `MapScreen`.
+- `MapScreen` (`scripts/map_screen.gd`): mapa a pantalla completa (M o desde la pausa; pausa el juego). Arrastrar/WASD mueve, rueda/± acerca, clic marca destino en `Gps`, clic derecho lo quita.
+- `RoadRouter` (`scripts/road_router.gd`, tests en `tests/test_road_router.gd`): A* sobre el grafo de calles con coste por tipo de vía. `Gps` recalcula la ruta cada 0,4 s; en el caza no hay ruta y a pie solo si el destino está a más de 250 m.
+- `LoadingScreen`: un consejo al azar mientras `Main._ready` construye la isla (espera dos fotogramas para que se vea; los tests, con `show_menu = false`, no la usan).
+
 ## Menús y opciones
 
 - `Menu` (`scripts/menu.gd`) tiene `process_mode = ALWAYS` y es quien pone y quita la pausa del árbol: `open(MAIN | PAUSE)` pausa y suelta el ratón; `close()` reanuda y lo captura. Avisa a `Main` con señales (`play_pressed`, `restart_pressed`, `main_menu_pressed`). La pantalla de controles sale de `Menu.CONTROLS` y lee las teclas del InputMap.
+- El menú usa el tema de `UiStyle`: columna a la izquierda sobre un degradado; detrás, `CameraRig.cinematic` sobrevuela la ciudad (su `_process` sigue con el juego en pausa).
+- Opciones gráficas en `Settings` (`fullscreen`, `vsync`, `shadows`): `Settings.apply_display()` las aplica a la ventana y `World.apply_graphics()` a las sombras del sol (al cambiar, `Menu.options_changed`).
 - `Main` abre el menú principal al arrancar, salvo al reiniciar (`Main.skip_menu`, estático), con argumentos de desarrollo o si `show_menu` es false (tests). Esc durante la partida abre la pausa.
 - `Settings` (`scripts/settings.gd`, estático) guarda en `user://settings.cfg` la sensibilidad (`mouse_scale`), la dificultad y el mejor tiempo. La dificultad multiplica el daño de los soldados (`Combat.hurt_target`) y la recarga de las baterías (`AirDefense`).
 
@@ -86,7 +100,7 @@ Main (Node3D)                    raíz: crea todo, reparte el input y llama a lo
 
 ## Input
 
-Acciones en `project.godot`: `forward`, `back`, `left`, `right`, `sprint`, `jump`, `shoot`, `interact`, `flare`, `throttle_up`, `throttle_down`, `restart`. En el caza en tierra, `forward`/`back` son el acelerador; en vuelo, el morro.
+Acciones en `project.godot`: `forward`, `back`, `left`, `right`, `sprint`, `jump`, `shoot`, `interact`, `flare`, `throttle_up`, `throttle_down`, `restart`, `map`. En el caza en tierra, `forward`/`back` son el acelerador; en vuelo, el morro.
 
 ## Capas de física (`Layers`)
 

@@ -40,6 +40,7 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var marker: MeshInstance3D
 var barrier: Node3D
 var barrier_open: bool = false
+var sun: DirectionalLight3D
 
 
 ## ¿Está el punto dentro del recinto de la base?
@@ -76,6 +77,12 @@ func build() -> void:
 	_build_ground()
 	_build_base()
 	_build_dest()
+
+
+## Aplica la calidad de sombras de las opciones.
+func apply_graphics() -> void:
+	sun.shadow_enabled = Settings.shadows > 0
+	sun.directional_shadow_max_distance = Settings.SHADOW_DISTANCE[Settings.shadows]
 
 
 func open_barrier() -> void:
@@ -115,12 +122,11 @@ func _build_sky() -> void:
 	var we := WorldEnvironment.new()
 	we.environment = env
 	add_child(we)
-	var sun := DirectionalLight3D.new()
+	sun = DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-48, -35, 0)
-	sun.shadow_enabled = true
-	sun.directional_shadow_max_distance = 300.0
 	sun.light_energy = 1.2
 	add_child(sun)
+	apply_graphics()
 
 
 func _build_ground() -> void:

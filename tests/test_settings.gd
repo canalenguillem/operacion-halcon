@@ -31,9 +31,15 @@ func test_guardar_y_cargar_conserva_las_opciones() -> void:
 	Settings.best_time = 123.0
 	Settings.volume = 0.25
 	Settings.music_volume = 0.0
+	Settings.fullscreen = true
+	Settings.vsync = false
+	Settings.shadows = 0
 	Settings.save_file()
 	Settings.reset()
 	Settings.load_file()
+	assert_true(Settings.fullscreen)
+	assert_false(Settings.vsync)
+	assert_eq(Settings.shadows, 0)
 	assert_eq(Settings.volume, 0.25)
 	assert_eq(Settings.music_volume, 0.0)
 	assert_eq(Settings.mouse_scale, 2.0)
@@ -45,8 +51,10 @@ func test_cargar_corrige_valores_fuera_de_rango() -> void:
 	Settings.mouse_scale = 99.0
 	Settings.difficulty = 7
 	Settings.best_time = -5.0
+	Settings.shadows = 9
 	Settings.save_file()
 	Settings.load_file()
+	assert_eq(Settings.shadows, 2)
 	assert_eq(Settings.mouse_scale, Settings.SENSITIVITY_MAX)
 	assert_eq(Settings.difficulty, 2)
 	assert_eq(Settings.best_time, 0.0)
