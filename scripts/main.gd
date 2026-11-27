@@ -5,7 +5,7 @@ extends Node3D
 ##
 ## Cada sistema es un nodo hijo con una referencia a `Main` (ver docs/ARCHITECTURE.md):
 ## `camera` (CameraRig), `driving` (Driving), `combat` (Combat), `effects` (Effects),
-## `air_defense` (AirDefense), `halcon` (HalconMission), `game_audio` (GameAudio), `dev` (DevTools).
+## `air_defense` (AirDefense), `halcon` (HalconMission), `gps` (Gps), `game_audio` (GameAudio), `dev` (DevTools).
 
 var mission: MissionState = MissionState.new()
 var world: World
@@ -16,6 +16,7 @@ var combat: Combat
 var effects: Effects
 var air_defense: AirDefense
 var halcon: HalconMission
+var gps: Gps
 var game_audio: GameAudio
 var dev: DevTools
 var hud: Hud
@@ -56,6 +57,7 @@ func _ready() -> void:
 	air_defense.setup()
 	halcon = _system(HalconMission.new()) as HalconMission
 	halcon.setup()
+	gps = _system(Gps.new()) as Gps
 	game_audio = _system(GameAudio.new()) as GameAudio
 	dev = _system(DevTools.new()) as DevTools
 	_spawn_actors()
@@ -130,6 +132,7 @@ func _physics_process(dt: float) -> void:
 	if not game_over:
 		air_defense.tick(dt)
 	halcon.tick()
+	gps.tick(dt)
 	camera.tick(dt)
 	game_audio.tick()
 	dev.tick()

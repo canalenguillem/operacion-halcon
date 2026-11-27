@@ -9,16 +9,25 @@ var hit_t: float = 0.0
 var hit_kill: bool = false
 ## Segundos que queda visible el fogonazo rojo de daño.
 var hurt_t: float = 0.0
+## De dónde vino el último disparo que te ha dado, y cuánto queda visible su indicador.
+var hit_from: Vector3 = Vector3.ZERO
+var hit_from_t: float = 0.0
+## Tiempo desde el último disparo del jugador (abre la mira).
+var shot_t: float = 9.0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func tick(dt: float) -> void:
 	hit_t -= dt
 	hurt_t -= dt
+	hit_from_t -= dt
+	shot_t += dt
 
 
-## Un soldado ha acertado a lo que conduces (o a ti).
-func hurt_target(d: SoldierData) -> void:
+## Un soldado (en `from`) ha acertado a lo que conduces (o a ti).
+func hurt_target(d: SoldierData, from: Vector3) -> void:
+	hit_from = from
+	hit_from_t = 1.6
 	var k: float = Settings.soldier_damage_scale()
 	var vehicle: Vehicle = main.vehicle
 	if vehicle == null:
@@ -82,6 +91,7 @@ func player_shoot() -> void:
 			veh.hurt(player.data.damage)
 	main.effects.tracer(player.global_position + Vector3(0, 1.35, 0), end, Color(1, 0.9, 0.4))
 	main.sfx.play("pistol", -6.0, rng.randf_range(0.94, 1.06))
+	shot_t = 0.0
 	for s: Soldier in main.soldiers:
 		if not s.dead and not s.alert and s.global_position.distance_to(player.global_position) < player.data.noise_radius:
 			s.alert = true

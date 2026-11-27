@@ -28,6 +28,7 @@ const CONTROLS: Array[Array] = [
 	["Caza en vuelo", "left right", "Girar"],
 	["Caza en vuelo", "throttle_up throttle_down", "Más y menos potencia"],
 	["Caza en vuelo", "flare", "Bengalas contra los misiles"],
+	["General", "map", "Mapa de la isla"],
 	["General", "=Esc", "Pausa"],
 	["General", "restart", "Reiniciar la misión"],
 ]

@@ -71,7 +71,7 @@ func _fire(target: Node3D, tp: Vector3, dist: float) -> void:
 	if not hit.is_empty() and hit.collider != target and not hit.collider is Soldier:
 		return  # sin línea de visión
 	if randf() < SoldierLogic.hit_chance(dist, data):
-		main.combat.hurt_target(data)
+		main.combat.hurt_target(data, global_position)
 	else:
 		aim += Vector3(randf_range(-2, 2), randf_range(0, 2), randf_range(-2, 2))
 	main.effects.tracer(from, aim, Color(1, 0.4, 0.3))
