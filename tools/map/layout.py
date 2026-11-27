@@ -450,7 +450,7 @@ POIS = [
     ("centro_comercial", "Centro comercial", (880, 420)),
     ("mirador", "Mirador y mansiones", HILL_CENTER),
     ("golf", "Club de golf", (-1200, 330)),
-    ("puerto_deportivo", "Puerto deportivo (yates)", (-1165, 1160)),
+    ("puerto_deportivo", "Puerto deportivo (yates)", (-1165, 1085)),
     ("motel", "Motel", (-760, 640)),
     ("moteros", "Bar de moteros", (-920, 960)),
     ("mercado", "Mercado", (-30, 580)),

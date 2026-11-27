@@ -41,13 +41,13 @@ godot --path . -- --shot=/ruta/captura.png              # se combina con los ant
 project.godot
 main.tscn          # un Node3D con scripts/main.gd; todo lo demás se crea por código
 scripts/           # main (raíz) y sistemas: camera_rig, driving, combat, effects, air_defense, halcon_mission, game_audio, dev_tools
-                   # world, hud, menu, settings, sfx, camera_logic, build, humanoid, layers, mission_state, vehicle
+                   # world, city_map (datos de la isla), city_builder (la isla en 3D), hud, menu, settings, sfx, camera_logic, build, humanoid, layers, mission_state, vehicle
                    # y por actor: <actor>.gd, <actor>_logic.gd, <actor>_data.gd (player, car, jet, soldier, missile)
-data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres
+data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres; map/city.json (generado)
 assets/audio/      # sfx/*.ogg, music/mission.ogg
 tests/             # test_*.gd (GUT)
 docs/
-tools/             # check.sh, load_all.gd, export.sh
+tools/             # check.sh, load_all.gd, export.sh; map/layout.py (genera el mapa: python tools/map/layout.py)
 web/               # web de descargas: site/, counter/ (contador), nginx.conf, docker-compose.yml, deploy.sh
 ```
 

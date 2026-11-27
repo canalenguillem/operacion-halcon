@@ -16,11 +16,34 @@ var flash_t: float = 0.0
 
 class MiniMap extends Control:
 	var main: Main
+	var map: CityMap = CityMap.get_default()
+
+	## Isla, río y calles alrededor de `me` (coordenadas x, z del mundo).
+	func _draw_map(me: Vector2, c: Vector2, k: float, reach: float) -> void:
+		var to_px: Callable = func(p: Vector2) -> Vector2: return c + (p - me) * k
+		var land := PackedVector2Array()
+		for p: Vector2 in map.island:
+			land.append(to_px.call(p))
+		draw_colored_polygon(land, Color(0.26, 0.32, 0.22, 0.9))
+		var river := PackedVector2Array()
+		for p: Vector2 in map.river_line:
+			river.append(to_px.call(p))
+		draw_polyline(river, Color(0.12, 0.25, 0.35), maxf(2.0, map.river_width * k))
+		var limit: float = reach * 1.5
+		for i: int in map.road_count():
+			var a: Vector2 = map.road_start(i)
+			var b: Vector2 = map.road_end(i)
+			if absf(a.x - me.x) > limit and absf(b.x - me.x) > limit or absf(a.y - me.y) > limit and absf(b.y - me.y) > limit:
+				continue
+			var col := Color(0.85, 0.85, 0.8, 0.85)
+			if map.road_type[i] == "autovia":
+				col = Color(0.95, 0.65, 0.25, 0.9)
+			draw_line(to_px.call(a), to_px.call(b), col, maxf(1.5, map.width(i) * k))
 
 	func _draw() -> void:
 		var s: Vector2 = size
 		var c: Vector2 = s / 2.0
-		draw_rect(Rect2(Vector2.ZERO, s), Color(0, 0, 0, 0.55))
+		draw_rect(Rect2(Vector2.ZERO, s), Color(0.12, 0.25, 0.35, 0.8))  # mar
 		var me: Vector3 = main.target_pos()
 		var reach: float = 160.0
 		if main.vehicle != null:
@@ -28,13 +51,11 @@ class MiniMap extends Control:
 		var k: float = c.x / reach
 		var f: Callable = func(p: Vector3) -> Vector2: return c + Vector2(p.x - me.x, p.z - me.z) * k
 
+		_draw_map(Vector2(me.x, me.z), c, k, reach)
 		var a: Vector2 = f.call(Vector3(World.BASE_MIN.x, 0, World.BASE_MIN.y))
 		var b: Vector2 = f.call(Vector3(World.BASE_MAX.x, 0, World.BASE_MAX.y))
 		draw_rect(Rect2(a, b - a), Color(1, 0.3, 0.3, 0.22))
 		draw_rect(Rect2(a, b - a), Color(1, 0.3, 0.3, 0.8), false, 1.5)
-		var road_a: Vector2 = f.call(Vector3(0, 0, 340))
-		var road_b: Vector2 = f.call(World.GATE)
-		draw_line(road_a, road_b, Color(0.6, 0.6, 0.6, 0.8), maxf(2.0, 14.0 * k))
 
 		for v: Vehicle in main.vehicles():
 			if not v.dead and v != main.vehicle:

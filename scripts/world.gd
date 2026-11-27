@@ -1,6 +1,7 @@
 class_name World
 extends Node3D
-## El escenario, generado con primitivas: suelo, árboles, colinas, ciudad, base aérea y aeródromo.
+## El escenario: la isla y su ciudad (datos de `CityMap`, construidas por `CityBuilder`),
+## árboles, nubes, base aérea, baterías y el islote del aeródromo clandestino.
 ## El norte es -Z. Medidas en metros.
 
 const BASE_MIN: Vector2 = Vector2(-350, -1300)  # x, z
@@ -11,10 +12,12 @@ const DEST: Vector3 = Vector3(6000, 0, 5000)
 const BASE_SAMS: Array[Vector3] = [Vector3(-300, 0, -760), Vector3(300, 0, -1270), Vector3(-300, 0, -1270)]
 const ROUTE_SAMS: Array[Vector3] = [Vector3(2300, 0, 900), Vector3(3700, 0, 3100)]
 
-const PLAYER_START: Vector3 = Vector3(0, 0.2, 262)
+## El jugador empieza en el aeropuerto civil (ver `player_start` en data/map/city.json).
+const PLAYER_START: Vector3 = Vector3(2100, 0.2, 470)
+## Coches aparcados en el aparcamiento del aeropuerto.
 const CAR_SPOTS: Array[Vector3] = [
-	Vector3(4.5, 0.1, 245), Vector3(-4.5, 0.1, 200), Vector3(4.5, 0.1, 130),
-	Vector3(-4.5, 0.1, 30), Vector3(4.5, 0.1, -400),
+	Vector3(1950, 0.1, 540), Vector3(2010, 0.1, 540), Vector3(2130, 0.1, 540),
+	Vector3(2190, 0.1, 540), Vector3(2250, 0.1, 540),
 ]
 const CAR_COLORS: Array[Color] = [
 	Color(0.8, 0.12, 0.1), Color(0.1, 0.35, 0.8), Color(0.9, 0.75, 0.1),
@@ -29,6 +32,7 @@ const SOLDIER_POSTS: Array[Vector2] = [
 	Vector2(-50, -1040), Vector2(-72, -1085), Vector2(0, -1170), Vector2(-150, -1170),
 ]
 
+var map: CityMap = CityMap.get_default()
 var sam_positions: Array[Vector3] = []
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var marker: MeshInstance3D
@@ -46,22 +50,27 @@ static func dest_distance(p: Vector3) -> float:
 	return Vector2(p.x - DEST.x, p.z - DEST.z).length()
 
 
-## ¿Se puede plantar un árbol aquí? (fuera de la base, la ciudad, la carretera y el aeródromo)
+## ¿Se puede plantar un árbol aquí? (en tierra, en el campo o en zonas verdes, lejos de calles y recintos)
 static func clear_spot(x: float, z: float) -> bool:
-	if x > BASE_MIN.x - 60 and x < BASE_MAX.x + 60 and z > BASE_MIN.y - 60 and z < BASE_MAX.y + 60:
+	var m: CityMap = CityMap.get_default()
+	var p := Vector2(x, z)
+	if not m.on_land(p) or in_base(Vector3(x, 0, z)):
 		return false
-	if absf(x) < 220 and z > -240 and z < 340:
+	var dist_id: String = m.district_at(p)
+	if dist_id != "" and dist_id != "colinas":
 		return false
-	if absf(x) < 22 and z > -720 and z < 360:
+	for id: String in ["parque", "cementerio", "golf"]:
+		if Geometry2D.is_point_in_polygon(p, m.zones[id] as PackedVector2Array):
+			return id != "golf" or fmod(absf(x * 0.13 + z * 0.07), 1.0) < 0.15  # en el golf, pocos
+	if m.in_zone(p):
 		return false
-	return dest_distance(Vector3(x, 0, z)) >= 320
+	return m.road_clearance(p) > 7.0 and dest_distance(Vector3(x, 0, z)) >= 320
 
 
 func build() -> void:
 	rng.seed = 7
 	_build_sky()
 	_build_ground()
-	_build_city()
 	_build_base()
 	_build_dest()
 
@@ -112,10 +121,6 @@ func _build_sky() -> void:
 
 
 func _build_ground() -> void:
-	var body := StaticBody3D.new()
-	Build.collider(body, WorldBoundaryShape3D.new())
-	add_child(body)
-
 	var noise := FastNoiseLite.new()
 	noise.frequency = 0.015
 	var grad := Gradient.new()
@@ -129,20 +134,16 @@ func _build_ground() -> void:
 	tex.color_ramp = grad
 	var gm := StandardMaterial3D.new()
 	gm.albedo_texture = tex
-	gm.uv1_scale = Vector3(300, 300, 1)
 	gm.roughness = 1.0
-	var pm := PlaneMesh.new()
-	pm.size = Vector2(60000, 60000)
-	var mi := MeshInstance3D.new()
-	mi.mesh = pm
-	mi.material_override = gm
-	add_child(mi)
+	CityBuilder.new(map, self).build(gm)
 
 	# árboles (solo visuales)
 	var spots: Array[Transform3D] = []
-	while spots.size() < 3500:
-		var x: float = rng.randf_range(-4500, 7500)
-		var z: float = rng.randf_range(-3000, 6500)
+	var tries: int = 0
+	while spots.size() < 4000 and tries < 60000:
+		tries += 1
+		var x: float = rng.randf_range(-2300, 3500)
+		var z: float = rng.randf_range(-1800, 1300)
 		if clear_spot(x, z):
 			var s: float = rng.randf_range(0.8, 1.8)
 			spots.append(Transform3D(Basis().scaled(Vector3(s, s, s)), Vector3(x, 0, z)))
@@ -169,32 +170,6 @@ func _build_ground() -> void:
 	_scatter(crown, 5.5, spots.slice(0, half))
 	_scatter(round_crown, 4.6, spots.slice(half))
 	_build_clouds()
-
-	# colinas (sólidas: no vueles contra ellas)
-	var made: int = 0
-	while made < 16:
-		var x: float = rng.randf_range(-5000, 8000)
-		var z: float = rng.randf_range(-4000, 7000)
-		var r: float = rng.randf_range(300, 700)
-		var p := Vector2(x, z)
-		var ok: bool = p.distance_to(Vector2(0, -1000)) > 1300 + r and p.distance_to(Vector2(0, 50)) > 600 + r
-		ok = ok and p.distance_to(Vector2(DEST.x, DEST.z)) > 900 + r and absf(x) > r + 40
-		for s: Vector3 in ROUTE_SAMS:
-			ok = ok and p.distance_to(Vector2(s.x, s.z)) > r + 150
-		if not ok:
-			continue
-		made += 1
-		var h: float = rng.randf_range(150, 450)
-		var cm := CylinderMesh.new()
-		cm.top_radius = r * 0.12
-		cm.bottom_radius = r
-		cm.height = h
-		cm.radial_segments = 10
-		cm.rings = 1
-		var hill: MeshInstance3D = Build.mesh(self, cm, Vector3(x, h / 2.0 - 4.0, z), Color(0.36, 0.4, 0.26))
-		var sb := StaticBody3D.new()
-		Build.collider(sb, cm.create_convex_shape())
-		hill.add_child(sb)
 
 
 func _scatter(m: Mesh, height: float, spots: Array[Transform3D]) -> void:
@@ -236,56 +211,6 @@ func _build_clouds() -> void:
 	mmi.multimesh = mm
 	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(mmi)
-
-
-func _build_city() -> void:
-	var road := Color(0.16, 0.16, 0.18)
-	Build.box(self, Vector3(14, 0.1, 1040), Vector3(0, 0.04, -180), road)
-	for i: int in 52:
-		Build.box(self, Vector3(0.3, 0.1, 6), Vector3(0, 0.06, 330 - i * 20), Color(0.9, 0.85, 0.5))
-	for z: int in range(-210, 300, 60):
-		Build.box(self, Vector3(420, 0.1, 10), Vector3(0, 0.02, z), road)
-	for x: int in [-160, -100, -40, 40, 100, 160]:
-		for z: int in range(-180, 300, 60):
-			if rng.randf() < 0.12:
-				continue
-			var w: float = rng.randf_range(22, 40)
-			var d: float = rng.randf_range(22, 40)
-			var h: float = rng.randf_range(8, 45)
-			var c: Color = Color.from_hsv(rng.randf_range(0.02, 0.14), rng.randf_range(0.1, 0.35), rng.randf_range(0.55, 0.9))
-			_build_building(Vector3(x, 0, z), Vector3(w, h, d), c)
-	# carretera: líneas de borde y farolas
-	for sx: float in [-1.0, 1.0]:
-		Build.box(self, Vector3(0.2, 0.1, 1040), Vector3(sx * 6.5, 0.06, -180), Color(0.85, 0.85, 0.85))
-		for i: int in 26:
-			_build_lamp(Vector3(sx * 8.5, 0, 320 - i * 40), sx)
-
-
-func _build_building(at: Vector3, size: Vector3, c: Color) -> void:
-	var w: float = size.x
-	var h: float = size.y
-	var d: float = size.z
-	Build.box(self, Vector3(w + 7, 0.3, d + 7), at + Vector3(0, 0.05, 0), Color(0.62, 0.62, 0.6))
-	var wall: MeshInstance3D = Build.box(self, size, at + Vector3(0, h / 2.0, 0), c, true)
-	wall.material_override = Build.windows_mat(c)
-	Build.box(self, Vector3(w - 1.5, 3.4, d + 0.1), at + Vector3(0, 1.7, 0), c.darkened(0.45))
-	Build.box(self, Vector3(w + 0.1, 3.4, d - 1.5), at + Vector3(0, 1.7, 0), c.darkened(0.45))
-	var roof: Color = c.darkened(0.3)
-	Build.box(self, Vector3(w + 0.8, 0.8, d + 0.8), at + Vector3(0, h + 0.3, 0), roof)
-	for i: int in rng.randi_range(1, 3):
-		var p := at + Vector3(rng.randf_range(-w, w) * 0.3, h + 1.6, rng.randf_range(-d, d) * 0.3)
-		if rng.randf() < 0.35:
-			Build.cyl(self, 1.6, 3.2, p + Vector3(0, 0.8, 0), Color(0.5, 0.4, 0.3))
-		else:
-			Build.box(self, Vector3(rng.randf_range(2, 5), 2.0, rng.randf_range(2, 5)), p, Color(0.55, 0.56, 0.58))
-
-
-## Farola al borde de la carretera; `side` (-1 o 1) es el lado en el que está.
-func _build_lamp(at: Vector3, side: float) -> void:
-	var metal := Color(0.25, 0.26, 0.28)
-	Build.cyl(self, 0.12, 7.0, at + Vector3(0, 3.5, 0), metal)
-	Build.box(self, Vector3(2.2, 0.12, 0.12), at + Vector3(-side * 1.0, 7.0, 0), metal)
-	Build.box(self, Vector3(0.7, 0.14, 0.3), at + Vector3(-side * 1.9, 6.9, 0), Color(1.0, 0.92, 0.7)).material_override = Build.mat(Color(1.0, 0.92, 0.7), 1.5)
 
 
 func _build_sam(pos: Vector3) -> void:

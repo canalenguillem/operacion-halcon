@@ -8,7 +8,7 @@ Describe el juego tal como está; los cambios previstos están en `docs/ROADMAP.
 
 ```
 Main (Node3D)                    raíz: crea todo, reparte el input y llama a los sistemas en orden
-├── World (Node3D)               cielo, suelo, árboles, colinas, ciudad, base, aeródromo, haz del objetivo
+├── World (Node3D)               cielo, isla y ciudad (CityBuilder), árboles, base, aeródromo, haz del objetivo
 ├── Sfx (Node)                   efectos, bucles y música
 ├── Effects (Node3D)             trazadoras, explosiones, bengalas
 ├── Driving (Node)               subir y bajar de vehículos; `vehicle` es el que conduces
@@ -101,18 +101,26 @@ Por ahora todos colisionan con todos (`Layers.ALL`). Los rayos (disparos, línea
 
 ## Mundo (metros)
 
+El mapa es una **isla** descrita como datos en `data/map/city.json`, que genera `tools/map/layout.py` (Python; también dibuja `docs/map/plano.png` y `docs/map/plano_ciudad.png`). No se edita a mano: se cambia el script y se vuelve a generar.
+
+- `CityMap` (`scripts/city_map.gd`, con tests en `tests/test_city_map.gd`): carga el JSON una vez (`CityMap.get_default()`) y responde consultas: `on_land`, `district_at`, `in_zone`, `road_clearance` (con índice espacial), `poi(id)`, `river_polygon()`. Las calles son un grafo: `nodes` (cruces) y `road_a`/`road_b`/`road_type`/`road_bridge`.
+- `CityBuilder` (`scripts/city_builder.gd`): construye la isla en 3D. Suelo (isla menos el río, espigones e islotes) con acantilado bajo y una colisión cóncava; agua a y = -1 y fondo a y = -2,2. Todo lo plano (suelo de barrios, aceras, calzadas, cruces, pasos de cebra, marcas, pista del aeropuerto) va en **una sola malla** con colores por vértice. Los puentes son cajas con colisión y barandillas.
+- `World` añade cielo, árboles (`clear_spot`), nubes, base aérea, baterías y el islote del aeródromo.
+- El minimapa (`Hud.MiniMap`) pinta la isla, el río y las calles de `CityMap`.
+
 | Qué | Dónde |
 |---|---|
-| Ciudad y salida del jugador | x ±200, z de -240 a 340; jugador en (0, 262) |
-| Carretera principal | x = 0, de z = 340 a z = -700 |
-| Base aérea | x de -350 a 350, z de -1300 a -700; puerta en (0, -700) |
-| Pista | z = -1200, de x = -330 a 330; cazas en (160, -1130) y (250, -1130) mirando al norte |
-| Baterías | 3 en la base, 2 en la ruta (`World.BASE_SAMS`, `World.ROUTE_SAMS`) |
-| Aeródromo de destino | (6000, 5000) |
+| Isla | x de -2300 a 3500, z de -1700 a 1160 (costa sur fija: playa y puerto) |
+| Casco viejo (centro) | círculo de 300 m alrededor de (-30, 380) |
+| Salida del jugador | aeropuerto civil, (2100, 470); coches en el aparcamiento |
+| Base aérea | x de -350 a 350, z de -1300 a -700; puerta en (0, -700), unida a la Gran Vía |
+| Pista de la base | z = -1200, de x = -330 a 330; cazas en (160, -1130) y (250, -1130) mirando al norte |
+| Baterías | 3 en la base, 2 en la ruta (una en la isla, otra en un islote) |
+| Aeródromo de destino | islote en (6000, 5000) |
 
 ## Tests
 
-- Lógica pura: un `tests/test_*_logic.gd` por clase, más `test_mission_state.gd`, `test_world.gd` y `test_humanoid.gd`.
+- Lógica pura: un `tests/test_*_logic.gd` por clase, más `test_mission_state.gd`, `test_world.gd`, `test_city_map.gd` y `test_humanoid.gd`.
 - Integración: `tests/test_shooting.gd` carga `main.tscn` (con `show_menu = false`) y dispara de verdad a los soldados.
 - `./tools/check.sh` además arranca el menú, la misión y la pausa, y comprueba que el caza despega solo con W.
 
