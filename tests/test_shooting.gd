@@ -29,22 +29,22 @@ func _nearest_soldier() -> Soldier:
 ## Apunta la cámara al pecho del soldado desplazado `offset` metros y dispara.
 func _aim_and_shoot(s: Soldier, offset: Vector3) -> void:
 	for i: int in 6:
-		var d: Vector3 = (s.global_position + Vector3(0, 1.0, 0) + offset - main.cam.global_position).normalized()
-		main.cam_yaw = PlayerLogic.facing_yaw(d)
-		main.cam_pitch = asin(d.y)
+		var d: Vector3 = (s.global_position + Vector3(0, 1.0, 0) + offset - main.camera.global_position).normalized()
+		main.camera.yaw = PlayerLogic.facing_yaw(d)
+		main.camera.pitch = asin(d.y)
 		await get_tree().physics_frame
-	main.player_shoot()
+	main.combat.player_shoot()
 
 
 func test_dos_disparos_bien_apuntados_abaten_a_un_soldado() -> void:
 	var s: Soldier = _nearest_soldier()
 	await _aim_and_shoot(s, Vector3.ZERO)
 	assert_false(s.dead, "un disparo no basta")
-	assert_gt(main.hit_t, 0.0, "debe verse la marca de impacto")
+	assert_gt(main.combat.hit_t, 0.0, "debe verse la marca de impacto")
 	await _aim_and_shoot(s, Vector3.ZERO)
 	assert_true(s.dead)
-	assert_eq(main.kills, 1)
-	assert_true(main.hit_kill)
+	assert_eq(main.combat.kills, 1)
+	assert_true(main.combat.hit_kill)
 
 
 func test_la_ayuda_de_punteria_corrige_un_tiro_que_pasa_rozando() -> void:
@@ -63,7 +63,7 @@ func test_un_tiro_muy_desviado_no_da() -> void:
 
 
 func test_disparar_en_la_base_dispara_la_alarma() -> void:
-	main.player_shoot()
+	main.combat.player_shoot()
 	assert_true(main.mission.base_alert)
 
 
@@ -73,12 +73,12 @@ func test_los_bucles_de_sonido_siguen_al_juego() -> void:
 	assert_false(main.sfx.loop_playing("jet_engine"))
 	assert_true(main.mission.base_alert, "el jugador empieza el test dentro de la base")
 	assert_true(main.sfx.loop_playing("alarm"), "con la alarma y cerca de la base, suena la sirena")
-	main._enter_vehicle(main.jets[0])
+	main.driving.enter(main.jets[0])
 	await _frames(2)
 	assert_true(main.sfx.loop_playing("jet_engine"))
 	assert_false(main.sfx.loop_playing("missile_warning"))
 
 
 func test_una_explosion_cercana_sacude_la_camara() -> void:
-	main.explosion(main.cam.global_position + Vector3(0, 0, -8), 7.0)
-	assert_gt(main.shake, 0.3)
+	main.effects.explosion(main.camera.global_position + Vector3(0, 0, -8), 7.0)
+	assert_gt(main.camera.shake, 0.3)

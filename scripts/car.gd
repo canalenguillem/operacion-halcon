@@ -70,6 +70,6 @@ func hurt(d: float) -> void:
 		for c: Node in model.get_children():
 			if c is MeshInstance3D:
 				(c as MeshInstance3D).material_override = Build.mat(Color(0.08, 0.07, 0.06))
-		main.explosion(global_position + Vector3.UP, 7.0)
+		main.effects.explosion(global_position + Vector3.UP, 7.0)
 		if driver:
-			main.eject(data.eject_damage)
+			main.driving.eject(data.eject_damage)

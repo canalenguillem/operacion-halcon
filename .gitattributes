@@ -1,0 +1,8 @@
+# El proyecto usa saltos de línea LF (Godot los escribe así también en Windows)
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ogg binary
+*.ttf binary
+*.glb binary
+*.blend binary

@@ -38,7 +38,7 @@ func _physics_process(dt: float) -> void:
 	last_hurt += dt
 	health = PlayerLogic.regen(health, last_hurt, dt, data)
 
-	var yaw: float = main.cam_yaw
+	var yaw: float = main.camera.yaw
 	var dir: Vector3 = PlayerLogic.move_dir(Input.get_vector("left", "right", "forward", "back"), yaw)
 	var sp: float = PlayerLogic.target_speed(Input.is_action_pressed("sprint"), data)
 	velocity.x = move_toward(velocity.x, dir.x * sp, data.acceleration * dt)
@@ -58,7 +58,7 @@ func _physics_process(dt: float) -> void:
 		model.rotation.y = lerp_angle(model.rotation.y, yaw, 20.0 * dt)
 		if shoot_cd <= 0.0:
 			shoot_cd = data.fire_interval
-			main.player_shoot()
+			main.combat.player_shoot()
 	elif dir.length() > 0.1:
 		model.rotation.y = lerp_angle(model.rotation.y, PlayerLogic.facing_yaw(dir), data.turn_speed * dt)
 
@@ -68,7 +68,7 @@ func hurt(d: float) -> void:
 		return
 	health -= d
 	last_hurt = 0.0
-	main.on_player_hurt()
+	main.combat.on_player_hurt()
 	if health <= 0.0:
 		health = 0.0
 		dead = true

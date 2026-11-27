@@ -29,6 +29,7 @@ class CounterTest(unittest.TestCase):
     def tearDown(self) -> None:
         self.server.shutdown()
         self.server.server_close()
+        self.counter.close()
         self.tmp.cleanup()
 
     def get(self, path: str, headers: dict | None = None):
@@ -59,6 +60,7 @@ class CounterTest(unittest.TestCase):
         self.counter.add("windows", "v1")
         again = counter.Counter(os.path.join(self.tmp.name, "c.sqlite3"))
         self.assertEqual(again.totals()["windows"], 1)
+        again.close()
 
 
 if __name__ == "__main__":

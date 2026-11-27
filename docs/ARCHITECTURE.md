@@ -7,19 +7,25 @@ Describe el juego tal como está; los cambios previstos están en `docs/ROADMAP.
 `main.tscn` es un único `Node3D` con `scripts/main.gd` (`Main`). Todo lo demás se crea por código:
 
 ```
-Main (Node3D)                    une mundo, actores, misión, cámara y efectos
+Main (Node3D)                    raíz: crea todo, reparte el input y llama a los sistemas en orden
 ├── World (Node3D)               cielo, suelo, árboles, colinas, ciudad, base, aeródromo, haz del objetivo
 ├── Sfx (Node)                   efectos, bucles y música
+├── Effects (Node3D)             trazadoras, explosiones, bengalas
+├── Driving (Node)               subir y bajar de vehículos; `vehicle` es el que conduces
+├── Combat (Node)                disparo del jugador, daño recibido, bajas y marcas del HUD
+├── AirDefense (Node)            baterías antiaéreas y misiles en vuelo
+├── HalconMission (Node)         la misión: objetivo, haz de luz y mensajes de `MissionState`
+├── GameAudio (Node)             bucles según el juego (motores, alarma, aviso de misil)
+├── DevTools (Node)              argumentos de desarrollo (--play, --at, --shot…)
 ├── Player (CharacterBody3D)
 ├── Car × 5 (Vehicle)
 ├── Jet × 2 (Vehicle)
 ├── Soldier × 18 (CharacterBody3D)
 ├── Missile (Node3D)             se crean al disparar una batería
-├── Camera3D
+├── CameraRig (Camera3D)         orbital a pie y en coche, persecución en el caza, sacudida
 ├── CanvasLayer → Hud (Control)  incluye el minimapa (`Hud.MiniMap`)
 └── CanvasLayer (capa 10) → Menu (Control)  menú principal, pausa, controles y opciones
 ```
-
 - El norte es **-Z** y el frente de todos los actores también. Un giro (yaw) positivo gira a la izquierda.
 - Tipado estático obligatorio: `project.godot` trata `untyped_declaration` como error, así que `./tools/check.sh` falla si falta un tipo.
 
@@ -31,8 +37,8 @@ Main (Node3D)                    une mundo, actores, misión, cámara y efectos
 | Coche | `Car` (hereda de `Vehicle`) | `CarLogic` | `CarData` → `data/car.tres` |
 | Caza | `Jet` (hereda de `Vehicle`) | `JetLogic` | `JetData` → `data/jet.tres` |
 | Soldado | `Soldier` | `SoldierLogic` | `SoldierData` → `data/soldier.tres` |
-| Misil y baterías | `Missile` (y `Main._update_sams`) | `MissileLogic` | `MissileData` → `data/missile.tres` |
-| Misión | `Main` | `MissionState` | constantes en `MissionState` |
+| Misil y baterías | `Missile` (y `AirDefense`) | `MissileLogic` | `MissileData` → `data/missile.tres` |
+| Misión | `HalconMission` | `MissionState` | constantes en `MissionState` |
 | Mundo | `World` | funciones estáticas de `World` (`in_base`, `dest_distance`, `clear_spot`) | constantes en `World` |
 
 - `Vehicle` (`scripts/vehicle.gd`) es la base de coche y caza: `is_jet`, `driver`, `dead`, `hp`, `speed`, `enter_range`, `can_exit()`, `hurt()`, `controlled()` y `resolve_bumps()` (atropellos y choques).
@@ -41,27 +47,42 @@ Main (Node3D)                    une mundo, actores, misión, cámara y efectos
 
 ## Misión
 
-`MissionState` (`RefCounted`) lleva la fase (`Stage`: `GET_CAR → GO_BASE → GET_JET → ESCAPE → WON`), las estrellas (`wanted`), la alarma (`base_alert`) y el final (`over`). `Main` le llama `step(...)` cada fotograma de física con hechos ya calculados (¿vas en vehículo?, ¿en caza?, ¿dentro de la base?, cazas que quedan, distancia al aeródromo) y escucha sus señales (`alert_raised`, `jet_stolen`, `failed(reason)`, `completed`) para mostrar los mensajes. Los actores avisan con `main.mission.raise_alert()` y `main.mission.fail(...)`.
+`MissionState` (`RefCounted`, en `Main.mission`) lleva la fase (`Stage`: `GET_CAR → GO_BASE → GET_JET → ESCAPE → WON`), las estrellas (`wanted`), la alarma (`base_alert`) y el final (`over`). `HalconMission` le llama `step(...)` cada fotograma de física con hechos ya calculados (¿vas en vehículo?, ¿en caza?, ¿dentro de la base?, cazas que quedan, distancia al aeródromo) y escucha sus señales (`alert_raised`, `jet_stolen`, `failed(reason)`, `completed`) para mostrar los mensajes. Los actores avisan con `main.mission.raise_alert()` y `main.mission.fail(...)`.
 
-## Quién llama a quién
+## Sistemas y quién llama a quién
 
-- **Señales hacia arriba:** `MissionState` → `Main` → `Hud`.
-- **Llamadas hacia abajo:** `Main` crea los actores y les pasa `main`. Los actores piden a `Main` efectos y consultas (`explosion`, `tracer`, `drop_flares`, `target_node`, `hurt_target`, `eject`). Es un acoplamiento aceptado mientras haya una sola escena.
-- `Main` se ejecuta después de los actores (`process_physics_priority = 10`) para que la cámara vea posiciones ya actualizadas. La cámara es orbital a pie y en coche, y de persecución en el caza.
-- `Hud` lee el estado de `Main` cada fotograma.
+`Main` es la raíz de composición: crea el mundo, los sistemas y los actores y no tiene lógica de juego propia. Cada sistema es un nodo hijo con una referencia `main` y un método `tick(...)` que `Main._physics_process` llama en este orden: `combat` → `driving` → `air_defense` (si la partida sigue) → `halcon` → `camera` → `game_audio` → `dev`. Los sistemas no tienen `_physics_process` propio, así el orden es explícito.
+
+| Campo en `Main` | Clase | Qué hace |
+|---|---|---|
+| `camera` | `CameraRig` | `yaw`/`pitch`, `orbit(relativo)`, `snap_behind(v)`, `add_shake(x)` |
+| `driving` | `Driving` | `vehicle`, `nearby()`, `interact()`, `enter(v)`, `exit()`, `eject(daño)` |
+| `combat` | `Combat` | `player_shoot()`, `hurt_target(datos)`, `on_player_hurt()`, `kills`, `hit_t`, `hurt_t` |
+| `effects` | `Effects` | `tracer`, `explosion(pos, radio)`, `flares` |
+| `air_defense` | `AirDefense` | baterías, `missiles`, `drop_flares`, `nearest_missile()` |
+| `halcon` | `HalconMission` | `objective_pos()`, `objective_text()`, mensajes de fin |
+| `game_audio` | `GameAudio` | bucles de sonido |
+| `dev` | `DevTools` | ayudas de desarrollo |
+
+`Main` conserva solo consultas comunes: `vehicle` (atajo a `driving.vehicle`), `game_over`, `elapsed`, `vehicles()`, `target_node()`, `target_pos()`, `heading()`, y las listas `player`, `cars`, `jets`, `soldiers`.
+
+- **Señales hacia arriba:** `MissionState` → `HalconMission` → `Hud`.
+- **Llamadas hacia abajo:** `Main` crea los actores y les pasa `main`. Los actores piden efectos y consultas al sistema que toca (`main.effects.explosion`, `main.combat.hurt_target`, `main.driving.eject`, `main.air_defense.drop_flares`…). Es un acoplamiento aceptado mientras haya una sola escena.
+- `Main` se ejecuta después de los actores (`process_physics_priority = 10`) para que la cámara vea posiciones ya actualizadas.
+- `Hud` lee el estado de `Main` y sus sistemas cada fotograma.
 
 ## Menús y opciones
 
 - `Menu` (`scripts/menu.gd`) tiene `process_mode = ALWAYS` y es quien pone y quita la pausa del árbol: `open(MAIN | PAUSE)` pausa y suelta el ratón; `close()` reanuda y lo captura. Avisa a `Main` con señales (`play_pressed`, `restart_pressed`, `main_menu_pressed`). La pantalla de controles sale de `Menu.CONTROLS` y lee las teclas del InputMap.
 - `Main` abre el menú principal al arrancar, salvo al reiniciar (`Main.skip_menu`, estático), con argumentos de desarrollo o si `show_menu` es false (tests). Esc durante la partida abre la pausa.
-- `Settings` (`scripts/settings.gd`, estático) guarda en `user://settings.cfg` la sensibilidad (`mouse_scale`), la dificultad y el mejor tiempo. La dificultad multiplica el daño de los soldados (`Main.hurt_target`) y la recarga de las baterías (`Main._update_sams`).
+- `Settings` (`scripts/settings.gd`, estático) guarda en `user://settings.cfg` la sensibilidad (`mouse_scale`), la dificultad y el mejor tiempo. La dificultad multiplica el daño de los soldados (`Combat.hurt_target`) y la recarga de las baterías (`AirDefense`).
 
 ## Sonido y efectos
 
-- `Sfx` (`scripts/sfx.gd`, `process_mode = ALWAYS`) carga `assets/audio/sfx/*.ogg` y la música. Tres formas de sonar: `play` (sin posición), `play_at` (en un punto del mundo) y `set_loop` (motores, alarma, aviso de misil). `Main._update_audio` ajusta los bucles cada fotograma; en pausa se detienen solos. Buses `SFX` y `Music` creados por código; `Sfx.apply_volume` aplica los volúmenes de `Settings`.
-- Sacudida de cámara: `Main.shake` (lógica en `CameraLogic`) mueve `Camera3D.h_offset`/`v_offset`. La suman las explosiones (según radio y distancia) y el daño al jugador.
-- `Main.explosion(pos, radio)`: bola de fuego y humo siempre; con radio ≥ 3 añade sonido, metralla y sacudida.
-- `Vehicle.update_smoke` echa humo por debajo del 40 % de resistencia. `Hud` pinta un fogonazo rojo mientras `Main.hurt_t` > 0.
+- `Sfx` (`scripts/sfx.gd`, `process_mode = ALWAYS`) carga `assets/audio/sfx/*.ogg` y la música. Tres formas de sonar: `play` (sin posición), `play_at` (en un punto del mundo) y `set_loop` (motores, alarma, aviso de misil). `GameAudio.tick` ajusta los bucles cada fotograma; en pausa se detienen solos. Buses `SFX` y `Music` creados por código; `Sfx.apply_volume` aplica los volúmenes de `Settings`.
+- Sacudida de cámara: `CameraRig.shake` (lógica en `CameraLogic`) mueve `Camera3D.h_offset`/`v_offset`. La suman las explosiones (según radio y distancia) y el daño al jugador.
+- `Effects.explosion(pos, radio)`: bola de fuego y humo siempre; con radio ≥ 3 añade sonido, metralla y sacudida.
+- `Vehicle.update_smoke` echa humo por debajo del 40 % de resistencia. `Hud` pinta un fogonazo rojo mientras `Combat.hurt_t` > 0.
 
 ## Input
 
@@ -105,5 +126,4 @@ Por ahora todos colisionan con todos (`Layers.ALL`). Los rayos (disparos, línea
 
 ## Deuda
 
-- Ayudas de desarrollo (`--test-jet`, `--shot`, `--yaw`…) dentro de `main.gd`.
 - Medidas de los modelos (cajas, colores) como literales en cada actor.

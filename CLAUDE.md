@@ -9,9 +9,9 @@ Juego de acción **3D en tercera persona** de una sola misión: robar un coche, 
 - **Godot 4.7.x stable**. Prohibidas las APIs de Godot 3.
 - **GDScript con tipado estático** en todo. `project.godot` trata `untyped_declaration` como error: sin tipo no compila.
 - **3D**, Forward+. Resolución base 1280×720, `stretch/mode = canvas_items`, `stretch/aspect = expand`.
-- Gráficos sin assets: todo el mundo se genera con primitivas (`scripts/build.gd`). Audio en `assets/audio/` (ver `docs/CREDITS.md`).
+- Arte 100 % propio, sin packs externos: primitivas por código (`scripts/build.gd`) y modelos/texturas hechos por Claude con las herramientas del equipo (Blender 4.2 por script, GIMP, Python). Audio en `assets/audio/` (ver `docs/CREDITS.md`).
 - Tests con **GUT 9.x** en `addons/gut`.
-- Plataforma: escritorio Linux.
+- Plataforma: escritorio (se desarrolla en Linux y en Windows). En Windows: `GODOT=/c/Users/Toni/Godot/Godot_v4.7.2-stable_win64_console.exe ./tools/check.sh` desde Git Bash.
 
 ## Documentación (léela antes de cualquier tarea grande)
 
@@ -40,7 +40,8 @@ godot --path . -- --shot=/ruta/captura.png              # se combina con los ant
 ```
 project.godot
 main.tscn          # un Node3D con scripts/main.gd; todo lo demás se crea por código
-scripts/           # main, world, hud, menu, settings, sfx, camera_logic, build, humanoid, layers, mission_state, vehicle
+scripts/           # main (raíz) y sistemas: camera_rig, driving, combat, effects, air_defense, halcon_mission, game_audio, dev_tools
+                   # world, hud, menu, settings, sfx, camera_logic, build, humanoid, layers, mission_state, vehicle
                    # y por actor: <actor>.gd, <actor>_logic.gd, <actor>_data.gd (player, car, jet, soldier, missile)
 data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres
 assets/audio/      # sfx/*.ogg, music/mission.ogg

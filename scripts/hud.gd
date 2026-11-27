@@ -47,12 +47,12 @@ class MiniMap extends Control:
 		for sam: Vector3 in main.world.sam_positions:
 			var bp: Vector2 = f.call(sam)
 			draw_rect(Rect2(bp - Vector2(3, 3), Vector2(6, 6)), Color(1, 0.4, 0.1))
-		for m: Missile in main.missiles:
+		for m: Missile in main.air_defense.missiles:
 			if is_instance_valid(m):
 				var mp: Vector2 = f.call(m.global_position)
 				draw_circle(mp, 3.0, Color(1, 0.9, 0.2))
 
-		var o: Vector2 = f.call(main.objective_pos())
+		var o: Vector2 = f.call(main.halcon.objective_pos())
 		o = o.clamp(Vector2(7, 7), s - Vector2(7, 7))
 		draw_circle(o, 6.0, Color(0, 0, 0))
 		draw_circle(o, 4.5, Color(1, 0.9, 0.2))
@@ -122,18 +122,18 @@ func big(text: String, sub: String, color: Color) -> void:
 func _process(dt: float) -> void:
 	flash_t -= dt
 	flash_l.visible = flash_t > 0.0
-	obj.text = main.objective_text()
+	obj.text = main.halcon.objective_text()
 	var hp: int = ceili(main.player.health)
 	var jet: Jet = main.vehicle as Jet
 	if main.vehicle == null:
-		info.text = "Salud %d    Bajas %d" % [hp, main.kills]
+		info.text = "Salud %d    Bajas %d" % [hp, main.combat.kills]
 	elif jet != null:
 		info.text = "Caza %d%%    %d km/h    Alt %d m    Potencia %d%%    Bengalas %d" % [ceili(jet.hp), int(jet.speed * 3.6), int(jet.altitude()), int(jet.throttle * 100.0), jet.flares]
 	else:
 		info.text = "Salud %d    Coche %d%%    %d km/h" % [hp, ceili(main.vehicle.hp), int(absf(main.vehicle.speed) * 3.6)]
 	hint.text = _hint(jet)
 
-	var md: float = main.nearest_missile()
+	var md: float = main.air_defense.nearest_missile()
 	warn.visible = md < 1e8 and fmod(main.elapsed, 0.4) < 0.25
 	if md < 1e8:
 		warn.text = "¡MISIL!  %d m  —  F: bengalas" % int(md)
@@ -145,7 +145,7 @@ func _hint(jet: Jet) -> String:
 	if main.game_over:
 		return ""
 	if main.vehicle == null:
-		if main.nearby_vehicle() != null:
+		if main.driving.nearby() != null:
 			return "[E] Subir"
 		if main.elapsed < 12.0:
 			return "WASD moverse · Ratón cámara · Clic disparar · Shift correr · E subir a vehículos"
@@ -170,8 +170,8 @@ func _star(c: Vector2, r: float, color: Color) -> void:
 
 func _draw() -> void:
 	var s: Vector2 = size
-	if main.hurt_t > 0.0:  # fogonazo rojo al recibir daño
-		draw_rect(Rect2(Vector2.ZERO, s), Color(1, 0, 0, minf(0.35, main.hurt_t)))
+	if main.combat.hurt_t > 0.0:  # fogonazo rojo al recibir daño
+		draw_rect(Rect2(Vector2.ZERO, s), Color(1, 0, 0, minf(0.35, main.combat.hurt_t)))
 	var wanted: int = main.mission.wanted
 	for i: int in 5:
 		var lit: bool = (4 - i) < wanted
@@ -184,8 +184,8 @@ func _draw() -> void:
 		var c: Vector2 = s / 2.0
 		for d: Vector2 in [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]:
 			draw_line(c + d * 5.0, c + d * 12.0, Color(1, 1, 1, 0.85), 2.0)
-		if main.hit_t > 0.0:  # marca de impacto: aspa blanca, roja si lo has abatido
-			var hc: Color = Color(1, 0.2, 0.15) if main.hit_kill else Color.WHITE
+		if main.combat.hit_t > 0.0:  # marca de impacto: aspa blanca, roja si lo has abatido
+			var hc: Color = Color(1, 0.2, 0.15) if main.combat.hit_kill else Color.WHITE
 			for d: Vector2 in [Vector2(1, 1), Vector2(-1, 1), Vector2(1, -1), Vector2(-1, -1)]:
 				draw_line(c + d * 6.0, c + d * 15.0, hc, 3.0)
 	# barra de salud sobre el minimapa

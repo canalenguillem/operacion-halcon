@@ -71,10 +71,10 @@ func _fire(target: Node3D, tp: Vector3, dist: float) -> void:
 	if not hit.is_empty() and hit.collider != target and not hit.collider is Soldier:
 		return  # sin línea de visión
 	if randf() < SoldierLogic.hit_chance(dist, data):
-		main.hurt_target(data)
+		main.combat.hurt_target(data)
 	else:
 		aim += Vector3(randf_range(-2, 2), randf_range(0, 2), randf_range(-2, 2))
-	main.tracer(from, aim, Color(1, 0.4, 0.3))
+	main.effects.tracer(from, aim, Color(1, 0.4, 0.3))
 	main.sfx.play_at("rifle", from, -2.0, 18.0)
 
 
@@ -88,5 +88,5 @@ func hurt(d: float) -> void:
 	if hp <= 0.0:
 		dead = true
 		col.set_deferred("disabled", true)
-		main.kills += 1
+		main.combat.on_soldier_killed()
 		create_tween().tween_property(self, "rotation:x", -PI / 2.0, 0.3)

@@ -106,7 +106,7 @@ func _physics_process(dt: float) -> void:
 		if ctl and Input.is_action_just_pressed("flare") and flares > 0 and flare_cd <= 0.0:
 			flares -= 1
 			flare_cd = data.flare_cooldown
-			main.drop_flares(global_position, velocity)
+			main.air_defense.drop_flares(global_position, velocity)
 
 
 func _ground(dt: float, pitch_in: float, roll_in: float) -> void:
@@ -171,6 +171,6 @@ func die() -> void:
 	hp = 0.0
 	visible = false
 	col.set_deferred("disabled", true)
-	main.explosion(global_position, 16.0)
+	main.effects.explosion(global_position, 16.0)
 	if driver:
 		main.mission.fail("EL CAZA HA SIDO DESTRUIDO")

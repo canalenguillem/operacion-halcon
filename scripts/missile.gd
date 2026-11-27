@@ -64,5 +64,5 @@ func _physics_process(dt: float) -> void:
 
 func _boom() -> void:
 	dead = true
-	main.explosion(global_position, 9.0)
+	main.effects.explosion(global_position, 9.0)
 	queue_free()

@@ -30,6 +30,11 @@ class Counter:
         )
         self._db.commit()
 
+    def close(self) -> None:
+        """Cierra la base de datos (en Windows no se puede borrar el archivo si sigue abierto)."""
+        with self._lock:
+            self._db.close()
+
     def add(self, system: str, version: str) -> None:
         with self._lock:
             self._db.execute(
