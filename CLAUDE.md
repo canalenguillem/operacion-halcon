@@ -31,6 +31,7 @@ godot --path . -- --test-jet                            # empezar volando
 godot --path . -- --test-takeoff                        # despegue automático (imprime el estado cada segundo)
 godot --path . -- --menu | --pause | --controls | --options   # abrir directamente esa pantalla
 godot --path . -- --shot=/ruta/captura.png              # se combina con los anteriores: captura a los 2,5 s y sale
+godot --path . -- --fps                                 # imprime fps y llamadas de dibujo cada segundo
 ./tools/export.sh                                       # ejecutables de Linux, Windows y macOS en build/ (necesita las plantillas de exportación)
 ./web/deploy.sh                                         # publica la web y las descargas en el servidor de web/.deploy.env (antes: ./tools/export.sh)
 ```
@@ -41,7 +42,7 @@ godot --path . -- --shot=/ruta/captura.png              # se combina con los ant
 project.godot
 main.tscn          # un Node3D con scripts/main.gd; todo lo demás se crea por código
 scripts/           # main (raíz) y sistemas: camera_rig, driving, combat, effects, air_defense, halcon_mission, game_audio, dev_tools
-                   # world, city_map (datos de la isla), city_builder (la isla en 3D), hud, menu, settings, sfx, camera_logic, build, humanoid, layers, mission_state, vehicle
+                   # world, city_map (datos de la isla), terrain (relieve), city_builder, buildings_builder, street_furniture, hud, menu, settings, sfx, camera_logic, build, humanoid, layers, mission_state, vehicle
                    # y por actor: <actor>.gd, <actor>_logic.gd, <actor>_data.gd (player, car, jet, soldier, missile)
 data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres; map/city.json (generado)
 assets/audio/      # sfx/*.ogg, music/mission.ogg

@@ -33,6 +33,8 @@ const SOLDIER_POSTS: Array[Vector2] = [
 ]
 
 var map: CityMap = CityMap.get_default()
+## Relieve de la isla (alturas del suelo); se calcula en `build()`.
+var terrain: Terrain
 var sam_positions: Array[Vector3] = []
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var marker: MeshInstance3D
@@ -64,7 +66,8 @@ static func clear_spot(x: float, z: float) -> bool:
 			return id != "golf" or fmod(absf(x * 0.13 + z * 0.07), 1.0) < 0.15  # en el golf, pocos
 	if m.in_zone(p):
 		return false
-	return m.road_clearance(p) > 7.0 and dest_distance(Vector3(x, 0, z)) >= 320
+	# en la colina, lejos de las calles para no plantar árboles dentro de las mansiones
+	return m.road_clearance(p) > (34.0 if dist_id == "colinas" else 7.0) and dest_distance(Vector3(x, 0, z)) >= 320
 
 
 func build() -> void:
@@ -135,7 +138,11 @@ func _build_ground() -> void:
 	var gm := StandardMaterial3D.new()
 	gm.albedo_texture = tex
 	gm.roughness = 1.0
-	CityBuilder.new(map, self).build(gm)
+	terrain = Terrain.new(map)
+	terrain.build()
+	CityBuilder.new(map, terrain, self).build(gm)
+	BuildingsBuilder.new(map, terrain, self).build()
+	StreetFurniture.new(map, terrain, self).build()
 
 	# árboles (solo visuales)
 	var spots: Array[Transform3D] = []
@@ -146,7 +153,7 @@ func _build_ground() -> void:
 		var z: float = rng.randf_range(-1800, 1300)
 		if clear_spot(x, z):
 			var s: float = rng.randf_range(0.8, 1.8)
-			spots.append(Transform3D(Basis().scaled(Vector3(s, s, s)), Vector3(x, 0, z)))
+			spots.append(Transform3D(Basis().scaled(Vector3(s, s, s)), Vector3(x, terrain.surface(Vector2(x, z)) - 0.3, z)))
 	var trunk := CylinderMesh.new()
 	trunk.top_radius = 0.25
 	trunk.bottom_radius = 0.35
@@ -179,7 +186,7 @@ func _scatter(m: Mesh, height: float, spots: Array[Transform3D]) -> void:
 	mm.instance_count = spots.size()
 	for i: int in spots.size():
 		var t: Transform3D = spots[i]
-		t.origin.y = height * t.basis.get_scale().y
+		t.origin.y += height * t.basis.get_scale().y
 		mm.set_instance_transform(i, t)
 	var mmi := MultiMeshInstance3D.new()
 	mmi.multimesh = mm

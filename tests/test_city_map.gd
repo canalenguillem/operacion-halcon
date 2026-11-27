@@ -66,3 +66,30 @@ func test_distancia_a_la_calzada() -> void:
 	var b: Vector2 = m.road_end(0)
 	assert_lt(m.road_clearance((a + b) / 2.0), 0.0, "en mitad de una calzada")
 	assert_gt(m.road_clearance(Vector2(-1300, -950)), 50.0, "en el campo")
+
+
+func test_hay_edificios_en_tierra_y_fuera_de_las_calzadas() -> void:
+	assert_gt(m.building_count(), 1500)
+	var bad: int = 0
+	for i: int in m.building_count():
+		var c: Vector2 = m.b_pos[i]
+		if not m.on_land(c) or m.road_clearance(c) < 0.0:
+			bad += 1
+	assert_eq(bad, 0)
+
+
+func test_los_edificios_singulares_estan_cerca_de_su_lugar() -> void:
+	var ids: Array[String] = []
+	for lm: Dictionary in m.landmarks:
+		ids.append(str(lm["id"]))
+	for id: String in ["catedral", "casino", "hospital", "comisaria", "banco", "gasolinera"]:
+		assert_has(ids, id)
+
+
+func test_esquinas_de_un_rectangulo_girado() -> void:
+	var cs: PackedVector2Array = CityMap.rect_corners(Vector2.ZERO, 0.0, 4.0, 2.0)
+	assert_eq(cs[0], Vector2(-2, -1))
+	assert_eq(cs[2], Vector2(2, 1))
+	var r: PackedVector2Array = CityMap.rect_corners(Vector2.ZERO, PI / 2.0, 4.0, 2.0)
+	assert_almost_eq(r[0].x, -1.0, 0.001, "girado 90°, el ancho va a lo largo de z")
+	assert_almost_eq(r[0].y, 2.0, 0.001)

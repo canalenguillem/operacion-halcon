@@ -8,7 +8,7 @@ Describe el juego tal como está; los cambios previstos están en `docs/ROADMAP.
 
 ```
 Main (Node3D)                    raíz: crea todo, reparte el input y llama a los sistemas en orden
-├── World (Node3D)               cielo, isla y ciudad (CityBuilder), árboles, base, aeródromo, haz del objetivo
+├── World (Node3D)               cielo, relieve, ciudad, edificios, farolas, árboles, base, aeródromo, haz del objetivo
 ├── Sfx (Node)                   efectos, bucles y música
 ├── Effects (Node3D)             trazadoras, explosiones, bengalas
 ├── Driving (Node)               subir y bajar de vehículos; `vehicle` es el que conduces
@@ -104,8 +104,12 @@ Por ahora todos colisionan con todos (`Layers.ALL`). Los rayos (disparos, línea
 El mapa es una **isla** descrita como datos en `data/map/city.json`, que genera `tools/map/layout.py` (Python; también dibuja `docs/map/plano.png` y `docs/map/plano_ciudad.png`). No se edita a mano: se cambia el script y se vuelve a generar.
 
 - `CityMap` (`scripts/city_map.gd`, con tests en `tests/test_city_map.gd`): carga el JSON una vez (`CityMap.get_default()`) y responde consultas: `on_land`, `district_at`, `in_zone`, `road_clearance` (con índice espacial), `poi(id)`, `river_polygon()`. Las calles son un grafo: `nodes` (cruces) y `road_a`/`road_b`/`road_type`/`road_bridge`.
-- `CityBuilder` (`scripts/city_builder.gd`): construye la isla en 3D. Suelo (isla menos el río, espigones e islotes) con acantilado bajo y una colisión cóncava; agua a y = -1 y fondo a y = -2,2. Todo lo plano (suelo de barrios, aceras, calzadas, cruces, pasos de cebra, marcas, pista del aeropuerto) va en **una sola malla** con colores por vértice. Los puentes son cajas con colisión y barandillas.
-- `World` añade cielo, árboles (`clear_spot`), nubes, base aérea, baterías y el islote del aeródromo.
+- `Terrain` (`scripts/terrain.gd`, tests en `tests/test_terrain.gd`): relieve en una rejilla de 10 m. Colinas en campana (`hill_height`), con las carreteras allanadas como bancales (`ground_height`); la tierra se ensancha 7 m hacia el agua para que la pendiente de la orilla quede fuera de calles y barrios. Malla con colores por vértice (hierba, arena, golf, tierra en laderas) y colisión `HeightMapShape3D`. `surface(p)` es la altura a la que se apoya todo lo demás (0 en el llano).
+- `CityBuilder` (`scripts/city_builder.gd`): islotes (llanos, con borde y colisión), agua a y = -1 y fondo a y = -2,2. Todo lo plano (suelo de barrios, aceras, calzadas, cruces, pasos de cebra, marcas, pista del aeropuerto) va en **una sola malla** con colores por vértice, apoyada en el relieve (en la colina las bandas se trocean cada 6 m). Los puentes son cajas con colisión y barandillas, siempre horizontales.
+- `BuildingsBuilder` (`scripts/buildings_builder.gd`): los ~2900 edificios de `city.json` (colocados por `layout.py` a lo largo de las calles, con medidas según el barrio) con `MultiMesh`: una llamada de dibujo por pieza (cuerpo con fachada de ventanas, cristal o lisa —`Build.facade_mat`, teñida por instancia—, tejados, máquinas de azotea, neones, piscinas, puertas). Cada edificio tiene su caja de colisión. Los singulares (catedral, casino, hoteles, hospital, comisaría, banco, estación, centro comercial, motel, gasolinera, mercado) son piezas sueltas con rótulos `Label3D`.
+- `StreetFurniture` (`scripts/street_furniture.gd`): farolas (cada 32 m; a ambos lados en avenidas) y semáforos en los cruces grandes, con `MultiMesh` y sin colisión por ahora.
+- `World` lo orquesta (`terrain`, ciudad, edificios, mobiliario) y añade cielo, árboles (`clear_spot`), nubes, base aérea, baterías y el islote del aeródromo.
+- Rendimiento medido con `--fps` (RTX 3050 portátil): 120-145 fps en el centro y volando, menos de 300 llamadas de dibujo.
 - El minimapa (`Hud.MiniMap`) pinta la isla, el río y las calles de `CityMap`.
 
 | Qué | Dónde |
@@ -120,7 +124,7 @@ El mapa es una **isla** descrita como datos en `data/map/city.json`, que genera 
 
 ## Tests
 
-- Lógica pura: un `tests/test_*_logic.gd` por clase, más `test_mission_state.gd`, `test_world.gd`, `test_city_map.gd` y `test_humanoid.gd`.
+- Lógica pura: un `tests/test_*_logic.gd` por clase, más `test_mission_state.gd`, `test_world.gd`, `test_city_map.gd`, `test_terrain.gd` y `test_humanoid.gd`.
 - Integración: `tests/test_shooting.gd` carga `main.tscn` (con `show_menu = false`) y dispara de verdad a los soldados.
 - `./tools/check.sh` además arranca el menú, la misión y la pausa, y comprueba que el caza despega solo con W.
 

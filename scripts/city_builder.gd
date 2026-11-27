@@ -1,8 +1,8 @@
 class_name CityBuilder
 extends RefCounted
-## Construye en 3D la isla descrita por `CityMap`: suelo con su colisión (recortado por el río),
-## mar, calles con aceras, cruces, pasos de cebra y marcas, puentes, suelo de cada barrio,
-## playa y aeropuerto. Todo lo plano va en pocas mallas con colores por vértice.
+## Construye en 3D la isla descrita por `CityMap`: relieve (`Terrain`), islotes, mar, calles con
+## aceras, cruces, pasos de cebra y marcas, puentes, suelo de cada barrio y aeropuerto.
+## Todo lo plano va en una malla con colores por vértice y se apoya en el relieve.
 
 ## Altura del agua y del fondo (el mar y el río).
 const WATER_Y: float = -1.0
@@ -34,17 +34,22 @@ const ZONE_GROUND: Dictionary = {
 
 var map: CityMap
 var parent: Node3D
+var terrain: Terrain
 var _flat: SurfaceTool
+## Mientras es true, las capas planas no siguen el relieve (puentes).
+var _level: bool = false
 var _river: PackedVector2Array
 
 
-func _init(m: CityMap, p: Node3D) -> void:
+func _init(m: CityMap, t: Terrain, p: Node3D) -> void:
 	map = m
+	terrain = t
 	parent = p
 
 
 func build(ground_material: Material) -> void:
 	_river = map.river_polygon()
+	parent.add_child(terrain.make_node())
 	_build_land(ground_material)
 	_build_water()
 	_flat = SurfaceTool.new()
@@ -69,13 +74,9 @@ func build(ground_material: Material) -> void:
 
 # ---------------------------------------------------------------- suelo y agua
 
-## Trozos de tierra: la isla menos el río (queda partida en dos), los espigones y los islotes.
+## Trozos de tierra que no cubre `Terrain`: los islotes (llanos, con su borde y colisión).
 func land_pieces() -> Array[PackedVector2Array]:
 	var out: Array[PackedVector2Array] = []
-	for piece: PackedVector2Array in Geometry2D.clip_polygons(map.island, _river):
-		out.append(piece)
-	for p: PackedVector2Array in map.piers:
-		out.append(p)
 	for i: Dictionary in map.islets:
 		out.append(circle(i["center"] as Vector2, float(i["radius"]), 40))
 	return out
@@ -134,7 +135,7 @@ func _build_land(ground_material: Material) -> void:
 	shape.set_faces(faces)
 	Build.collider(body, shape)
 	parent.add_child(body)
-	# fondo del mar y del río
+	# fondo del mar (también bajo el relieve)
 	var floor_body := StaticBody3D.new()
 	floor_body.position.y = FLOOR_Y
 	Build.collider(floor_body, WorldBoundaryShape3D.new())
@@ -165,7 +166,7 @@ func _poly(poly: PackedVector2Array, y: float, color: Color) -> void:
 		var p: Vector2 = poly[idx]
 		_flat.set_color(color)
 		_flat.set_normal(Vector3.UP)
-		_flat.add_vertex(Vector3(p.x, y, p.y))
+		_flat.add_vertex(Vector3(p.x, _y(p, y), p.y))
 
 
 ## Rellena el polígono solo donde hay tierra de la isla (fuera del río y del mar).
@@ -175,13 +176,25 @@ func _poly_on_land(poly: PackedVector2Array, y: float, color: Color) -> void:
 			_poly(b, y, color)
 
 
+## Altura de una capa plana en `p`: el relieve más su desplazamiento (salvo en los puentes).
+func _y(p: Vector2, offset: float) -> float:
+	return offset if _level else terrain.surface(p) + offset
+
+
+## Banda de `a` a `b` de media anchura `half`; en la colina se trocea para seguir el relieve.
 func _quad(a: Vector2, b: Vector2, half: float, y: float, color: Color) -> void:
 	var n: Vector2 = (b - a).normalized().orthogonal() * half
-	var pts: Array[Vector2] = [a + n, b + n, b - n, a - n]
-	for k: int in [0, 1, 2, 0, 2, 3]:
-		_flat.set_color(color)
-		_flat.set_normal(Vector3.UP)
-		_flat.add_vertex(Vector3(pts[k].x, y, pts[k].y))
+	var pieces: int = 1
+	if not _level and (terrain.on_hill(a) or terrain.on_hill(b)):
+		pieces = maxi(1, ceili(a.distance_to(b) / 6.0))
+	for s: int in pieces:
+		var p0: Vector2 = a.lerp(b, float(s) / pieces)
+		var p1: Vector2 = a.lerp(b, float(s + 1) / pieces)
+		var pts: Array[Vector2] = [p0 + n, p1 + n, p1 - n, p0 - n]
+		for k: int in [0, 1, 2, 0, 2, 3]:
+			_flat.set_color(color)
+			_flat.set_normal(Vector3.UP)
+			_flat.add_vertex(Vector3(pts[k].x, _y(pts[k], y), pts[k].y))
 
 
 func _disc(c: Vector2, r: float, y: float, color: Color) -> void:
@@ -196,9 +209,8 @@ func _build_district_ground() -> void:
 			_poly_on_land(d["poly"] as PackedVector2Array, y, DISTRICT_GROUND[style] as Color)
 			y += 0.002
 	for id: String in map.zones:
-		if ZONE_GROUND.has(id):
+		if ZONE_GROUND.has(id) and id != "golf":  # el golf y la playa los pinta el relieve
 			_poly_on_land(map.zones[id] as PackedVector2Array, y, ZONE_GROUND[id] as Color)
-	_poly_on_land(map.beach, y + 0.002, Color(0.86, 0.78, 0.58))
 
 
 func _build_roads() -> void:
@@ -214,9 +226,11 @@ func _build_roads() -> void:
 		var a: Vector2 = map.road_start(i)
 		var b: Vector2 = map.road_end(i)
 		var half: float = map.width(i) / 2.0
+		_level = map.road_bridge[i]
 		_quad(a, b, half + map.sidewalk, Y_SIDEWALK, SIDEWALK_COLOR)
 		_quad(a, b, half, Y_ROAD, ASPHALT)
 		_markings(i, a, b, half, node_half[map.road_a[i]], node_half[map.road_b[i]], degree[map.road_a[i]], degree[map.road_b[i]])
+		_level = false
 	for n: int in map.nodes.size():
 		if degree[n] > 0:
 			_disc(map.nodes[n], node_half[n] + map.sidewalk, Y_SIDEWALK, SIDEWALK_COLOR)

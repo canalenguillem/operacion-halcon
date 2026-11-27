@@ -90,7 +90,7 @@ PIERS = [
 OLD_TOWN_CENTER: Vec = (-30.0, 380.0)
 RONDA_R = 300.0
 HILL_CENTER: Vec = (-1180.0, -170.0)
-HILLS = [{"id": "colinas", "center": list(HILL_CENTER), "radius": 760.0, "height": 120.0}]
+HILLS = [{"id": "colinas", "center": list(HILL_CENTER), "radius": 640.0, "height": 105.0}]
 
 BASE = [(-350, -1300), (350, -1300), (350, -700), (-350, -700)]
 GATE: Vec = (0.0, -700.0)
@@ -651,6 +651,219 @@ def compact(g: Graph) -> tuple[list[list[float]], list[dict]]:
     return nodes, roads
 
 
+# ================================================================== edificios
+
+# Por estilo de barrio: (ancho, fondo, alto, retranqueo, hueco entre edificios, tipo).
+# El ancho va a lo largo de la calle y el fondo hacia dentro de la manzana.
+BUILDING_STYLES = {
+    "casco_antiguo": ((7, 13), (10, 15), (8, 15), 0.3, 0.0, "casa"),
+    "bloques": ((16, 28), (14, 20), (14, 26), 0.5, 1.0, "bloque"),
+    "rascacielos": ((20, 32), (20, 30), (35, 130), 2.0, 5.0, "torre"),
+    "ocio": ((22, 38), (18, 28), (14, 45), 3.0, 4.0, "hotel"),
+    "chabolas": ((5, 9), (5, 8), (2.8, 4.5), 0.5, 0.8, "chabola"),
+    "naves": ((30, 60), (25, 45), (8, 14), 8.0, 8.0, "nave"),
+    "muelles": ((30, 55), (20, 35), (9, 14), 6.0, 10.0, "nave"),
+    "mansiones": ((16, 24), (12, 18), (6, 8), 12.0, 22.0, "mansion"),
+}
+FINANCIAL_CORE: Vec = (560.0, 430.0)
+
+# Edificios singulares: (id, tipo, ancho, fondo, cerca de).
+LANDMARKS = [
+    ("catedral", "catedral", 26, 44, OLD_TOWN_CENTER),
+    ("casino", "casino", 56, 40, (200, 965)),
+    ("hotel_1", "hotel_alto", 34, 26, (470, 965)),
+    ("hotel_2", "hotel_alto", 30, 24, (-180, 965)),
+    ("hospital", "hospital", 60, 34, (-300, -250)),
+    ("comisaria", "comisaria", 40, 28, (300, -180)),
+    ("banco", "banco", 34, 34, (560, 430)),
+    ("estacion", "estacion", 70, 24, (310, -395)),
+    ("centro_comercial", "centro_comercial", 52, 40, (880, 420)),
+    ("motel", "motel", 46, 14, (-760, 640)),
+    ("gasolinera", "gasolinera", 30, 20, (60, -520)),
+    ("mercado", "mercado", 40, 30, (-30, 580)),
+]
+
+
+def rect_corners(c: Vec, yaw_dir: Vec, w: float, d: float) -> list[Vec]:
+    ux, uz = yaw_dir
+    vx, vz = -uz, ux
+    hw, hd = w / 2, d / 2
+    return [(c[0] + ux * sx * hw + vx * sz * hd, c[1] + uz * sx * hw + vz * sz * hd)
+            for sx, sz in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
+
+
+def rects_overlap(a: list[Vec], b: list[Vec]) -> bool:
+    for poly in (a, b):
+        for i in range(4):
+            p, q = poly[i], poly[(i + 1) % 4]
+            ax, az = -(q[1] - p[1]), q[0] - p[0]
+            pa = [x * ax + z * az for x, z in a]
+            pb = [x * ax + z * az for x, z in b]
+            if max(pa) < min(pb) or max(pb) < min(pa):
+                return False
+    return True
+
+
+def river_polygon() -> list[Vec]:
+    left, right = [], []
+    half = RIVER_WIDTH / 2 + 4
+    for i, p in enumerate(RIVER):
+        prev, nxt = RIVER[max(i - 1, 0)], RIVER[min(i + 1, len(RIVER) - 1)]
+        dx, dz = nxt[0] - prev[0], nxt[1] - prev[1]
+        ln = math.hypot(dx, dz)
+        nx, nz = -dz / ln, dx / ln
+        left.append((p[0] + nx * half, p[1] + nz * half))
+        right.append((p[0] - nx * half, p[1] - nz * half))
+    return left + right[::-1]
+
+
+class Placer:
+    """Coloca rectángulos sin pisar calles, agua, zonas reservadas ni otros edificios."""
+
+    def __init__(self, nodes, roads) -> None:
+        self.nodes = nodes
+        self.roads = roads
+        self.road_cells: dict[tuple[int, int], list[int]] = defaultdict(list)
+        for i, r in enumerate(roads):
+            a, b = nodes[r["a"]], nodes[r["b"]]
+            n = max(1, int(dist(a, b) // 25))
+            for s in range(n + 1):
+                p = lerp(a, b, s / n)
+                cell = (int(p[0] // 50), int(p[1] // 50))
+                if i not in self.road_cells[cell]:
+                    self.road_cells[cell].append(i)
+        self.placed: dict[tuple[int, int], list[list[Vec]]] = defaultdict(list)
+        self.river = river_polygon()
+
+    def clearance(self, p: Vec) -> float:
+        best = 1e9
+        cx, cz = int(p[0] // 50), int(p[1] // 50)
+        for dx in (-1, 0, 1):
+            for dz in (-1, 0, 1):
+                for i in self.road_cells.get((cx + dx, cz + dz), ()):
+                    r = self.roads[i]
+                    d = seg_point_dist(p, self.nodes[r["a"]], self.nodes[r["b"]]) - ROAD_WIDTH[r["type"]] / 2 - SIDEWALK
+                    best = min(best, d)
+        return best
+
+    def free(self, corners: list[Vec], margin: float = 0.3) -> bool:
+        pts = corners + [lerp(corners[i], corners[(i + 1) % 4], 0.5) for i in range(4)] + [lerp(corners[0], corners[2], 0.5)]
+        for p in pts:
+            if self.clearance(p) < margin:
+                return False
+            if not point_in_poly(p, COAST) or point_in_poly(p, self.river) or point_in_poly(p, BEACH):
+                return False
+            if any(point_in_poly(p, z) for z in NO_ROADS.values()):
+                return False
+        for i in range(4):  # que ningún lado cruce una calle (rectángulos grandes)
+            a, b = corners[i], corners[(i + 1) % 4]
+            cx, cz = int(a[0] // 50), int(a[1] // 50)
+            for dx in (-1, 0, 1):
+                for dz in (-1, 0, 1):
+                    for k in self.road_cells.get((cx + dx, cz + dz), ()):
+                        r = self.roads[k]
+                        if seg_intersection(a, b, self.nodes[r["a"]], self.nodes[r["b"]], 0.0):
+                            return False
+        c = lerp(corners[0], corners[2], 0.5)
+        cell = (int(c[0] // 60), int(c[1] // 60))
+        for dx in (-1, 0, 1):
+            for dz in (-1, 0, 1):
+                for other in self.placed.get((cell[0] + dx, cell[1] + dz), ()):
+                    if rects_overlap(corners, other):
+                        return False
+        return True
+
+    def take(self, corners: list[Vec]) -> None:
+        c = lerp(corners[0], corners[2], 0.5)
+        self.placed[(int(c[0] // 60), int(c[1] // 60))].append(corners)
+
+
+def style_at(p: Vec) -> str | None:
+    for d in DISTRICTS:
+        if point_in_poly(p, d["poly"]):
+            return d["style"]
+    return None
+
+
+def place_landmarks(pl: Placer) -> list[dict]:
+    """Edificios singulares: busca en espiral el primer hueco libre cerca de su sitio."""
+    out = []
+    for lid, kind, w, d, near in LANDMARKS:
+        done = False
+        for ring in range(0, 16):
+            steps = max(1, ring * 6)
+            for k in range(steps):
+                a = 2 * math.pi * k / steps
+                c = (near[0] + math.cos(a) * ring * 8, near[1] + math.sin(a) * ring * 8)
+                for yaw in (0.0, math.pi / 2, math.radians(28), math.radians(-12)):
+                    u = (math.cos(yaw), math.sin(yaw))
+                    corners = rect_corners(c, u, w, d)
+                    if pl.free(corners, 0.5):
+                        pl.take(corners)
+                        out.append({"id": lid, "kind": kind, "x": round(c[0], 1), "z": round(c[1], 1),
+                                    "yaw": round(-yaw, 4), "w": w, "d": d})  # yaw de Godot
+                        done = True
+                        break
+                if done:
+                    break
+            if done:
+                break
+        if not done:
+            print(f"AVISO: no cabe el edificio singular {lid}")
+    return out
+
+
+def place_buildings(pl: Placer) -> list[list]:
+    """Edificios a lo largo de cada calle, a ambos lados, con las medidas de su barrio."""
+    out = []
+    order = sorted(range(len(pl.roads)), key=lambda i: -PRIORITY[pl.roads[i]["type"]])
+    for i in order:
+        r = pl.roads[i]
+        if r["type"] in ("autovia", "muelle") or r["bridge"]:
+            continue
+        a, b = pl.nodes[r["a"]], pl.nodes[r["b"]]
+        length = dist(a, b)
+        if length < 20:
+            continue
+        u = ((b[0] - a[0]) / length, (b[1] - a[1]) / length)
+        n = (-u[1], u[0])
+        half = ROAD_WIDTH[r["type"]] / 2 + SIDEWALK
+        for side in (1, -1):
+            t = 6.0
+            while t < length - 6.0:
+                probe = (a[0] + u[0] * t + n[0] * side * (half + 6), a[1] + u[1] * t + n[1] * side * (half + 6))
+                style = style_at(probe)
+                if style not in BUILDING_STYLES:
+                    t += 10
+                    continue
+                (w0, w1), (d0, d1), (h0, h1), setback, gap, kind = BUILDING_STYLES[style]
+                w, d = rng.uniform(w0, w1), rng.uniform(d0, d1)
+                h = rng.uniform(h0, h1)
+                if style == "rascacielos":
+                    k = max(0.0, 1.0 - dist(probe, FINANCIAL_CORE) / 450)
+                    h = h0 + (h1 - h0) * k * rng.uniform(0.55, 1.0)
+                if style == "chabolas" and rng.random() < 0.12:
+                    w, d, h, kind = rng.uniform(14, 20), rng.uniform(12, 16), rng.uniform(10, 18), "bloque_pobre"
+                if style == "naves" and rng.random() < 0.3:
+                    kind = "almacen"
+                if t + w > length - 4:
+                    break
+                off = half + setback + d / 2
+                c = (a[0] + u[0] * (t + w / 2) + n[0] * side * off, a[1] + u[1] * (t + w / 2) + n[1] * side * off)
+                corners = rect_corners(c, u, w, d)
+                if pl.free(corners):
+                    pl.take(corners)
+                    # yaw: el eje local X va a lo largo de la calle y la fachada (-Z local) mira a la calle
+                    face = (-n[0] * side, -n[1] * side)
+                    yaw = math.atan2(-face[0], -face[1])
+                    out.append([round(c[0], 1), round(c[1], 1), round(yaw, 3), round(w, 1), round(d, 1), round(h, 1),
+                                kind, rng.randrange(100)])
+                    t += w + gap
+                else:
+                    t += 3.0
+    return out
+
+
 # ================================================================== salida
 
 
@@ -658,7 +871,7 @@ def to_list(poly):
     return [[float(x), float(z)] for x, z in poly]
 
 
-def write_json(nodes, roads) -> None:
+def write_json(nodes, roads, buildings, landmarks) -> None:
     data = {
         "version": 2,
         "note": "Generado por tools/map/layout.py; no editar a mano.",
@@ -679,9 +892,16 @@ def write_json(nodes, roads) -> None:
         "airport": {"runway": to_list(RUNWAY), "taxiway": to_list(TAXIWAY), "apron": to_list(APRON),
                     "terminal": to_list(TERMINAL), "parking": to_list(PARKING)},
         "pois": [{"id": i, "name": n, "pos": [float(p[0]), float(p[1])]} for i, n, p in POIS],
+        "landmarks": landmarks,
+        "buildings_format": ["x", "z", "yaw", "ancho", "fondo", "alto", "tipo", "variante"],
+        "buildings": buildings,
     }
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     OUT_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
+
+
+BUILDINGS: list[list] = []
+LANDMARK_LIST: list[dict] = []
 
 
 def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float, k: float, title: str) -> None:
@@ -755,6 +975,13 @@ def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float,
                     col = {"autovia": (236, 160, 55), "avenida": (252, 248, 236)}.get(kind, (240, 240, 234))
                     d.line([a, b], fill=col, width=max(1, int(ROAD_WIDTH[kind] * k)))
 
+    for b in BUILDINGS:  # yaw de Godot: el eje X local apunta a (cos yaw, -sin yaw)
+        cs = rect_corners((b[0], b[1]), (math.cos(b[2]), -math.sin(b[2])), b[3], b[4])
+        shade = max(60, 150 - int(b[5]))
+        d.polygon([P(x, z) for x, z in cs], fill=(shade, shade - 6, shade - 12))
+    for lm in LANDMARK_LIST:
+        cs = rect_corners((lm["x"], lm["z"]), (math.cos(lm["yaw"]), -math.sin(lm["yaw"])), lm["w"], lm["d"])
+        d.polygon([P(x, z) for x, z in cs], fill=(150, 40, 40))
     f_dist = font(int(13 + 14 * min(1.0, k / 0.5)), True)
     for dist_ in DISTRICTS:
         if not dist_["label"]:
@@ -840,10 +1067,16 @@ def main() -> None:
     prune_stubs(g, 40.0)
     largest_component(g)
     nodes, roads = compact(g)
-    write_json(nodes, roads)
+    pl = Placer(nodes, roads)
+    landmarks = place_landmarks(pl)
+    buildings = place_buildings(pl)
+    write_json(nodes, roads, buildings, landmarks)
+    BUILDINGS.extend(buildings)
+    LANDMARK_LIST.extend(landmarks)
     render(OUT_PNG, nodes, roads, -2350, 3600, -1850, 1450, 0.28, "Plano provisional")
     render(OUT_PNG_CITY, nodes, roads, -1900, 1500, -720, 1260, 0.5, "Plano de la ciudad")
-    print(f"{len(nodes)} cruces, {len(roads)} tramos, {sum(1 for r in roads if r['bridge'])} tramos de puente")
+    print(f"{len(nodes)} cruces, {len(roads)} tramos, {sum(1 for r in roads if r['bridge'])} tramos de puente, "
+          f"{len(buildings)} edificios, {len(landmarks)} singulares")
 
 
 if __name__ == "__main__":

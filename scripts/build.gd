@@ -149,3 +149,63 @@ static func _make_window_tex() -> ImageTexture:
 			img.fill_rect(Rect2i(cx * 16 + 2, cy * 16 + 12, 12, 1), Color(0.8, 0.8, 0.8))
 	img.generate_mipmaps()
 	return ImageTexture.create_from_image(img)
+
+
+static var _glass_tex: ImageTexture
+
+
+## Material de fachada para `MultiMesh`: blanco con la textura de `kind` ("windows", "glass" o "plain"),
+## teñido por el color de cada instancia. Triplanar en coordenadas del mundo (una ventana cada 3 m).
+static func facade_mat(kind: String) -> StandardMaterial3D:
+	var key := "facade|%s" % kind
+	if _mats.has(key):
+		return _mats[key]
+	var m := StandardMaterial3D.new()
+	m.vertex_color_use_as_albedo = true
+	m.vertex_color_is_srgb = true
+	m.roughness = 0.85
+	if kind != "plain":
+		if _window_tex == null:
+			_window_tex = _make_window_tex()
+		if _glass_tex == null:
+			_glass_tex = _make_glass_tex()
+		m.albedo_texture = _glass_tex if kind == "glass" else _window_tex
+		m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC
+		m.uv1_triplanar = true
+		m.uv1_world_triplanar = true
+		m.uv1_scale = Vector3.ONE / 12.0
+	if kind == "glass":
+		m.roughness = 0.25
+		m.metallic = 0.35
+	_mats[key] = m
+	return m
+
+
+## Material sin luz (siempre brillante) teñido por instancia: neones y pilotos de semáforo.
+static func glow_mat() -> StandardMaterial3D:
+	if _mats.has("glow|inst"):
+		return _mats["glow|inst"]
+	var m := StandardMaterial3D.new()
+	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	m.vertex_color_use_as_albedo = true
+	m.vertex_color_is_srgb = true
+	_mats["glow|inst"] = m
+	return m
+
+
+## Muro cortina: cristal por plantas (4 plantas de 3 m por baldosa) con montantes cada 1,5 m.
+static func _make_glass_tex() -> ImageTexture:
+	var img := Image.create(64, 64, true, Image.FORMAT_RGB8)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 9
+	for floor_i: int in 4:
+		var v: float = rng.randf_range(0.42, 0.6)
+		img.fill_rect(Rect2i(0, floor_i * 16, 64, 16), Color(v * 0.85, v * 0.95, v * 1.1))
+		img.fill_rect(Rect2i(0, floor_i * 16 + 13, 64, 3), Color(0.75, 0.76, 0.78))
+		for cx: int in 8:
+			if rng.randf() < 0.1:
+				img.fill_rect(Rect2i(cx * 8 + 1, floor_i * 16, 7, 13), Color(1.0, 0.92, 0.7))
+	for cx: int in 8:
+		img.fill_rect(Rect2i(cx * 8, 0, 1, 64), Color(0.7, 0.72, 0.75))
+	img.generate_mipmaps()
+	return ImageTexture.create_from_image(img)

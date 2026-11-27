@@ -35,6 +35,16 @@ var airport: Dictionary = {}
 ## Lugares de interés: {id, name, pos: Vector2}.
 var pois: Array[Dictionary] = []
 
+## Edificios (en paralelo): centro, giro (yaw de Godot: el eje X local va a lo largo de la calle
+## y la fachada, -Z local, mira a la calle), tamaño (ancho, alto, fondo), tipo y variante (0-99).
+var b_pos: PackedVector2Array = PackedVector2Array()
+var b_yaw: PackedFloat32Array = PackedFloat32Array()
+var b_size: PackedVector3Array = PackedVector3Array()
+var b_kind: PackedStringArray = PackedStringArray()
+var b_var: PackedInt32Array = PackedInt32Array()
+## Edificios singulares: {id, kind, pos: Vector2, yaw, w, d}.
+var landmarks: Array[Dictionary] = []
+
 var _cells: Dictionary = {}
 var _river_poly: PackedVector2Array = PackedVector2Array()
 
@@ -107,6 +117,17 @@ func _read(d: Dictionary) -> void:
 	for p: Variant in (d["pois"] as Array):
 		var pd: Dictionary = p as Dictionary
 		pois.append({"id": str(pd["id"]), "name": str(pd["name"]), "pos": _vec(pd["pos"])})
+	for b: Variant in (d.get("buildings", []) as Array):
+		var ba: Array = b as Array
+		b_pos.append(Vector2(float(ba[0]), float(ba[1])))
+		b_yaw.append(float(ba[2]))
+		b_size.append(Vector3(float(ba[3]), float(ba[5]), float(ba[4])))
+		b_kind.append(str(ba[6]))
+		b_var.append(int(ba[7]))
+	for l: Variant in (d.get("landmarks", []) as Array):
+		var ld: Dictionary = l as Dictionary
+		landmarks.append({"id": str(ld["id"]), "kind": str(ld["kind"]), "pos": Vector2(float(ld["x"]), float(ld["z"])),
+			"yaw": float(ld["yaw"]), "w": float(ld["w"]), "d": float(ld["d"])})
 	_index_roads()
 
 
@@ -191,6 +212,33 @@ func road_clearance(p: Vector2) -> float:
 				var q: Vector2 = Geometry2D.get_closest_point_to_segment(p, road_start(i), road_end(i))
 				best = minf(best, p.distance_to(q) - width(i) / 2.0)
 	return best
+
+
+## La calle más cercana a menos de `max_dist` metros (de su eje): [índice, punto del eje], o [] si no hay.
+func closest_road(p: Vector2, max_dist: float) -> Array:
+	var best: float = max_dist
+	var out: Array = []
+	var key := Vector2i(floori(p.x / CELL), floori(p.y / CELL))
+	for dx: int in [-1, 0, 1]:
+		for dz: int in [-1, 0, 1]:
+			for i: int in (_cells.get(key + Vector2i(dx, dz), []) as Array):
+				var q: Vector2 = Geometry2D.get_closest_point_to_segment(p, road_start(i), road_end(i))
+				var dd: float = p.distance_to(q)
+				if dd < best:
+					best = dd
+					out = [i, q]
+	return out
+
+
+func building_count() -> int:
+	return b_pos.size()
+
+
+## Esquinas de un rectángulo girado `yaw` (convención de Godot) de `w` × `d` metros.
+static func rect_corners(c: Vector2, yaw: float, w: float, d: float) -> PackedVector2Array:
+	var u := Vector2(cos(yaw), -sin(yaw)) * (w / 2.0)
+	var v := Vector2(sin(yaw), cos(yaw)) * (d / 2.0)
+	return PackedVector2Array([c - u - v, c + u - v, c + u + v, c - u + v])
 
 
 func _index_roads() -> void:
