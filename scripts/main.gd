@@ -17,6 +17,7 @@ var effects: Effects
 var air_defense: AirDefense
 var halcon: HalconMission
 var gps: Gps
+var day_night: DayNight
 var game_audio: GameAudio
 var dev: DevTools
 var hud: Hud
@@ -69,6 +70,8 @@ func _ready() -> void:
 	halcon = _system(HalconMission.new()) as HalconMission
 	halcon.setup()
 	gps = _system(Gps.new()) as Gps
+	day_night = _system(DayNight.new()) as DayNight
+	day_night.setup()
 	game_audio = _system(GameAudio.new()) as GameAudio
 	dev = _system(DevTools.new()) as DevTools
 	_spawn_actors()
@@ -155,6 +158,7 @@ func _physics_process(dt: float) -> void:
 	halcon.tick()
 	gps.tick(dt)
 	camera.tick(dt)
+	day_night.tick(dt)
 	game_audio.tick()
 	dev.tick()
 

@@ -12,6 +12,8 @@ var map: CityMap
 var terrain: Terrain
 var parent: Node3D
 var _parts: Dictionary = {}
+## Posición de la cabeza de cada farola.
+var lamp_heads: PackedVector3Array = PackedVector3Array()
 ## Calles que salen de cada cruce.
 var _adj: Array[PackedInt32Array] = []
 
@@ -72,7 +74,9 @@ func _lamp(at: Vector3, toward: Vector2) -> void:
 	var basis := Basis(Vector3.UP, yaw)
 	_add("pole", _cyl(), Transform3D(Basis.from_scale(Vector3(0.24, 7.5, 0.24)), at + Vector3(0, 3.75, 0)), Color(0.22, 0.23, 0.25))
 	_add("arm", _box(), Transform3D(basis * Basis.from_scale(Vector3(0.12, 0.12, 2.4)), at + Vector3(toward.x, 0, toward.y) * 1.1 + Vector3(0, 7.4, 0)), Color(0.22, 0.23, 0.25))
-	_add("lamp", _box(), Transform3D(basis * Basis.from_scale(Vector3(0.4, 0.18, 0.9)), at + Vector3(toward.x, 0, toward.y) * 2.2 + Vector3(0, 7.3, 0)), Color(1.0, 0.92, 0.7))
+	var head: Vector3 = at + Vector3(toward.x, 0, toward.y) * 2.2 + Vector3(0, 7.3, 0)
+	_add("lamp", _box(), Transform3D(basis * Basis.from_scale(Vector3(0.4, 0.18, 0.9)), head), Color(1.0, 0.92, 0.7))
+	lamp_heads.append(head)
 
 
 func _traffic_lights(node: int, half: float) -> void:

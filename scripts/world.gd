@@ -41,6 +41,11 @@ var marker: MeshInstance3D
 var barrier: Node3D
 var barrier_open: bool = false
 var sun: DirectionalLight3D
+var moon: DirectionalLight3D
+var env: Environment
+var sky_mat: ProceduralSkyMaterial
+## Cabezas de las farolas (para dar luz de verdad a las cercanas de noche).
+var lamp_positions: PackedVector3Array = PackedVector3Array()
 
 
 ## ¿Está el punto dentro del recinto de la base?
@@ -104,13 +109,14 @@ func set_marker(pos: Vector3, big: bool, shown: bool) -> void:
 func _build_sky() -> void:
 	var haze := Color(0.75, 0.82, 0.9)
 	var sm := ProceduralSkyMaterial.new()
+	sky_mat = sm
 	sm.sky_top_color = Color(0.2, 0.45, 0.85)
 	sm.sky_horizon_color = haze
 	sm.ground_horizon_color = haze
 	sm.ground_bottom_color = Color(0.35, 0.4, 0.35)
 	var sky := Sky.new()
 	sky.sky_material = sm
-	var env := Environment.new()
+	env = Environment.new()
 	env.background_mode = Environment.BG_SKY
 	env.sky = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
@@ -119,6 +125,7 @@ func _build_sky() -> void:
 	env.fog_light_color = haze
 	env.fog_density = 0.00013
 	env.glow_enabled = true
+	env.glow_hdr_threshold = 1.3
 	var we := WorldEnvironment.new()
 	we.environment = env
 	add_child(we)
@@ -126,6 +133,12 @@ func _build_sky() -> void:
 	sun.rotation_degrees = Vector3(-48, -35, 0)
 	sun.light_energy = 1.2
 	add_child(sun)
+	moon = DirectionalLight3D.new()
+	moon.rotation_degrees = Vector3(-42, 140, 0)
+	moon.light_color = Color(0.6, 0.7, 1.0)
+	moon.light_energy = 0.0
+	moon.shadow_enabled = false
+	add_child(moon)
 	apply_graphics()
 
 
@@ -148,7 +161,9 @@ func _build_ground() -> void:
 	terrain.build()
 	CityBuilder.new(map, terrain, self).build(gm)
 	BuildingsBuilder.new(map, terrain, self).build()
-	StreetFurniture.new(map, terrain, self).build()
+	var furniture := StreetFurniture.new(map, terrain, self)
+	furniture.build()
+	lamp_positions = furniture.lamp_heads
 
 	# árboles (solo visuales)
 	var spots: Array[Transform3D] = []

@@ -32,6 +32,7 @@ godot --path . -- --test-takeoff                        # despegue automático (
 godot --path . -- --menu | --pause | --controls | --options | --map   # abrir directamente esa pantalla
 godot --path . -- --shot=/ruta/captura.png              # se combina con los anteriores: captura a los 2,5 s y sale
 godot --path . -- --fps                                 # imprime fps y llamadas de dibujo cada segundo
+godot --path . -- --hour=22 --cine=250,500,700,220      # hora del día y vista aérea girando (x,z,radio,altura)
 ./tools/export.sh                                       # ejecutables de Linux, Windows y macOS en build/ (necesita las plantillas de exportación)
 ./web/deploy.sh                                         # publica la web y las descargas en el servidor de web/.deploy.env (antes: ./tools/export.sh)
 ```
@@ -45,7 +46,8 @@ scripts/           # main (raíz) y sistemas: camera_rig, driving, combat, effec
                    # interfaz: ui_style, hud, radar, map_draw, map_screen, road_router, loading_screen
                    # world, city_map (datos de la isla), terrain (relieve), city_builder, buildings_builder, street_furniture, hud, menu, settings, sfx, camera_logic, build, humanoid, layers, mission_state, vehicle
                    # y por actor: <actor>.gd, <actor>_logic.gd, <actor>_data.gd (player, car, jet, soldier, missile)
-data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres; map/city.json (generado)
+data/              # player.tres, car.tres, jet.tres, soldier.tres, missile.tres, day_night.tres; map/city.json (generado)
+shaders/           # facade.gdshader (fachadas con ventanas que se encienden de noche)
 assets/audio/      # sfx/*.ogg, music/mission.ogg
 tests/             # test_*.gd (GUT)
 docs/

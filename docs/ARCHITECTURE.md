@@ -24,6 +24,7 @@ Main (Node3D)                    raíz: crea todo, reparte el input y llama a lo
 ├── Missile (Node3D)             se crean al disparar una batería
 ├── CameraRig (Camera3D)         orbital a pie y en coche, persecución en el caza, sacudida
 ├── Gps (Node)                   ruta por las calles al objetivo o al destino marcado
+├── DayNight (Node)              hora del juego: sol, luna, cielo, ventanas y luces de farolas
 ├── CanvasLayer → Hud (Control)  incluye el radar (`Radar`)
 ├── CanvasLayer (capa 10) → Menu, MapScreen  menús y mapa a pantalla completa
 └── LoadingScreen (CanvasLayer)  solo mientras se construye la isla
@@ -63,6 +64,7 @@ Main (Node3D)                    raíz: crea todo, reparte el input y llama a lo
 | `effects` | `Effects` | `tracer`, `explosion(pos, radio)`, `flares` |
 | `air_defense` | `AirDefense` | baterías, `missiles`, `drop_flares`, `nearest_missile()` |
 | `halcon` | `HalconMission` | `objective_pos()`, `objective_text()`, mensajes de fin |
+| `day_night` | `DayNight` | `hour`, `apply()` (lógica en `DayNightLogic`, datos en `data/day_night.tres`) |
 | `gps` | `Gps` | `route`, `set_waypoint(p)`, `clear_waypoint()`, `destination()` (usa `RoadRouter`) |
 | `game_audio` | `GameAudio` | bucles de sonido |
 | `dev` | `DevTools` | ayudas de desarrollo |
@@ -73,6 +75,10 @@ Main (Node3D)                    raíz: crea todo, reparte el input y llama a lo
 - **Llamadas hacia abajo:** `Main` crea los actores y les pasa `main`. Los actores piden efectos y consultas al sistema que toca (`main.effects.explosion`, `main.combat.hurt_target`, `main.driving.eject`, `main.air_defense.drop_flares`…). Es un acoplamiento aceptado mientras haya una sola escena.
 - `Main` se ejecuta después de los actores (`process_physics_priority = 10`) para que la cámara vea posiciones ya actualizadas.
 - `Hud` lee el estado de `Main` y sus sistemas cada fotograma.
+
+## Día y noche
+
+`DayNight` avanza la hora (un día dura `day_minutes` minutos reales; empieza a `start_hour`) y en cada fotograma ajusta el sol (altura y rumbo), la luna, los colores del cielo y de la niebla, la luz ambiente, el brillo y las ventanas encendidas. De noche, un grupo de `OmniLight3D` (`lamp_lights`) se coloca cada 0,5 s en las farolas más cercanas a la cámara (`World.lamp_positions`); el resto de farolas y los neones solo brillan (material sin luz). El HUD muestra la hora. `--hour=21.5` fija la hora para probar.
 
 ## Interfaz
 
@@ -121,6 +127,8 @@ El mapa es una **isla** descrita como datos en `data/map/city.json`, que genera 
 - `Terrain` (`scripts/terrain.gd`, tests en `tests/test_terrain.gd`): relieve en una rejilla de 10 m. Colinas en campana (`hill_height`), con las carreteras allanadas como bancales (`ground_height`); la tierra se ensancha 7 m hacia el agua para que la pendiente de la orilla quede fuera de calles y barrios. Malla con colores por vértice (hierba, arena, golf, tierra en laderas) y colisión `HeightMapShape3D`. `surface(p)` es la altura a la que se apoya todo lo demás (0 en el llano).
 - `CityBuilder` (`scripts/city_builder.gd`): islotes (llanos, con borde y colisión), agua a y = -1 y fondo a y = -2,2. Todo lo plano (suelo de barrios, aceras, calzadas, cruces, pasos de cebra, marcas, pista del aeropuerto) va en **una sola malla** con colores por vértice, apoyada en el relieve (en la colina las bandas se trocean cada 6 m). Los puentes son cajas con colisión y barandillas, siempre horizontales.
 - `BuildingsBuilder` (`scripts/buildings_builder.gd`): los ~2900 edificios de `city.json` (colocados por `layout.py` a lo largo de las calles, con medidas según el barrio) con `MultiMesh`: una llamada de dibujo por pieza (cuerpo con fachada de ventanas, cristal o lisa —`Build.facade_mat`, teñida por instancia—, tejados, máquinas de azotea, neones, piscinas, puertas). Cada edificio tiene su caja de colisión. Los singulares (catedral, casino, hoteles, hospital, comisaría, banco, estación, centro comercial, motel, gasolinera, mercado) son piezas sueltas con rótulos `Label3D`.
+- Fachadas: `shaders/facade.gdshader` (textura de ventanas o de muro cortina en coordenadas del mundo, teñida por el color de cada instancia; de noche brillan solo las ventanas encendidas, uniforme `night`). `Build.facade_mat(kind)` da el material compartido y `Build.set_night(x)` lo enciende.
+- Puerto: pilas de contenedores (`CityMap.c_*`, colocadas por `layout.py` en los patios libres) y cuatro grúas pórtico (edificios singulares).
 - `StreetFurniture` (`scripts/street_furniture.gd`): farolas (cada 32 m; a ambos lados en avenidas) y semáforos en los cruces grandes, con `MultiMesh` y sin colisión por ahora.
 - `World` lo orquesta (`terrain`, ciudad, edificios, mobiliario) y añade cielo, árboles (`clear_spot`), nubes, base aérea, baterías y el islote del aeródromo.
 - Rendimiento medido con `--fps` (RTX 3050 portátil): 120-145 fps en el centro y volando, menos de 300 llamadas de dibujo.

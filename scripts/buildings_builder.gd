@@ -308,10 +308,7 @@ func _part(root: Node3D, size: Vector3, at: Vector3, color: Color, facade: Strin
 	var bm := BoxMesh.new()
 	bm.size = size
 	mi.mesh = bm
-	var m: StandardMaterial3D = Build.facade_mat(facade).duplicate() as StandardMaterial3D
-	m.vertex_color_use_as_albedo = false
-	m.albedo_color = color
-	mi.material_override = m
+	mi.material_override = Build.facade_part_mat(facade, color)
 	mi.position = at + Vector3(0, size.y / 2.0, 0)
 	root.add_child(mi)
 	return mi

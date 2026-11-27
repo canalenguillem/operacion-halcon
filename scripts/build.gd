@@ -156,29 +156,71 @@ static var _glass_tex: ImageTexture
 
 ## Material de fachada para `MultiMesh`: blanco con la textura de `kind` ("windows", "glass" o "plain"),
 ## teñido por el color de cada instancia. Triplanar en coordenadas del mundo (una ventana cada 3 m).
-static func facade_mat(kind: String) -> StandardMaterial3D:
+static func facade_mat(kind: String) -> Material:
 	var key := "facade|%s" % kind
 	if _mats.has(key):
 		return _mats[key]
-	var m := StandardMaterial3D.new()
-	m.vertex_color_use_as_albedo = true
-	m.vertex_color_is_srgb = true
-	m.roughness = 0.85
-	if kind != "plain":
-		if _window_tex == null:
-			_window_tex = _make_window_tex()
-		if _glass_tex == null:
-			_glass_tex = _make_glass_tex()
-		m.albedo_texture = _glass_tex if kind == "glass" else _window_tex
-		m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC
-		m.uv1_triplanar = true
-		m.uv1_world_triplanar = true
-		m.uv1_scale = Vector3.ONE / 12.0
-	if kind == "glass":
-		m.roughness = 0.25
-		m.metallic = 0.35
-	_mats[key] = m
-	return m
+	if kind == "plain":
+		var m := StandardMaterial3D.new()
+		m.vertex_color_use_as_albedo = true
+		m.vertex_color_is_srgb = true
+		m.roughness = 0.85
+		_mats[key] = m
+		return m
+	if _window_tex == null:
+		_window_tex = _make_window_tex()
+	if _glass_tex == null:
+		_glass_tex = _make_glass_tex()
+	var tex: ImageTexture = _glass_tex if kind == "glass" else _window_tex
+	var sm := ShaderMaterial.new()
+	sm.shader = preload("res://shaders/facade.gdshader")
+	sm.set_shader_parameter("albedo_tex", tex)
+	sm.set_shader_parameter("lit_tex", _lit(tex))
+	sm.set_shader_parameter("roughness_value", 0.25 if kind == "glass" else 0.85)
+	sm.set_shader_parameter("metallic_value", 0.35 if kind == "glass" else 0.0)
+	_night_mats.append(sm)
+	_mats[key] = sm
+	return sm
+
+
+## Fachada de una pieza suelta (edificios singulares): como `facade_mat` pero de un solo color.
+static func facade_part_mat(kind: String, color: Color) -> Material:
+	if kind == "plain":
+		return mat(color)
+	var sm: ShaderMaterial = (facade_mat(kind) as ShaderMaterial).duplicate() as ShaderMaterial
+	sm.set_shader_parameter("tint", color)
+	_night_mats.append(sm)
+	return sm
+
+
+static var _night_mats: Array[ShaderMaterial] = []
+
+
+## Enciende las ventanas (0 apagadas, 1 de noche cerrada).
+static func set_night(amount: float) -> void:
+	for m: ShaderMaterial in _night_mats:
+		m.set_shader_parameter("night", amount)
+
+
+static var _lit_cache: Dictionary = {}
+
+
+## Solo las ventanas iluminadas (amarillentas) de una textura de fachada; lo demás, negro.
+static func _lit(tex: ImageTexture) -> ImageTexture:
+	if _lit_cache.has(tex):
+		return _lit_cache[tex]
+	var img: Image = tex.get_image()
+	img.decompress()
+	var out := Image.create(img.get_width(), img.get_height(), true, Image.FORMAT_RGB8)
+	for y: int in img.get_height():
+		for x: int in img.get_width():
+			var c: Color = img.get_pixel(x, y)
+			if c.r > 0.9 and c.b < 0.75:
+				out.set_pixel(x, y, c)
+	out.generate_mipmaps()
+	var lit := ImageTexture.create_from_image(out)
+	_lit_cache[tex] = lit
+	return lit
 
 
 ## Material sin luz (siempre brillante) teñido por instancia: neones y pilotos de semáforo.

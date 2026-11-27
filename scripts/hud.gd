@@ -170,10 +170,10 @@ func _draw_top_right(s: Vector2) -> void:
 	draw_rect(box, UiStyle.PANEL)
 	UiStyle.icon_pistol(self, box.position + Vector2(36, 23), 34.0, UiStyle.TEXT)
 	UiStyle.text(self, Vector2(box.end.x - 14.0, box.position.y + 33.0), "∞", 28, UiStyle.TEXT, HORIZONTAL_ALIGNMENT_RIGHT, UiStyle.title_font(), 0)
-	# tiempo de misión y bajas
-	var t: String = Settings.format_time(main.elapsed)
-	UiStyle.text(self, Vector2(right, MARGIN + 118.0), t, 24, UiStyle.TEXT, HORIZONTAL_ALIGNMENT_RIGHT, UiStyle.title_font())
-	UiStyle.text(self, Vector2(right, MARGIN + 142.0), "Bajas %d" % main.combat.kills, 16, UiStyle.MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	# hora del día, tiempo de misión y bajas
+	UiStyle.text(self, Vector2(right, MARGIN + 120.0), DayNightLogic.clock(main.day_night.hour), 26, UiStyle.TEXT, HORIZONTAL_ALIGNMENT_RIGHT, UiStyle.title_font())
+	var t: String = "Misión %s · Bajas %d" % [Settings.format_time(main.elapsed), main.combat.kills]
+	UiStyle.text(self, Vector2(right, MARGIN + 144.0), t, 15, UiStyle.MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 
 
 # ---------------------------------------------------------------- salud y vehículo

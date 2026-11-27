@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DayNightData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/day_night_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+start_hour = 10.0
+day_minutes = 24.0
+lamp_lights = 14
+lamp_range = 22.0
+lamp_energy = 3.0

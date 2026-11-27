@@ -3,7 +3,7 @@ extends Node
 ## Ayudas de desarrollo por línea de órdenes:
 ## godot --path . -- [--play] [--at=x,y,z] [--yaw=grados] [--test-jet] [--test-takeoff]
 ##                   [--menu] [--pause] [--controls] [--options] [--map] [--shot=/ruta/captura.png] [--fps]
-##                   [--cine=x,z,radio,altura]  (vista aérea girando alrededor de un punto)
+##                   [--cine=x,z,radio,altura]  (vista aérea girando alrededor de un punto)  [--hour=21.5]
 
 var main: Main
 ## Imprime el estado del caza cada segundo (lo usa `tools/check.sh`).
@@ -32,6 +32,9 @@ func parse_args() -> bool:
 			main.camera.cine_radius = c[2]
 			main.camera.cine_height = c[3]
 			main.camera.cinematic = true
+		elif a.begins_with("--hour="):
+			main.day_night.hour = float(a.trim_prefix("--hour="))
+			main.day_night.apply()
 		elif a == "--map":
 			main.map_screen.open.call_deferred(false)
 		elif a == "--fps":
