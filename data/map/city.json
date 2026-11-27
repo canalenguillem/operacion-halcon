@@ -1,0 +1,2885 @@
+{
+ "version": 1,
+ "note": "Generado por tools/map/layout.py; no editar a mano.",
+ "road_width": {
+  "autovia": 16.0,
+  "avenida": 20.0,
+  "calle": 12.0,
+  "callejon": 7.0,
+  "muelle": 10.0
+ },
+ "sidewalk": 3.0,
+ "nodes": [
+  [
+   -150,
+   -100
+  ],
+  [
+   0,
+   -100
+  ],
+  [
+   150,
+   -100
+  ],
+  [
+   300,
+   -100
+  ],
+  [
+   450,
+   -100
+  ],
+  [
+   600,
+   -100
+  ],
+  [
+   750,
+   -100
+  ],
+  [
+   -150,
+   50
+  ],
+  [
+   0,
+   50
+  ],
+  [
+   150,
+   50
+  ],
+  [
+   300,
+   50
+  ],
+  [
+   450,
+   50
+  ],
+  [
+   600,
+   50
+  ],
+  [
+   750,
+   50
+  ],
+  [
+   -150,
+   200
+  ],
+  [
+   0,
+   200
+  ],
+  [
+   75,
+   200
+  ],
+  [
+   150,
+   200
+  ],
+  [
+   225,
+   200
+  ],
+  [
+   300,
+   200
+  ],
+  [
+   375,
+   200
+  ],
+  [
+   450,
+   200
+  ],
+  [
+   600,
+   200
+  ],
+  [
+   750,
+   200
+  ],
+  [
+   -150,
+   350
+  ],
+  [
+   0,
+   350
+  ],
+  [
+   75,
+   350
+  ],
+  [
+   150,
+   350
+  ],
+  [
+   225,
+   350
+  ],
+  [
+   300,
+   350
+  ],
+  [
+   375,
+   350
+  ],
+  [
+   450,
+   350
+  ],
+  [
+   600,
+   350
+  ],
+  [
+   750,
+   350
+  ],
+  [
+   -150,
+   500
+  ],
+  [
+   0,
+   500
+  ],
+  [
+   75,
+   500
+  ],
+  [
+   150,
+   500
+  ],
+  [
+   225,
+   500
+  ],
+  [
+   300,
+   500
+  ],
+  [
+   375,
+   500
+  ],
+  [
+   450,
+   500
+  ],
+  [
+   600,
+   500
+  ],
+  [
+   750,
+   500
+  ],
+  [
+   -150,
+   650
+  ],
+  [
+   0,
+   650
+  ],
+  [
+   75,
+   650
+  ],
+  [
+   150,
+   650
+  ],
+  [
+   225,
+   650
+  ],
+  [
+   300,
+   650
+  ],
+  [
+   375,
+   650
+  ],
+  [
+   450,
+   650
+  ],
+  [
+   600,
+   650
+  ],
+  [
+   750,
+   650
+  ],
+  [
+   -150,
+   800
+  ],
+  [
+   0,
+   800
+  ],
+  [
+   75,
+   800
+  ],
+  [
+   150,
+   800
+  ],
+  [
+   225,
+   800
+  ],
+  [
+   300,
+   800
+  ],
+  [
+   375,
+   800
+  ],
+  [
+   450,
+   800
+  ],
+  [
+   600,
+   800
+  ],
+  [
+   750,
+   800
+  ],
+  [
+   -150,
+   950
+  ],
+  [
+   0,
+   950
+  ],
+  [
+   150,
+   950
+  ],
+  [
+   300,
+   950
+  ],
+  [
+   450,
+   950
+  ],
+  [
+   600,
+   950
+  ],
+  [
+   750,
+   950
+  ],
+  [
+   -150,
+   1100
+  ],
+  [
+   0,
+   1100
+  ],
+  [
+   150,
+   1100
+  ],
+  [
+   300,
+   1100
+  ],
+  [
+   450,
+   1100
+  ],
+  [
+   600,
+   1100
+  ],
+  [
+   750,
+   1100
+  ],
+  [
+   300,
+   1300
+  ],
+  [
+   300,
+   1430
+  ],
+  [
+   600,
+   1300
+  ],
+  [
+   600,
+   1430
+  ],
+  [
+   0,
+   1290
+  ],
+  [
+   -700,
+   -100
+  ],
+  [
+   -600,
+   -100
+  ],
+  [
+   -500,
+   -100
+  ],
+  [
+   -400,
+   -100
+  ],
+  [
+   -290,
+   -100
+  ],
+  [
+   -700,
+   0
+  ],
+  [
+   -600,
+   0
+  ],
+  [
+   -500,
+   0
+  ],
+  [
+   -400,
+   0
+  ],
+  [
+   -290,
+   0
+  ],
+  [
+   -700,
+   100
+  ],
+  [
+   -600,
+   100
+  ],
+  [
+   -500,
+   100
+  ],
+  [
+   -400,
+   100
+  ],
+  [
+   -290,
+   100
+  ],
+  [
+   -700,
+   200
+  ],
+  [
+   -600,
+   200
+  ],
+  [
+   -500,
+   200
+  ],
+  [
+   -400,
+   200
+  ],
+  [
+   -290,
+   200
+  ],
+  [
+   -700,
+   300
+  ],
+  [
+   -600,
+   300
+  ],
+  [
+   -500,
+   300
+  ],
+  [
+   -400,
+   300
+  ],
+  [
+   -290,
+   300
+  ],
+  [
+   -700,
+   400
+  ],
+  [
+   -600,
+   400
+  ],
+  [
+   -500,
+   400
+  ],
+  [
+   -400,
+   400
+  ],
+  [
+   -290,
+   400
+  ],
+  [
+   -620.0,
+   400.0
+  ],
+  [
+   -540.0,
+   400.0
+  ],
+  [
+   -460.0,
+   400.0
+  ],
+  [
+   -380.0,
+   400.0
+  ],
+  [
+   -700.0,
+   480.0
+  ],
+  [
+   -621.5,
+   481.7
+  ],
+  [
+   -526.4,
+   479.0
+  ],
+  [
+   -459.7,
+   482.4
+  ],
+  [
+   -390.1,
+   480.3
+  ],
+  [
+   -290.0,
+   480.0
+  ],
+  [
+   -700.0,
+   560.0
+  ],
+  [
+   -615.8,
+   568.2
+  ],
+  [
+   -553.0,
+   554.5
+  ],
+  [
+   -473.1,
+   568.7
+  ],
+  [
+   -373.8,
+   547.2
+  ],
+  [
+   -290.0,
+   560.0
+  ],
+  [
+   -700.0,
+   640.0
+  ],
+  [
+   -604.6,
+   653.0
+  ],
+  [
+   -535.1,
+   643.2
+  ],
+  [
+   -471.0,
+   626.4
+  ],
+  [
+   -379.1,
+   627.7
+  ],
+  [
+   -290.0,
+   640.0
+  ],
+  [
+   -700.0,
+   720.0
+  ],
+  [
+   -629.9,
+   712.8
+  ],
+  [
+   -555.0,
+   719.0
+  ],
+  [
+   -461.9,
+   729.6
+  ],
+  [
+   -379.4,
+   723.9
+  ],
+  [
+   -290.0,
+   720.0
+  ],
+  [
+   -700.0,
+   800.0
+  ],
+  [
+   -620.0,
+   804.5
+  ],
+  [
+   -541.4,
+   793.8
+  ],
+  [
+   -444.1,
+   813.9
+  ],
+  [
+   -369.1,
+   805.8
+  ],
+  [
+   -290.0,
+   800.0
+  ],
+  [
+   -700.0,
+   880.0
+  ],
+  [
+   -625.9,
+   872.4
+  ],
+  [
+   -546.8,
+   868.0
+  ],
+  [
+   -451.5,
+   877.2
+  ],
+  [
+   -368.9,
+   876.8
+  ],
+  [
+   -290.0,
+   880.0
+  ],
+  [
+   -700.0,
+   960.0
+  ],
+  [
+   -605.3,
+   969.7
+  ],
+  [
+   -556.0,
+   951.9
+  ],
+  [
+   -446.9,
+   959.2
+  ],
+  [
+   -364.6,
+   957.1
+  ],
+  [
+   -290.0,
+   960.0
+  ],
+  [
+   -700.0,
+   1040.0
+  ],
+  [
+   -633.7,
+   1043.6
+  ],
+  [
+   -531.1,
+   1033.6
+  ],
+  [
+   -473.2,
+   1035.3
+  ],
+  [
+   -365.1,
+   1047.2
+  ],
+  [
+   -290.0,
+   1040.0
+  ],
+  [
+   -700.0,
+   1120.0
+  ],
+  [
+   -620.0,
+   1120.0
+  ],
+  [
+   -540.0,
+   1120.0
+  ],
+  [
+   -460.0,
+   1120.0
+  ],
+  [
+   -380.0,
+   1120.0
+  ],
+  [
+   -290.0,
+   1120.0
+  ],
+  [
+   -540,
+   880
+  ],
+  [
+   -380,
+   640
+  ],
+  [
+   25,
+   -250
+  ],
+  [
+   55,
+   -400
+  ],
+  [
+   40,
+   -550
+  ],
+  [
+   0,
+   -700
+  ],
+  [
+   -860,
+   1120
+  ]
+ ],
+ "roads": [
+  {
+   "a": 0,
+   "b": 1,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 1,
+   "b": 2,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 2,
+   "b": 3,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 3,
+   "b": 4,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 4,
+   "b": 5,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 5,
+   "b": 6,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 7,
+   "b": 8,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 8,
+   "b": 9,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 9,
+   "b": 10,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 10,
+   "b": 11,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 12,
+   "b": 13,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 14,
+   "b": 15,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 15,
+   "b": 16,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 16,
+   "b": 17,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 17,
+   "b": 18,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 18,
+   "b": 19,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 19,
+   "b": 20,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 20,
+   "b": 21,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 21,
+   "b": 22,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 22,
+   "b": 23,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 24,
+   "b": 25,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 25,
+   "b": 26,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 26,
+   "b": 27,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 27,
+   "b": 28,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 28,
+   "b": 29,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 29,
+   "b": 30,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 30,
+   "b": 31,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 31,
+   "b": 32,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 32,
+   "b": 33,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 34,
+   "b": 35,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 35,
+   "b": 36,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 36,
+   "b": 37,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 37,
+   "b": 38,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 38,
+   "b": 39,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 39,
+   "b": 40,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 40,
+   "b": 41,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 41,
+   "b": 42,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 42,
+   "b": 43,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 44,
+   "b": 45,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 45,
+   "b": 46,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 46,
+   "b": 47,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 47,
+   "b": 48,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 48,
+   "b": 49,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 49,
+   "b": 50,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 50,
+   "b": 51,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 51,
+   "b": 52,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 52,
+   "b": 53,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 54,
+   "b": 55,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 55,
+   "b": 56,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 56,
+   "b": 57,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 57,
+   "b": 58,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 58,
+   "b": 59,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 59,
+   "b": 60,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 60,
+   "b": 61,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 61,
+   "b": 62,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 62,
+   "b": 63,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 64,
+   "b": 65,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 65,
+   "b": 66,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 66,
+   "b": 67,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 67,
+   "b": 68,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 68,
+   "b": 69,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 69,
+   "b": 70,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 71,
+   "b": 72,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 72,
+   "b": 73,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 73,
+   "b": 74,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 74,
+   "b": 75,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 75,
+   "b": 76,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 76,
+   "b": 77,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 0,
+   "b": 7,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 7,
+   "b": 14,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 14,
+   "b": 24,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 24,
+   "b": 34,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 34,
+   "b": 44,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 44,
+   "b": 54,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 54,
+   "b": 64,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 64,
+   "b": 71,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 1,
+   "b": 8,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 8,
+   "b": 15,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 15,
+   "b": 25,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 25,
+   "b": 35,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 35,
+   "b": 45,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 45,
+   "b": 55,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 55,
+   "b": 65,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 65,
+   "b": 72,
+   "type": "avenida",
+   "bridge": false
+  },
+  {
+   "a": 2,
+   "b": 9,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 9,
+   "b": 17,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 17,
+   "b": 27,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 27,
+   "b": 37,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 37,
+   "b": 47,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 47,
+   "b": 57,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 57,
+   "b": 66,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 66,
+   "b": 73,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 3,
+   "b": 10,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 10,
+   "b": 19,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 19,
+   "b": 29,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 29,
+   "b": 39,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 39,
+   "b": 49,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 49,
+   "b": 59,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 59,
+   "b": 67,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 67,
+   "b": 74,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 4,
+   "b": 11,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 11,
+   "b": 21,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 21,
+   "b": 31,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 31,
+   "b": 41,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 41,
+   "b": 51,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 51,
+   "b": 61,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 61,
+   "b": 68,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 68,
+   "b": 75,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 12,
+   "b": 22,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 32,
+   "b": 42,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 42,
+   "b": 52,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 52,
+   "b": 62,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 62,
+   "b": 69,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 69,
+   "b": 76,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 6,
+   "b": 13,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 13,
+   "b": 23,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 23,
+   "b": 33,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 33,
+   "b": 43,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 43,
+   "b": 53,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 53,
+   "b": 63,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 63,
+   "b": 70,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 70,
+   "b": 77,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 16,
+   "b": 26,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 26,
+   "b": 36,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 36,
+   "b": 46,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 46,
+   "b": 56,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 18,
+   "b": 28,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 38,
+   "b": 48,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 48,
+   "b": 58,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 20,
+   "b": 30,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 30,
+   "b": 40,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 40,
+   "b": 50,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 74,
+   "b": 78,
+   "type": "muelle",
+   "bridge": false
+  },
+  {
+   "a": 78,
+   "b": 79,
+   "type": "muelle",
+   "bridge": false
+  },
+  {
+   "a": 76,
+   "b": 80,
+   "type": "muelle",
+   "bridge": false
+  },
+  {
+   "a": 80,
+   "b": 81,
+   "type": "muelle",
+   "bridge": false
+  },
+  {
+   "a": 72,
+   "b": 82,
+   "type": "muelle",
+   "bridge": false
+  },
+  {
+   "a": 83,
+   "b": 84,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 84,
+   "b": 85,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 85,
+   "b": 86,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 86,
+   "b": 87,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 88,
+   "b": 89,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 89,
+   "b": 90,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 90,
+   "b": 91,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 91,
+   "b": 92,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 93,
+   "b": 94,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 94,
+   "b": 95,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 95,
+   "b": 96,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 96,
+   "b": 97,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 98,
+   "b": 99,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 99,
+   "b": 100,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 100,
+   "b": 101,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 101,
+   "b": 102,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 103,
+   "b": 104,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 104,
+   "b": 105,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 105,
+   "b": 106,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 106,
+   "b": 107,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 108,
+   "b": 109,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 109,
+   "b": 110,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 110,
+   "b": 111,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 111,
+   "b": 112,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 83,
+   "b": 88,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 88,
+   "b": 93,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 93,
+   "b": 98,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 98,
+   "b": 103,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 103,
+   "b": 108,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 84,
+   "b": 89,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 89,
+   "b": 94,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 94,
+   "b": 99,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 99,
+   "b": 104,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 104,
+   "b": 109,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 85,
+   "b": 90,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 90,
+   "b": 95,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 95,
+   "b": 100,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 100,
+   "b": 105,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 105,
+   "b": 110,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 86,
+   "b": 91,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 91,
+   "b": 96,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 96,
+   "b": 101,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 101,
+   "b": 106,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 106,
+   "b": 111,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 87,
+   "b": 92,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 92,
+   "b": 97,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 97,
+   "b": 102,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 102,
+   "b": 107,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 107,
+   "b": 112,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 108,
+   "b": 113,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 108,
+   "b": 117,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 113,
+   "b": 114,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 114,
+   "b": 115,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 114,
+   "b": 119,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 115,
+   "b": 116,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 116,
+   "b": 112,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 112,
+   "b": 122,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 117,
+   "b": 118,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 117,
+   "b": 123,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 118,
+   "b": 124,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 119,
+   "b": 120,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 120,
+   "b": 121,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 121,
+   "b": 122,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 122,
+   "b": 128,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 123,
+   "b": 124,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 123,
+   "b": 129,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 124,
+   "b": 125,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 124,
+   "b": 130,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 125,
+   "b": 126,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 125,
+   "b": 131,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 126,
+   "b": 127,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 126,
+   "b": 132,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 127,
+   "b": 128,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 127,
+   "b": 133,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 128,
+   "b": 134,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 129,
+   "b": 130,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 129,
+   "b": 135,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 130,
+   "b": 131,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 131,
+   "b": 132,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 132,
+   "b": 133,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 132,
+   "b": 138,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 133,
+   "b": 134,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 133,
+   "b": 139,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 134,
+   "b": 140,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 135,
+   "b": 141,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 136,
+   "b": 142,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 137,
+   "b": 138,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 137,
+   "b": 143,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 138,
+   "b": 139,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 138,
+   "b": 144,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 139,
+   "b": 140,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 139,
+   "b": 145,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 140,
+   "b": 146,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 141,
+   "b": 142,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 141,
+   "b": 147,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 142,
+   "b": 143,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 143,
+   "b": 149,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 144,
+   "b": 145,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 144,
+   "b": 150,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 145,
+   "b": 146,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 145,
+   "b": 151,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 146,
+   "b": 152,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 147,
+   "b": 148,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 147,
+   "b": 153,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 148,
+   "b": 149,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 148,
+   "b": 154,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 149,
+   "b": 150,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 149,
+   "b": 155,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 150,
+   "b": 151,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 151,
+   "b": 157,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 152,
+   "b": 158,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 153,
+   "b": 154,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 153,
+   "b": 159,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 154,
+   "b": 155,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 154,
+   "b": 160,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 155,
+   "b": 156,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 155,
+   "b": 161,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 156,
+   "b": 157,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 157,
+   "b": 158,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 158,
+   "b": 164,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 159,
+   "b": 160,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 159,
+   "b": 165,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 160,
+   "b": 161,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 160,
+   "b": 166,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 161,
+   "b": 162,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 161,
+   "b": 167,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 162,
+   "b": 163,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 163,
+   "b": 169,
+   "type": "callejon",
+   "bridge": false
+  },
+  {
+   "a": 164,
+   "b": 170,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 165,
+   "b": 166,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 166,
+   "b": 167,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 167,
+   "b": 168,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 168,
+   "b": 169,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 169,
+   "b": 170,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 165,
+   "b": 171,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 171,
+   "b": 172,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 172,
+   "b": 122,
+   "type": "calle",
+   "bridge": false
+  },
+  {
+   "a": 87,
+   "b": 0,
+   "type": "calle",
+   "bridge": true
+  },
+  {
+   "a": 102,
+   "b": 14,
+   "type": "calle",
+   "bridge": true
+  },
+  {
+   "a": 122,
+   "b": 34,
+   "type": "avenida",
+   "bridge": true
+  },
+  {
+   "a": 146,
+   "b": 54,
+   "type": "calle",
+   "bridge": true
+  },
+  {
+   "a": 170,
+   "b": 71,
+   "type": "avenida",
+   "bridge": true
+  },
+  {
+   "a": 1,
+   "b": 173,
+   "type": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 173,
+   "b": 174,
+   "type": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 174,
+   "b": 175,
+   "type": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 175,
+   "b": 176,
+   "type": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 165,
+   "b": 177,
+   "type": "calle",
+   "bridge": false
+  }
+ ],
+ "river": {
+  "line": [
+   [
+    -430.0,
+    -1000.0
+   ],
+   [
+    -310.0,
+    -600.0
+   ],
+   [
+    -225.0,
+    -220.0
+   ],
+   [
+    -212.0,
+    170.0
+   ],
+   [
+    -226.0,
+    610.0
+   ],
+   [
+    -218.0,
+    990.0
+   ],
+   [
+    -215.0,
+    1320.0
+   ]
+  ],
+  "width": 46.0
+ },
+ "sea": [
+  [
+   -2000.0,
+   1170.0
+  ],
+  [
+   -245.0,
+   1170.0
+  ],
+  [
+   -245.0,
+   1320.0
+  ],
+  [
+   2000.0,
+   1320.0
+  ],
+  [
+   2000.0,
+   3000.0
+  ],
+  [
+   -2000.0,
+   3000.0
+  ]
+ ],
+ "piers": [
+  [
+   [
+    260.0,
+    1300.0
+   ],
+   [
+    340.0,
+    1300.0
+   ],
+   [
+    340.0,
+    1460.0
+   ],
+   [
+    260.0,
+    1460.0
+   ]
+  ],
+  [
+   [
+    560.0,
+    1300.0
+   ],
+   [
+    640.0,
+    1300.0
+   ],
+   [
+    640.0,
+    1460.0
+   ],
+   [
+    560.0,
+    1460.0
+   ]
+  ],
+  [
+   [
+    -30.0,
+    1300.0
+   ],
+   [
+    30.0,
+    1300.0
+   ],
+   [
+    30.0,
+    1320.0
+   ],
+   [
+    -30.0,
+    1320.0
+   ]
+  ]
+ ],
+ "districts": [
+  {
+   "id": "residencial",
+   "label": [
+    -480,
+    345
+   ],
+   "name": "Residencial",
+   "style": "casas",
+   "poly": [
+    [
+     -760.0,
+     -160.0
+    ],
+    [
+     -245.0,
+     -160.0
+    ],
+    [
+     -245.0,
+     420.0
+    ],
+    [
+     -760.0,
+     420.0
+    ]
+   ]
+  },
+  {
+   "id": "viejo",
+   "label": [
+    -470,
+    1090
+   ],
+   "name": "Barrio Viejo",
+   "style": "casco_antiguo",
+   "poly": [
+    [
+     -760.0,
+     420.0
+    ],
+    [
+     -245.0,
+     420.0
+    ],
+    [
+     -245.0,
+     1170.0
+    ],
+    [
+     -760.0,
+     1170.0
+    ]
+   ]
+  },
+  {
+   "id": "ensanche",
+   "label": [
+    140,
+    120
+   ],
+   "name": "Ensanche",
+   "style": "bloques",
+   "poly": [
+    [
+     -190.0,
+     -160.0
+    ],
+    [
+     460.0,
+     -160.0
+    ],
+    [
+     460.0,
+     200.0
+    ],
+    [
+     -190.0,
+     200.0
+    ]
+   ]
+  },
+  {
+   "id": "centro",
+   "label": [
+    150,
+    725
+   ],
+   "name": "Centro",
+   "style": "rascacielos",
+   "poly": [
+    [
+     -190.0,
+     200.0
+    ],
+    [
+     460.0,
+     200.0
+    ],
+    [
+     460.0,
+     830.0
+    ],
+    [
+     -190.0,
+     830.0
+    ]
+   ]
+  },
+  {
+   "id": "poligono",
+   "label": [
+    630,
+    280
+   ],
+   "name": "Polígono",
+   "style": "naves",
+   "poly": [
+    [
+     460.0,
+     -160.0
+    ],
+    [
+     810.0,
+     -160.0
+    ],
+    [
+     810.0,
+     830.0
+    ],
+    [
+     460.0,
+     830.0
+    ]
+   ]
+  },
+  {
+   "id": "puerto",
+   "label": [
+    150,
+    1225
+   ],
+   "name": "Puerto",
+   "style": "muelles",
+   "poly": [
+    [
+     -190.0,
+     830.0
+    ],
+    [
+     810.0,
+     830.0
+    ],
+    [
+     810.0,
+     1320.0
+    ],
+    [
+     -190.0,
+     1320.0
+    ]
+   ]
+  }
+ ],
+ "areas": [
+  {
+   "id": "plaza_mayor",
+   "kind": "plaza",
+   "poly": [
+    [
+     156.0,
+     356.0
+    ],
+    [
+     294.0,
+     356.0
+    ],
+    [
+     294.0,
+     494.0
+    ],
+    [
+     156.0,
+     494.0
+    ]
+   ]
+  },
+  {
+   "id": "parque",
+   "kind": "parque",
+   "poly": [
+    [
+     306.0,
+     656.0
+    ],
+    [
+     444.0,
+     656.0
+    ],
+    [
+     444.0,
+     794.0
+    ],
+    [
+     306.0,
+     794.0
+    ]
+   ]
+  },
+  {
+   "id": "base_aerea",
+   "kind": "base",
+   "poly": [
+    [
+     -350.0,
+     -1300.0
+    ],
+    [
+     350.0,
+     -1300.0
+    ],
+    [
+     350.0,
+     -700.0
+    ],
+    [
+     -350.0,
+     -700.0
+    ]
+   ]
+  }
+ ],
+ "pois": [
+  {
+   "id": "piso_franco",
+   "name": "Piso franco (inicio)",
+   "pos": [
+    -505.0,
+    765.0
+   ]
+  },
+  {
+   "id": "plaza_vieja",
+   "name": "Plaza vieja",
+   "pos": [
+    -420.0,
+    600.0
+   ]
+  },
+  {
+   "id": "hospital",
+   "name": "Hospital",
+   "pos": [
+    -450.0,
+    150.0
+   ]
+  },
+  {
+   "id": "centro_comercial",
+   "name": "Centro comercial",
+   "pos": [
+    -650.0,
+    -50.0
+   ]
+  },
+  {
+   "id": "comisaria",
+   "name": "Comisaría",
+   "pos": [
+    38.0,
+    575.0
+   ]
+  },
+  {
+   "id": "armeria",
+   "name": "Armería",
+   "pos": [
+    262.0,
+    275.0
+   ]
+  },
+  {
+   "id": "plaza_mayor",
+   "name": "Plaza mayor",
+   "pos": [
+    225.0,
+    425.0
+   ]
+  },
+  {
+   "id": "parque",
+   "name": "Parque",
+   "pos": [
+    375.0,
+    725.0
+   ]
+  },
+  {
+   "id": "taller",
+   "name": "Taller de coches",
+   "pos": [
+    525.0,
+    125.0
+   ]
+  },
+  {
+   "id": "desguace",
+   "name": "Desguace",
+   "pos": [
+    680.0,
+    420.0
+   ]
+  },
+  {
+   "id": "mercado",
+   "name": "Mercado del puerto",
+   "pos": [
+    150.0,
+    875.0
+   ]
+  },
+  {
+   "id": "faro",
+   "name": "Faro",
+   "pos": [
+    600.0,
+    1440.0
+   ]
+  },
+  {
+   "id": "gasolinera",
+   "name": "Gasolinera",
+   "pos": [
+    85.0,
+    -330.0
+   ]
+  }
+ ]
+}
