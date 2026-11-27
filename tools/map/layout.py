@@ -1,13 +1,22 @@
-"""Diseño del mapa: genera la ciudad como datos y un plano para revisarlo.
+"""Diseño del mapa: genera la ciudad como datos y planos para revisarla.
 
 Uso (desde la raíz del proyecto):  python tools/map/layout.py
 
 Salidas:
-  data/map/city.json   lo que lee Godot (barrios, calles como grafo, agua, lugares)
-  docs/map/plano.png   plano 2D para revisar el diseño
+  data/map/city.json          lo que lee Godot (barrios, calles como grafo, agua, colinas, zonas, lugares)
+  docs/map/plano.png          plano de toda la región
+  docs/map/plano_ciudad.png   plano ampliado de la ciudad
 
 Coordenadas en metros como en Godot: x hacia el este, z hacia el SUR (el norte es -z).
 Los nombres son provisionales: el nombre de la ciudad aún no está decidido.
+
+Cómo se construye la red de calles:
+  1. Cada barrio aporta polilíneas con su propio patrón (tela de araña en el casco viejo,
+     rejillas giradas, curvas de nivel en la colina, callejuelas torcidas en los barrios bajos).
+  2. Las avenidas y autovías (arterias) unen los barrios y cruzan el río por los puentes.
+  3. Se calculan todos los cruces entre polilíneas («noding») y se limpia el grafo:
+     se funden cruces muy cercanos, se quitan los cabos sueltos cortos, las calles que caen
+     en el agua o dentro de zonas sin calles, y se queda solo la parte conectada.
 """
 
 from __future__ import annotations
@@ -15,245 +24,641 @@ from __future__ import annotations
 import json
 import math
 import random
+from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT_JSON = ROOT / "data" / "map" / "city.json"
 OUT_PNG = ROOT / "docs" / "map" / "plano.png"
+OUT_PNG_CITY = ROOT / "docs" / "map" / "plano_ciudad.png"
 
-# Anchura de calzada (m) por tipo de vía. Las aceras van aparte (ver ACERA).
-ROAD_WIDTH = {"autovia": 16.0, "avenida": 20.0, "calle": 12.0, "callejon": 7.0, "muelle": 10.0}
-ACERA = 3.0
+# Anchura de calzada (m) por tipo de vía; las aceras van aparte.
+ROAD_WIDTH = {"autovia": 18.0, "avenida": 18.0, "calle": 11.0, "muelle": 10.0, "callejon": 7.0}
+PRIORITY = {"autovia": 5, "avenida": 4, "calle": 3, "muelle": 2, "callejon": 1}
+SIDEWALK = 3.0
 
-rng = random.Random(11)
+rng = random.Random(23)
 
-# ------------------------------------------------------------------ grafo de calles
+Vec = tuple[float, float]
 
-nodes: list[list[float]] = []
-node_index: dict[tuple[int, int], int] = {}
-roads: list[dict] = []
+# ================================================================== elementos fijos del mundo
 
+RIVER = [(-1000, -1400), (-800, -700), (-580, -150), (-480, 300), (-440, 700), (-425, 1140)]
+RIVER_WIDTH = 48.0
 
-def node(x: float, z: float) -> int:
-    key = (round(x), round(z))
-    if key not in node_index:
-        node_index[key] = len(nodes)
-        nodes.append([round(x, 1), round(z, 1)])
-    return node_index[key]
+SEA = [(-2200, 1110), (-420, 1110), (620, 1100), (640, 1160), (3400, 1160), (3400, 2200), (-2200, 2200)]
+BEACH = [(-405, 1052), (620, 1048), (620, 1100), (-420, 1110)]
+PIERS = [
+    [(770, 1150), (830, 1150), (830, 1330), (770, 1330)],
+    [(970, 1150), (1030, 1150), (1030, 1330), (970, 1330)],
+    [(1170, 1150), (1230, 1150), (1230, 1330), (1170, 1330)],
+    [(-1230, 1105), (-1200, 1105), (-1200, 1210), (-1230, 1210)],  # puerto deportivo
+    [(-1130, 1105), (-1100, 1105), (-1100, 1210), (-1130, 1210)],
+]
 
+OLD_TOWN_CENTER: Vec = (-30.0, 380.0)
+RONDA_R = 300.0
+HILL_CENTER: Vec = (-1180.0, -170.0)
+HILLS = [{"id": "colinas", "center": list(HILL_CENTER), "radius": 760.0, "height": 120.0}]
 
-def road(a: int, b: int, kind: str) -> None:
-    if a == b:
-        return
-    for r in roads:
-        if {r["a"], r["b"]} == {a, b}:
-            return
-    roads.append({"a": a, "b": b, "type": kind})
+BASE = [(-350, -1300), (350, -1300), (350, -700), (-350, -700)]
+GATE: Vec = (0.0, -700.0)
+DEST: Vec = (6000.0, 5000.0)
 
+RUNWAY = [(1650, 125), (2950, 125), (2950, 175), (1650, 175)]
+TAXIWAY = [(1700, 215), (2900, 215), (2900, 235), (1700, 235)]
+APRON = [(1850, 240), (2450, 240), (2450, 330), (1850, 330)]
+TERMINAL = [(1880, 335), (2380, 335), (2380, 395), (1880, 395)]
+PARKING = [(1900, 500), (2300, 500), (2300, 580), (1900, 580)]
+PLAYER_START: Vec = (2100.0, 470.0)
 
-def chain(points: list[tuple[float, float]], kind: str) -> None:
-    ids = [node(x, z) for x, z in points]
-    for a, b in zip(ids, ids[1:]):
-        road(a, b, kind)
-
-
-# --- lado este del río: Ensanche, Centro, Polígono y Puerto (rejilla de 150 m;
-#     en el Centro hay calles intermedias cada 75 m)
-EAST_X = [-150, 0, 150, 300, 450, 600, 750]
-MID_X = [75, 225, 375]
-EAST_Z = [-100, 50, 200, 350, 500, 650, 800, 950, 1100]
-CENTRO_Z = (200, 800)
-
-
-def east_kind_vertical(x: float) -> str:
-    return "avenida" if x == 0 else "calle"
-
-
-def east_kind_horizontal(z: float) -> str:
-    return "avenida" if z in (500, 1100) else "calle"
-
-
-# Huecos: plaza mayor, parque y parcelas grandes del polígono (manzanas sin calle intermedia).
-SKIP_EDGES = {
-    ((225, 350), (225, 500)),  # plaza mayor
-    ((375, 650), (375, 800)),  # parque
-    ((600, -100), (600, 50)),  # naves grandes del polígono
-    ((600, 200), (600, 350)),
-    ((450, 50), (600, 50)),
+# Zonas donde no puede pasar ninguna calle (parques, recintos…).
+NO_ROADS = {
+    "estadio": [(470, -300), (680, -300), (680, -140), (470, -140)],
+    "cementerio": [(-610, -420), (-440, -420), (-440, -290), (-610, -290)],
+    "parque": [(110, -70), (290, -70), (290, 60), (110, 60)],
+    "golf": [(-1500, 230), (-940, 230), (-900, 420), (-1500, 420)],
+    "aeropuerto": [(1600, 90), (3000, 90), (3000, 400), (1600, 400)],
+    "base_aerea": BASE,
 }
 
-
-def skipped(p: tuple[float, float], q: tuple[float, float]) -> bool:
-    return (p, q) in SKIP_EDGES or (q, p) in SKIP_EDGES
+# ================================================================== geometría
 
 
-for z in EAST_Z:
-    row = sorted(EAST_X + ([x for x in MID_X] if CENTRO_Z[0] <= z <= CENTRO_Z[1] else []))
-    for x0, x1 in zip(row, row[1:]):
-        if not skipped((x0, z), (x1, z)):
-            road(node(x0, z), node(x1, z), east_kind_horizontal(z))
-for x in EAST_X:
-    for z0, z1 in zip(EAST_Z, EAST_Z[1:]):
-        if not skipped((x, z0), (x, z1)):
-            road(node(x, z0), node(x, z1), east_kind_vertical(x))
-for x in MID_X:
-    zs = [z for z in EAST_Z if CENTRO_Z[0] <= z <= CENTRO_Z[1]]
-    for z0, z1 in zip(zs, zs[1:]):
-        if not skipped((x, z0), (x, z1)):
-            road(node(x, z0), node(x, z1), "calle")
+def lerp(a: Vec, b: Vec, t: float) -> Vec:
+    return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
 
-# Muelles: calles que entran en el agua sobre los espigones.
-for x in (300, 600):
-    chain([(x, 1100), (x, 1300), (x, 1430)], "muelle")
-chain([(0, 1100), (0, 1290)], "muelle")
 
-# --- lado oeste del río: Residencial (rejilla de 100 m) y Barrio Viejo (callejones torcidos)
-WEST_X = [-700, -600, -500, -400, -290]
-RES_Z = [-100, 0, 100, 200, 300, 400]
-for z in RES_Z:
-    for x0, x1 in zip(WEST_X, WEST_X[1:]):
-        road(node(x0, z), node(x1, z), "calle")
-for x in WEST_X:
-    for z0, z1 in zip(RES_Z, RES_Z[1:]):
-        road(node(x, z0), node(x, z1), "calle")
+def dist(a: Vec, b: Vec) -> float:
+    return math.hypot(a[0] - b[0], a[1] - b[1])
 
-VIEJO_X = [-700, -620, -540, -460, -380, -290]
-VIEJO_Z = [400, 480, 560, 640, 720, 800, 880, 960, 1040, 1120]
-viejo: dict[tuple[int, int], int] = {}
-for i, z in enumerate(VIEJO_Z):
-    for j, x in enumerate(VIEJO_X):
-        edge = i in (0, len(VIEJO_Z) - 1) or j in (0, len(VIEJO_X) - 1)
-        jx = 0.0 if edge else rng.uniform(-16, 16)
-        jz = 0.0 if edge else rng.uniform(-14, 14)
-        viejo[(i, j)] = node(x + jx, z + jz)
-for i in range(len(VIEJO_Z)):
-    for j in range(len(VIEJO_X)):
-        a = viejo[(i, j)]
-        perimeter_row = i in (0, len(VIEJO_Z) - 1)
-        perimeter_col = j in (0, len(VIEJO_X) - 1)
-        if j + 1 < len(VIEJO_X) and (perimeter_row or rng.random() > 0.18):
-            road(a, viejo[(i, j + 1)], "calle" if perimeter_row or i == 5 else "callejon")
-        if i + 1 < len(VIEJO_Z) and (perimeter_col or rng.random() > 0.22):
-            road(a, viejo[(i + 1, j)], "calle" if perimeter_col else "callejon")
-# Una calle diagonal que cruza el barrio viejo (la «calle Mayor»).
-chain([(-700, 1120), (-540, 880), (-380, 640), (-290, 480)], "calle")
 
-# Puentes sobre el río (unen la orilla oeste x=-290 con la este x=-150).
-for zw, ze in [(-100, -100), (200, 200), (480, 500), (800, 800), (1120, 1100)]:
-    road(node(-290, zw), node(-150, ze), "avenida" if ze in (500, 1100) else "calle")
+def polar(c: Vec, angle_deg: float, r: float, rz: float | None = None) -> Vec:
+    a = math.radians(angle_deg)
+    return (c[0] + math.cos(a) * r, c[1] + math.sin(a) * (r if rz is None else rz))
 
-# Carretera a la base aérea (la puerta está en (0, -700)).
-chain([(0, -100), (25, -250), (55, -400), (40, -550), (0, -700)], "autovia")
-# Carretera de la costa hacia el oeste (fuera del mapa jugable por ahora).
-chain([(-700, 1120), (-860, 1120)], "calle")
 
-# ------------------------------------------------------------------ agua, barrios y lugares
+def point_in_poly(p: Vec, poly: list[Vec]) -> bool:
+    x, z = p
+    inside = False
+    n = len(poly)
+    for i in range(n):
+        x1, z1 = poly[i]
+        x2, z2 = poly[(i + 1) % n]
+        if (z1 > z) != (z2 > z):
+            xi = x1 + (z - z1) * (x2 - x1) / (z2 - z1)
+            if x < xi:
+                inside = not inside
+    return inside
 
-RIVER = [(-430, -1000), (-310, -600), (-225, -220), (-212, 170), (-226, 610), (-218, 990), (-215, 1320)]
-RIVER_WIDTH = 46.0
 
-SEA = [(-2000, 1170), (-245, 1170), (-245, 1320), (2000, 1320), (2000, 3000), (-2000, 3000)]
-PIERS = [  # espigones (tierra que entra en el mar)
-    [(260, 1300), (340, 1300), (340, 1460), (260, 1460)],
-    [(560, 1300), (640, 1300), (640, 1460), (560, 1460)],
-    [(-30, 1300), (30, 1300), (30, 1320), (-30, 1320)],
-]
+def seg_point_dist(p: Vec, a: Vec, b: Vec) -> float:
+    dx, dz = b[0] - a[0], b[1] - a[1]
+    l2 = dx * dx + dz * dz
+    t = 0.0 if l2 == 0 else max(0.0, min(1.0, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dz) / l2))
+    return dist(p, (a[0] + dx * t, a[1] + dz * t))
+
+
+def seg_intersection(p1: Vec, p2: Vec, q1: Vec, q2: Vec, tol: float = 3.0):
+    """Cruce de dos segmentos (con tolerancia en metros en los extremos). Devuelve (t, u) o None."""
+    rx, rz = p2[0] - p1[0], p2[1] - p1[1]
+    sx, sz = q2[0] - q1[0], q2[1] - q1[1]
+    den = rx * sz - rz * sx
+    if abs(den) < 1e-9:
+        return None
+    qpx, qpz = q1[0] - p1[0], q1[1] - p1[1]
+    t = (qpx * sz - qpz * sx) / den
+    u = (qpx * rz - qpz * rx) / den
+    lp, lq = math.hypot(rx, rz), math.hypot(sx, sz)
+    tt, tu = tol / max(lp, 1e-6), tol / max(lq, 1e-6)
+    if -tt <= t <= 1 + tt and -tu <= u <= 1 + tu:
+        return max(0.0, min(1.0, t)), max(0.0, min(1.0, u))
+    return None
+
+
+def crosses_line(a: Vec, b: Vec, line: list[Vec]) -> bool:
+    return any(seg_intersection(a, b, p, q, 0.0) is not None for p, q in zip(line, line[1:]))
+
+
+def wobble(points: list[Vec], amount: float) -> list[Vec]:
+    """Desplaza al azar los puntos interiores de una polilínea (calles que no son rectas)."""
+    out = [points[0]]
+    for p in points[1:-1]:
+        out.append((p[0] + rng.uniform(-amount, amount), p[1] + rng.uniform(-amount, amount)))
+    out.append(points[-1])
+    return out
+
+
+def subdivide(points: list[Vec], step: float) -> list[Vec]:
+    out = [points[0]]
+    for a, b in zip(points, points[1:]):
+        n = max(1, int(dist(a, b) // step))
+        for i in range(1, n + 1):
+            out.append(lerp(a, b, i / n))
+    return out
+
+
+# ================================================================== polilíneas de partida
+
+# Cada polilínea: puntos, tipo, origen (barrio), si sus extremos son fondos de saco a conservar
+# y si puede cruzar el río (solo los puentes).
+polylines: list[dict] = []
+
+
+def add(points: list[Vec], kind: str, source: str, keep_ends: bool = False, bridge: bool = False) -> None:
+    polylines.append({"pts": [(float(x), float(z)) for x, z in points], "kind": kind,
+                      "source": source, "keep_ends": keep_ends, "bridge": bridge})
+
+
+def ronda_point(angle: float) -> Vec:
+    return polar(OLD_TOWN_CENTER, angle, RONDA_R + ronda_noise[int(round(angle)) % 360])
+
+
+ronda_noise = [0.0] * 360
+_phase = rng.uniform(0, 6.28)
+for _a in range(360):
+    ronda_noise[_a] = 14.0 * math.sin(math.radians(_a) * 3 + _phase) + 6.0 * math.sin(math.radians(_a) * 7)
+
+
+def build_old_town() -> None:
+    """Casco viejo: plaza de la catedral, dos anillos torcidos, calles radiales y la Ronda."""
+    c = OLD_TOWN_CENTER
+    add([ronda_point(a) for a in range(0, 361, 6)], "avenida", "casco")
+    add([polar(c, a, 58) for a in range(0, 361, 20)], "calle", "casco")  # plaza de la catedral
+    for r, kind in ((135, "calle"), (220, "callejon")):
+        pts = [polar(c, a, r + rng.uniform(-14, 14)) for a in range(0, 360, 15)]
+        add(pts + [pts[0]], kind, "casco")
+    angles = [a + rng.uniform(-9, 9) for a in range(0, 360, 26)]
+    for a in angles:
+        start = 58 if rng.random() < 0.6 else 135
+        pts = [polar(c, a + rng.uniform(-6, 6), r) for r in (start, (start + 220) / 2, 220, 262, RONDA_R + 26)]
+        add(wobble(pts, 9), "callejon", "casco")
+    for _ in range(9):  # callejuelas que cruzan en diagonal entre anillos
+        a = rng.uniform(0, 360)
+        add(wobble([polar(c, a, 135), polar(c, a + rng.uniform(12, 22), 178), polar(c, a + rng.uniform(25, 40), 220)], 8),
+            "callejon", "casco")
+
+
+def clip_line_to_poly(p0: Vec, d: Vec, poly: list[Vec]) -> list[tuple[float, float]]:
+    """Tramos [t0, t1] de la recta p0 + t·d que quedan dentro del polígono."""
+    ts: list[float] = []
+    n = len(poly)
+    for i in range(n):
+        a, b = poly[i], poly[(i + 1) % n]
+        ex, ez = b[0] - a[0], b[1] - a[1]
+        den = d[0] * ez - d[1] * ex
+        if abs(den) < 1e-9:
+            continue
+        apx, apz = a[0] - p0[0], a[1] - p0[1]
+        t = (apx * ez - apz * ex) / den
+        u = (apx * d[1] - apz * d[0]) / den
+        if 0 <= u < 1:
+            ts.append(t)
+    ts.sort()
+    return [(ts[i], ts[i + 1]) for i in range(0, len(ts) - 1, 2)]
+
+
+def minus_circle(p0: Vec, d: Vec, t0: float, t1: float, c: Vec, r: float) -> list[tuple[float, float]]:
+    fx, fz = p0[0] - c[0], p0[1] - c[1]
+    b = fx * d[0] + fz * d[1]
+    cc = fx * fx + fz * fz - r * r
+    disc = b * b - cc
+    if disc <= 0:
+        return [(t0, t1)]
+    s = math.sqrt(disc)
+    c0, c1 = -b - s, -b + s
+    out = []
+    if c0 > t0:
+        out.append((t0, min(t1, c0)))
+    if c1 < t1:
+        out.append((max(t0, c1), t1))
+    return [(a, b) for a, b in out if b > a]
+
+
+def grid(source: str, poly: list[Vec], angle: float, sx: float, sz: float, kind: str = "calle",
+         avenue_every: int = 0, line_jitter: float = 0.0, angle_jitter: float = 0.0,
+         wobble_m: float = 0.0, overshoot: float = 24.0) -> None:
+    """Rejilla girada `angle` grados recortada al polígono (y fuera de la Ronda del casco viejo)."""
+    for fam, spacing in ((0, sx), (1, sz)):
+        a = math.radians(angle + (90 if fam else 0))
+        d = (math.cos(a), math.sin(a))
+        nrm = (-d[1], d[0])
+        projs = [p[0] * nrm[0] + p[1] * nrm[1] for p in poly]
+        k0, k1 = math.floor(min(projs) / spacing), math.ceil(max(projs) / spacing)
+        for k in range(k0, k1 + 1):
+            off = k * spacing + rng.uniform(-line_jitter, line_jitter)
+            aj = math.radians(rng.uniform(-angle_jitter, angle_jitter))
+            dd = (d[0] * math.cos(aj) - d[1] * math.sin(aj), d[0] * math.sin(aj) + d[1] * math.cos(aj))
+            p0 = (nrm[0] * off, nrm[1] * off)
+            for t0, t1 in clip_line_to_poly(p0, dd, poly):
+                for u0, u1 in minus_circle(p0, dd, t0, t1, OLD_TOWN_CENTER, RONDA_R - 24):
+                    if u1 - u0 < 40:
+                        continue
+                    a_pt = (p0[0] + dd[0] * u0, p0[1] + dd[1] * u0)
+                    b_pt = (p0[0] + dd[0] * u1, p0[1] + dd[1] * u1)
+                    mid = lerp(a_pt, b_pt, 0.5)
+                    if _hugs_boundary(mid, dd, poly):
+                        continue
+                    ext0 = overshoot if u0 == t0 else 0.0
+                    ext1 = overshoot if u1 == t1 else 0.0
+                    a_pt = (a_pt[0] - dd[0] * ext0, a_pt[1] - dd[1] * ext0)
+                    b_pt = (b_pt[0] + dd[0] * ext1, b_pt[1] + dd[1] * ext1)
+                    kd = "avenida" if avenue_every and k % avenue_every == 0 else kind
+                    pts = subdivide([a_pt, b_pt], 70) if wobble_m else [a_pt, b_pt]
+                    add(wobble(pts, wobble_m) if wobble_m else pts, kd, source)
+
+
+def _hugs_boundary(mid: Vec, d: Vec, poly: list[Vec]) -> bool:
+    n = len(poly)
+    for i in range(n):
+        a, b = poly[i], poly[(i + 1) % n]
+        el = dist(a, b)
+        e = ((b[0] - a[0]) / el, (b[1] - a[1]) / el)
+        if abs(d[0] * e[1] - d[1] * e[0]) < 0.17 and seg_point_dist(mid, a, b) < 28:
+            return True
+    return False
+
+
+def outline(poly: list[Vec], edges: list[int], kind: str, source: str) -> None:
+    n = len(poly)
+    for i in edges:
+        add([poly[i], poly[(i + 1) % n]], kind, source)
+
+
+def build_hill() -> None:
+    """Colina rica: curvas de nivel serpenteantes, subidas en zigzag y fondos de saco con mansiones."""
+    c = HILL_CENTER
+    rings = [(150, 125, 0, 360), (290, 245, 15, 330), (430, 360, -160, 160)]
+    ring_pts = []
+    for rx, rz, a0, a1 in rings:
+        pts = [polar(c, a, rx + rng.uniform(-12, 12), rz + rng.uniform(-12, 12)) for a in range(a0, a1 + 1, 10)]
+        ring_pts.append((rx, rz))
+        add(pts, "calle", "colina")
+    for a, (i, j) in [(35, (2, 1)), (165, (2, 1)), (250, (2, 1)), (110, (1, 0)), (300, (1, 0))]:
+        (rx1, rz1), (rx2, rz2) = ring_pts[i], ring_pts[j]
+        pts = []
+        for n in range(9):
+            t = n / 8
+            pts.append(polar(c, a + 16 * math.sin(t * 2 * math.pi), rx1 + (rx2 - rx1) * t, rz1 + (rz2 - rz1) * t))
+        add(pts, "calle", "colina")  # subida en S (curvas de herradura)
+    add([polar(c, 20, 150, 125), polar(c, 60, 70, 60), c], "calle", "colina", keep_ends=True)  # subida al mirador
+    for _ in range(16):  # fondos de saco con mansiones
+        ring = rng.choice([1, 2])
+        rx, rz = ring_pts[ring]
+        a = rng.uniform(-150, 150) if ring == 2 else rng.uniform(20, 320)
+        out = rng.choice([-1, 1])
+        bend = rng.uniform(-8, 8)
+        add([polar(c, a, rx, rz), polar(c, a + bend * 0.5, rx + out * 30, rz + out * 27),
+             polar(c, a + bend, rx + out * 55, rz + out * 50)], "calle", "colina", keep_ends=True)
+
+
+def build_districts() -> None:
+    # Ensanche: rejilla regular al norte del casco viejo.
+    ens = [(-650, -430), (720, -430), (720, 160), (-470, 160)]
+    grid("ensanche", ens, 0, 110, 110, avenue_every=4)
+    outline(ens, [0, 1], "calle", "ensanche")
+    # Distrito financiero: rejilla girada, manzanas pequeñas y avenidas.
+    fin = [(150, 160), (1000, 160), (1000, 700), (150, 700)]
+    grid("financiero", fin, 28, 85, 85, avenue_every=3)
+    outline(fin, [1, 2], "calle", "financiero")
+    # Polígono: parcelas enormes.
+    pol = [(720, -430), (1400, -430), (1400, 160), (720, 160)]
+    grid("poligono", pol, 0, 170, 150)
+    outline(pol, [0, 1, 2], "calle", "poligono")
+    # Puerto: rejilla ligeramente girada y muelles.
+    port = [(1000, 160), (1400, 160), (1400, 1150), (620, 1150), (620, 700), (1000, 700)]
+    grid("puerto", port, -12, 150, 115)
+    outline(port, [1], "calle", "puerto")
+    for p in PIERS[:3]:
+        cx = (p[0][0] + p[1][0]) / 2
+        add([(cx, 1120), (cx, 1320)], "muelle", "puerto", keep_ends=True)
+    # La Milla (casino, hoteles y ocio) entre el casco viejo y la playa: manzanas alargadas.
+    milla = [(-410, 700), (620, 700), (620, 1052), (-410, 1060)]
+    grid("milla", milla, 3, 135, 80)
+    # Los Bajos (este, entre el río y el casco) y (oeste, al otro lado del río): callejuelas torcidas.
+    bajos_e = [(-470, 160), (-200, 160), (-200, 700), (-410, 700)]
+    grid("bajos", bajos_e, 8, 75, 70, kind="callejon", line_jitter=10, angle_jitter=5, wobble_m=7)
+    bajos_o = [(-1100, 450), (-505, 450), (-480, 700), (-468, 1070), (-1100, 1070)]
+    grid("bajos", bajos_o, -9, 70, 65, kind="callejon", line_jitter=12, angle_jitter=7, wobble_m=8)
+    outline(bajos_o, [0, 3], "calle", "bajos")
+    # Aeropuerto civil: acceso y bucle de la terminal.
+    add([(1800, 430), (2380, 430), (2420, 470), (2380, 510), (2380, 590), (1840, 590), (1840, 470), (1800, 430)], "avenida", "aeropuerto")
+    add([(2380, 430), (2600, 430), (2700, 380)], "calle", "aeropuerto", keep_ends=True)  # hangares
+    build_hill()
+
+
+def build_arterials() -> None:
+    rp = ronda_point
+    # Autovía de circunvalación: aeropuerto → norte (cruce con la carretera de la base) → colina → costa oeste.
+    add([(1800, 430), (1560, 330), (1470, -150), (1150, -540), (500, -590), (0, -590), (-500, -610), (-900, -640),
+         (-1350, -560), (-1700, -300), (-1820, 150), (-1700, 650), (-1450, 980), (-1150, 1075), (-800, 1078),
+         (-470, 1078), (-380, 1047)], "autovia", "autovia", bridge=True)
+    # Paseo marítimo y avenida de La Milla.
+    add([(-380, 1047), (100, 1046), (620, 1043), (720, 1110), (1300, 1115)], "avenida", "paseo")
+    add([(-410, 885), (100, 880), (620, 875), (1000, 870), (1400, 880)], "avenida", "milla")
+    # Gran Vía: del casco viejo al norte, a la autovía y a la puerta de la base.
+    add([rp(270), (-30, -430), (-30, -590), (-10, -650), GATE], "avenida", "granvia")
+    # Avenida del Aeropuerto (este).
+    add([rp(355), (700, 345), (1000, 335), (1560, 330)], "avenida", "aeropuerto_av")
+    # Radiales del casco viejo.
+    add([rp(45), (500, 800), (700, 875)], "avenida", "radial")                       # sureste → Milla y puerto
+    add([rp(90), (-30, 885), (-30, 1046)], "avenida", "radial")                      # sur → playa
+    add([rp(135), (-330, 690), (-470, 800), (-700, 870)], "avenida", "radial", bridge=True)  # suroeste → Los Bajos
+    add([rp(180), (-410, 360), (-560, 330), (-700, 250), polar(HILL_CENTER, 40, 430, 360)], "avenida", "radial", bridge=True)  # oeste → colina
+    add([rp(225), (-430, -30), (-640, -170), polar(HILL_CENTER, -12, 430, 360)], "avenida", "radial", bridge=True)  # noroeste → colina
+    add([rp(315), (450, -60), (720, -200), (1150, -300)], "avenida", "radial")      # noreste → polígono
+    add([polar(HILL_CENTER, -90, 430, 360), (-1180, -570)], "calle", "colina", bridge=False)  # colina → autovía
+    # Puentes de los barrios bajos.
+    add([(-330, 560), (-470, 560), (-560, 560)], "calle", "bajos", bridge=True)
+    add([(-300, 965), (-470, 970), (-560, 975)], "calle", "bajos", bridge=True)
+    add([(-500, -250), (-660, -260), polar(HILL_CENTER, -25, 430, 360)], "calle", "ensanche", bridge=True)
+
+
+RAILWAY = [(3300, -330), (1500, -360), (1100, -380), (700, -380), (310, -380)]
 
 DISTRICTS = [
-    {"id": "residencial", "label": (-480, 345), "name": "Residencial", "style": "casas",
-     "poly": [(-760, -160), (-245, -160), (-245, 420), (-760, 420)], "color": (200, 214, 170)},
-    {"id": "viejo", "label": (-470, 1090), "name": "Barrio Viejo", "style": "casco_antiguo",
-     "poly": [(-760, 420), (-245, 420), (-245, 1170), (-760, 1170)], "color": (222, 196, 160)},
-    {"id": "ensanche", "label": (140, 120), "name": "Ensanche", "style": "bloques",
-     "poly": [(-190, -160), (460, -160), (460, 200), (-190, 200)], "color": (214, 206, 190)},
-    {"id": "centro", "label": (150, 725), "name": "Centro", "style": "rascacielos",
-     "poly": [(-190, 200), (460, 200), (460, 830), (-190, 830)], "color": (196, 200, 214)},
-    {"id": "poligono", "label": (630, 280), "name": "Polígono", "style": "naves",
-     "poly": [(460, -160), (810, -160), (810, 830), (460, 830)], "color": (196, 192, 180)},
-    {"id": "puerto", "label": (150, 1225), "name": "Puerto", "style": "muelles",
-     "poly": [(-190, 830), (810, 830), (810, 1320), (-190, 1320)], "color": (186, 196, 200)},
-]
-
-AREAS = [
-    {"id": "plaza_mayor", "kind": "plaza", "poly": [(156, 356), (294, 356), (294, 494), (156, 494)]},
-    {"id": "parque", "kind": "parque", "poly": [(306, 656), (444, 656), (444, 794), (306, 794)]},
-    {"id": "base_aerea", "kind": "base", "poly": [(-350, -1300), (350, -1300), (350, -700), (-350, -700)]},
+    {"id": "casco", "name": "Casco Viejo", "style": "casco_antiguo", "label": (-30, 210), "color": (222, 196, 160),
+     "poly": [polar(OLD_TOWN_CENTER, a, RONDA_R + 10) for a in range(0, 360, 15)]},
+    {"id": "ensanche", "name": "Ensanche", "style": "bloques", "label": (-200, -340), "color": (214, 206, 190),
+     "poly": [(-650, -430), (720, -430), (720, 160), (-470, 160)]},
+    {"id": "financiero", "name": "Distrito Financiero", "style": "rascacielos", "label": (640, 560), "color": (190, 198, 220),
+     "poly": [(150, 160), (1000, 160), (1000, 700), (150, 700)]},
+    {"id": "milla", "name": "La Milla", "style": "ocio", "label": (330, 760), "color": (230, 190, 214),
+     "poly": [(-410, 700), (620, 700), (620, 1052), (-410, 1060)]},
+    {"id": "bajos", "name": "Los Bajos", "style": "chabolas", "label": (-800, 780), "color": (196, 170, 140),
+     "poly": [(-1100, 450), (-505, 450), (-480, 700), (-468, 1070), (-1100, 1070)]},
+    {"id": "bajos_este", "name": "Los Bajos", "style": "chabolas", "label": None, "color": (196, 170, 140),
+     "poly": [(-470, 160), (-200, 160), (-200, 700), (-410, 700)]},
+    {"id": "poligono", "name": "Polígono", "style": "naves", "label": (1060, -100), "color": (196, 192, 180),
+     "poly": [(720, -430), (1400, -430), (1400, 160), (720, 160)]},
+    {"id": "puerto", "name": "Puerto", "style": "muelles", "label": (1200, 820), "color": (180, 192, 200),
+     "poly": [(1000, 160), (1400, 160), (1400, 1150), (620, 1150), (620, 700), (1000, 700)]},
+    {"id": "colinas", "name": "Las Colinas", "style": "mansiones", "label": (-1180, -620 + 40), "color": (170, 205, 150),
+     "poly": [polar(HILL_CENTER, a, 520, 440) for a in range(0, 360, 15)]},
+    {"id": "aeropuerto", "name": "Aeropuerto", "style": "aeropuerto", "label": (2300, 650), "color": (205, 205, 200),
+     "poly": [(1600, 60), (3050, 60), (3050, 700), (1600, 700)]},
 ]
 
 POIS = [
-    {"id": "piso_franco", "name": "Piso franco (inicio)", "pos": (-505, 765)},
-    {"id": "plaza_vieja", "name": "Plaza vieja", "pos": (-420, 600)},
-    {"id": "hospital", "name": "Hospital", "pos": (-450, 150)},
-    {"id": "centro_comercial", "name": "Centro comercial", "pos": (-650, -50)},
-    {"id": "comisaria", "name": "Comisaría", "pos": (38, 575)},
-    {"id": "armeria", "name": "Armería", "pos": (262, 275)},
-    {"id": "plaza_mayor", "name": "Plaza mayor", "pos": (225, 425)},
-    {"id": "parque", "name": "Parque", "pos": (375, 725)},
-    {"id": "taller", "name": "Taller de coches", "pos": (525, 125)},
-    {"id": "desguace", "name": "Desguace", "pos": (680, 420)},
-    {"id": "mercado", "name": "Mercado del puerto", "pos": (150, 875)},
-    {"id": "faro", "name": "Faro", "pos": (600, 1440)},
-    {"id": "gasolinera", "name": "Gasolinera", "pos": (85, -330)},
+    ("aeropuerto", "Aeropuerto (inicio)", (2100, 470)),
+    ("casino", "Casino", (200, 965)),
+    ("hoteles", "Hoteles de La Milla", (470, 965)),
+    ("club", "Club nocturno", (-180, 965)),
+    ("playa", "Playa", (100, 1080)),
+    ("banco", "Banco central", (560, 430)),
+    ("joyeria", "Joyería", (60, 300)),
+    ("catedral", "Catedral y plaza mayor", OLD_TOWN_CENTER),
+    ("comisaria", "Comisaría central", (300, -180)),
+    ("hospital", "Hospital", (-300, -250)),
+    ("armeria", "Armería", (-330, 470)),
+    ("pintura", "Taller de pintura", (900, -220)),
+    ("desguace", "Desguace", (1270, 40)),
+    ("contenedores", "Terminal de contenedores", (1100, 1040)),
+    ("estacion", "Estación de tren", (310, -380)),
+    ("estadio", "Estadio", (575, -220)),
+    ("centro_comercial", "Centro comercial", (880, 420)),
+    ("mirador", "Mirador y mansiones", HILL_CENTER),
+    ("golf", "Club de golf", (-1200, 330)),
+    ("puerto_deportivo", "Puerto deportivo (yates)", (-1165, 1160)),
+    ("motel", "Motel", (-760, 640)),
+    ("moteros", "Bar de moteros", (-920, 960)),
+    ("mercado", "Mercado", (-30, 580)),
+    ("cementerio", "Cementerio", (-525, -355)),
+    ("parque", "Parque", (200, -5)),
+    ("gasolinera", "Gasolinera", (60, -520)),
+    ("base", "Base aérea (misión del caza)", (250, -820)),
 ]
 
-# ------------------------------------------------------------------ geometría auxiliar
+# ================================================================== noding y limpieza del grafo
 
 
-def seg_intersect(p1, p2, q1, q2) -> bool:
-    def cross(o, a, b):
-        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+class Graph:
+    def __init__(self) -> None:
+        self.pos: list[Vec] = []
+        self.edges: dict[tuple[int, int], dict] = {}
+        self.keep: set[int] = set()
+        self._cell: dict[tuple[int, int], list[int]] = defaultdict(list)
 
-    d1, d2 = cross(q1, q2, p1), cross(q1, q2, p2)
-    d3, d4 = cross(p1, p2, q1), cross(p1, p2, q2)
-    return (d1 * d2 < 0) and (d3 * d4 < 0)
+    def node(self, p: Vec, snap: float = 4.0) -> int:
+        cx, cz = int(p[0] // 20), int(p[1] // 20)
+        for dx in (-1, 0, 1):
+            for dz in (-1, 0, 1):
+                for i in self._cell[(cx + dx, cz + dz)]:
+                    if dist(self.pos[i], p) < snap:
+                        return i
+        self.pos.append(p)
+        self._cell[(cx, cz)].append(len(self.pos) - 1)
+        return len(self.pos) - 1
+
+    def add_edge(self, a: int, b: int, kind: str, source: str, bridge: bool) -> None:
+        if a == b:
+            return
+        key = (min(a, b), max(a, b))
+        old = self.edges.get(key)
+        if old is None or PRIORITY[kind] > PRIORITY[old["kind"]]:
+            self.edges[key] = {"kind": kind, "source": source, "bridge_ok": bridge or (old or {}).get("bridge_ok", False)}
+
+    def adjacency(self) -> dict[int, set[int]]:
+        adj: dict[int, set[int]] = defaultdict(set)
+        for a, b in self.edges:
+            adj[a].add(b)
+            adj[b].add(a)
+        return adj
 
 
-def crosses_river(a, b) -> bool:
-    return any(seg_intersect(a, b, r1, r2) for r1, r2 in zip(RIVER, RIVER[1:]))
+def build_graph() -> Graph:
+    segs = []
+    for pl in polylines:
+        pts = pl["pts"]
+        for i, (a, b) in enumerate(zip(pts, pts[1:])):
+            if dist(a, b) > 0.5:
+                segs.append({"a": a, "b": b, "pl": pl, "ts": [0.0, 1.0],
+                             "first": i == 0, "last": i == len(pts) - 2})
+    # cruces (con una rejilla espacial para no comparar todos con todos)
+    buckets: dict[tuple[int, int], list[int]] = defaultdict(list)
+    for i, s in enumerate(segs):
+        x0, x1 = sorted((s["a"][0], s["b"][0]))
+        z0, z1 = sorted((s["a"][1], s["b"][1]))
+        for cx in range(int(x0 // 100) - 1, int(x1 // 100) + 1):
+            for cz in range(int(z0 // 100) - 1, int(z1 // 100) + 1):
+                buckets[(cx, cz)].append(i)
+    seen = set()
+    for idx in buckets.values():
+        for ii in range(len(idx)):
+            for jj in range(ii + 1, len(idx)):
+                i, j = idx[ii], idx[jj]
+                if (i, j) in seen:
+                    continue
+                seen.add((i, j))
+                s, r = segs[i], segs[j]
+                if s["pl"] is r["pl"] and abs(i - j) == 1:
+                    continue
+                hit = seg_intersection(s["a"], s["b"], r["a"], r["b"])
+                if hit:
+                    s["ts"].append(hit[0])
+                    r["ts"].append(hit[1])
+    g = Graph()
+    for s in segs:
+        ts = sorted(set(round(t, 6) for t in s["ts"]))
+        ids = [g.node(lerp(s["a"], s["b"], t)) for t in ts]
+        pl = s["pl"]
+        if pl["keep_ends"]:
+            if s["first"]:
+                g.keep.add(ids[0])
+            if s["last"]:
+                g.keep.add(ids[-1])
+        for a, b in zip(ids, ids[1:]):
+            g.add_edge(a, b, pl["kind"], pl["source"], pl["bridge"])
+    return g
 
 
-for r in roads:
-    r["bridge"] = crosses_river(nodes[r["a"]], nodes[r["b"]])
+def contract_short(g: Graph, min_len: float) -> None:
+    parent = list(range(len(g.pos)))
+
+    def find(i: int) -> int:
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    for (a, b) in list(g.edges):
+        if dist(g.pos[a], g.pos[b]) < min_len:
+            ra, rb = find(a), find(b)
+            if ra != rb:
+                parent[rb] = ra
+    groups: dict[int, list[int]] = defaultdict(list)
+    for i in range(len(g.pos)):
+        groups[find(i)].append(i)
+    for root, members in groups.items():
+        if len(members) > 1:
+            xs = sum(g.pos[m][0] for m in members) / len(members)
+            zs = sum(g.pos[m][1] for m in members) / len(members)
+            g.pos[root] = (xs, zs)
+            if any(m in g.keep for m in members):
+                g.keep.add(root)
+    old = g.edges
+    g.edges = {}
+    for (a, b), e in old.items():
+        g.add_edge(find(a), find(b), e["kind"], e["source"], e["bridge_ok"])
+
+
+def prune_stubs(g: Graph, max_len: float) -> None:
+    while True:
+        adj = g.adjacency()
+        removed = False
+        for (a, b) in list(g.edges):
+            for end, other in ((a, b), (b, a)):
+                if len(adj[end]) == 1 and end not in g.keep and dist(g.pos[a], g.pos[b]) < max_len:
+                    g.edges.pop((a, b), None)
+                    removed = True
+                    break
+        if not removed:
+            return
+
+
+def remove_bad_edges(g: Graph) -> None:
+    for key in list(g.edges):
+        a, b = g.pos[key[0]], g.pos[key[1]]
+        e = g.edges[key]
+        mid = lerp(a, b, 0.5)
+        crosses_river = crosses_line(a, b, RIVER)
+        e["bridge"] = crosses_river
+        bad = crosses_river and not e["bridge_ok"]
+        bad = bad or (point_in_poly(mid, SEA) and e["kind"] != "muelle" and not any(point_in_poly(mid, p) for p in PIERS))
+        for zone_id, zone in NO_ROADS.items():
+            if e["source"] in ("aeropuerto", "aeropuerto_av", "autovia") and zone_id == "aeropuerto":
+                continue
+            if e["source"] == "granvia" and zone_id == "base_aerea":
+                continue
+            if point_in_poly(mid, zone) or point_in_poly(a, zone) and point_in_poly(b, zone):
+                bad = True
+        if any(crosses_line(a, b, r + [r[0]]) for r in (RUNWAY, TAXIWAY)):
+            bad = True
+        if bad:
+            del g.edges[key]
+
+
+def drop_random(g: Graph, source: str, chance: float) -> None:
+    """Quita algunos tramos de un barrio (callejones cortados), sin dejar cruces aislados."""
+    adj = g.adjacency()
+    for key in list(g.edges):
+        e = g.edges[key]
+        a, b = key
+        if e["source"] == source and rng.random() < chance and len(adj[a]) > 2 and len(adj[b]) > 2:
+            del g.edges[key]
+            adj[a].discard(b)
+            adj[b].discard(a)
+
+
+def largest_component(g: Graph) -> None:
+    adj = g.adjacency()
+    best: set[int] = set()
+    seen: set[int] = set()
+    for start in adj:
+        if start in seen:
+            continue
+        comp = {start}
+        stack = [start]
+        while stack:
+            n = stack.pop()
+            for m in adj[n]:
+                if m not in comp:
+                    comp.add(m)
+                    stack.append(m)
+        seen |= comp
+        if len(comp) > len(best):
+            best = comp
+    g.edges = {k: e for k, e in g.edges.items() if k[0] in best and k[1] in best}
+
+
+def compact(g: Graph) -> tuple[list[list[float]], list[dict]]:
+    used = sorted({i for k in g.edges for i in k})
+    remap = {old: new for new, old in enumerate(used)}
+    nodes = [[round(g.pos[i][0], 1), round(g.pos[i][1], 1)] for i in used]
+    roads = [{"a": remap[a], "b": remap[b], "type": e["kind"], "district": e["source"], "bridge": e["bridge"]}
+             for (a, b), e in sorted(g.edges.items())]
+    return nodes, roads
+
+
+# ================================================================== salida
 
 
 def to_list(poly):
     return [[float(x), float(z)] for x, z in poly]
 
 
-# ------------------------------------------------------------------ JSON para Godot
-
-
-def write_json() -> None:
+def write_json(nodes, roads) -> None:
     data = {
-        "version": 1,
+        "version": 2,
         "note": "Generado por tools/map/layout.py; no editar a mano.",
         "road_width": ROAD_WIDTH,
-        "sidewalk": ACERA,
+        "sidewalk": SIDEWALK,
+        "player_start": [PLAYER_START[0], PLAYER_START[1]],
         "nodes": nodes,
         "roads": roads,
         "river": {"line": to_list(RIVER), "width": RIVER_WIDTH},
         "sea": to_list(SEA),
+        "beach": to_list(BEACH),
         "piers": [to_list(p) for p in PIERS],
-        "districts": [{k: (to_list(v) if k == "poly" else list(v) if k == "label" else v) for k, v in d.items() if k != "color"} for d in DISTRICTS],
-        "areas": [{**a, "poly": to_list(a["poly"])} for a in AREAS],
-        "pois": [{**p, "pos": [float(p["pos"][0]), float(p["pos"][1])]} for p in POIS],
+        "hills": HILLS,
+        "railway": to_list(RAILWAY),
+        "districts": [{"id": d["id"], "name": d["name"], "style": d["style"], "poly": to_list(d["poly"])} for d in DISTRICTS],
+        "zones": {k: to_list(v) for k, v in NO_ROADS.items()},
+        "airport": {"runway": to_list(RUNWAY), "taxiway": to_list(TAXIWAY), "apron": to_list(APRON),
+                    "terminal": to_list(TERMINAL), "parking": to_list(PARKING)},
+        "pois": [{"id": i, "name": n, "pos": [float(p[0]), float(p[1])]} for i, n, p in POIS],
     }
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     OUT_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
 
 
-# ------------------------------------------------------------------ plano PNG
-
-
-def write_png() -> None:
+def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float, k: float, title: str) -> None:
     from PIL import Image, ImageDraw, ImageFont
 
-    x0, x1, z0, z1 = -900.0, 900.0, -1360.0, 1520.0
-    k = 0.42  # píxeles por metro
-    margin = 20
-    legend_w = 300
+    margin = 18
+    legend_w = 330
     w = int((x1 - x0) * k) + margin * 2
-    h = int((z1 - z0) * k) + margin * 2
+    h = max(int((z1 - z0) * k) + margin * 2, 900)
 
     def P(x: float, z: float) -> tuple[float, float]:
         return (margin + (x - x0) * k, margin + (z - z0) * k)
@@ -266,68 +671,82 @@ def write_png() -> None:
                 continue
         return ImageFont.load_default()
 
-    img = Image.new("RGB", (w + legend_w, h), (232, 228, 214))
+    img = Image.new("RGB", (w, h), (178, 198, 142))
     d = ImageDraw.Draw(img)
-    d.rectangle([0, 0, w, h], fill=(176, 196, 140))  # campo
-
-    for dist in DISTRICTS:
-        d.polygon([P(x, z) for x, z in dist["poly"]], fill=dist["color"])
-    for a in AREAS:
-        col = {"plaza": (236, 226, 196), "parque": (120, 170, 100), "base": (150, 150, 150)}[a["kind"]]
-        d.polygon([P(x, z) for x, z in a["poly"]], fill=col)
-    # base aérea: pista y hangares
+    # relieve de la colina (anillos más oscuros)
+    hc = HILLS[0]
+    for i in range(8, 0, -1):
+        r = hc["radius"] * i / 8
+        shade = 178 - (8 - i) * 7
+        d.ellipse([P(hc["center"][0] - r, hc["center"][1] - r * 0.85), P(hc["center"][0] + r, hc["center"][1] + r * 0.85)],
+                  fill=(shade - 20, shade, shade - 45))
+    for dist_ in DISTRICTS:
+        if dist_["id"] != "colinas":
+            d.polygon([P(x, z) for x, z in dist_["poly"]], fill=dist_["color"])
+    zone_col = {"estadio": (150, 190, 120), "cementerio": (150, 165, 140), "parque": (120, 172, 100), "golf": (110, 180, 95),
+                "aeropuerto": (200, 200, 196), "base_aerea": (150, 150, 150)}
+    for zid, poly in NO_ROADS.items():
+        d.polygon([P(x, z) for x, z in poly], fill=zone_col[zid])
+    d.ellipse([P(445 + 0, -275), P(705, -165)], outline=(240, 240, 240), width=2)  # pista del estadio
     d.rectangle([P(-330, -1220), P(330, -1180)], fill=(60, 60, 66))
     for hx in (160, 250):
         d.rectangle([P(hx - 35, -1068), P(hx + 35, -1032)], fill=(110, 116, 110))
+    for poly, col in ((RUNWAY, (55, 55, 60)), (TAXIWAY, (90, 90, 95)), (APRON, (150, 150, 150)), (TERMINAL, (90, 110, 140)),
+                      (PARKING, (120, 120, 120))):
+        d.polygon([P(x, z) for x, z in poly], fill=col)
     d.polygon([P(x, z) for x, z in SEA], fill=(92, 150, 200))
+    d.polygon([P(x, z) for x, z in BEACH], fill=(236, 216, 160))
     for p in PIERS:
         d.polygon([P(x, z) for x, z in p], fill=(170, 170, 160))
-    d.line([P(x, z) for x, z in RIVER], fill=(92, 150, 200), width=int(RIVER_WIDTH * k), joint="curve")
+    d.line([P(x, z) for x, z in RIVER], fill=(92, 150, 200), width=max(2, int(RIVER_WIDTH * k)), joint="curve")
+    # vía del tren (discontinua)
+    for a, b in zip(RAILWAY, RAILWAY[1:]):
+        n = int(dist(a, b) // 30)
+        for i in range(0, n, 2):
+            d.line([P(*lerp(a, b, i / n)), P(*lerp(a, b, (i + 1) / n))], fill=(90, 70, 60), width=max(2, int(5 * k)))
 
-    # calles: primero el borde (acera), luego la calzada
-    order = ["callejon", "calle", "muelle", "avenida", "autovia"]
-    for kind in order:
-        for r in roads:
-            if r["type"] != kind:
-                continue
-            a, b = P(*nodes[r["a"]]), P(*nodes[r["b"]])
-            width = (ROAD_WIDTH[kind] + 2 * ACERA) * k
-            d.line([a, b], fill=(150, 110, 70) if r["bridge"] else (205, 205, 200), width=max(2, int(width) + 2))
-    for kind in order:
-        for r in roads:
-            if r["type"] != kind:
-                continue
-            a, b = P(*nodes[r["a"]]), P(*nodes[r["b"]])
-            col = {"autovia": (230, 160, 60), "avenida": (250, 250, 250)}.get(kind, (238, 238, 232))
-            d.line([a, b], fill=col, width=max(1, int(ROAD_WIDTH[kind] * k)))
+    order = ["callejon", "muelle", "calle", "avenida", "autovia"]
+    for pass_ in (0, 1):
+        for kind in order:
+            for r in roads:
+                if r["type"] != kind:
+                    continue
+                a, b = P(*nodes[r["a"]]), P(*nodes[r["b"]])
+                if pass_ == 0:
+                    width = (ROAD_WIDTH[kind] + 2 * SIDEWALK) * k
+                    d.line([a, b], fill=(150, 105, 65) if r["bridge"] else (190, 190, 184), width=max(2, int(width) + 2))
+                else:
+                    col = {"autovia": (236, 160, 55), "avenida": (252, 248, 236)}.get(kind, (240, 240, 234))
+                    d.line([a, b], fill=col, width=max(1, int(ROAD_WIDTH[kind] * k)))
 
-    f_dist = font(20, True)
-    for dist in DISTRICTS:
-        cx, cz = P(*dist["label"])
-        text = dist["name"].upper()
+    f_dist = font(int(13 + 14 * min(1.0, k / 0.5)), True)
+    for dist_ in DISTRICTS:
+        if not dist_["label"]:
+            continue
+        cx, cz = P(*dist_["label"])
+        text = dist_["name"].upper()
         tw = d.textlength(text, font=f_dist)
-        d.text((cx - tw / 2 + 1, cz - 11), text, font=f_dist, fill=(255, 255, 255))
-        d.text((cx - tw / 2, cz - 12), text, font=f_dist, fill=(50, 50, 60))
+        for ox, oz in ((-1, -1), (1, -1), (-1, 1), (1, 1)):
+            d.text((cx - tw / 2 + ox, cz - 10 + oz), text, font=f_dist, fill=(255, 255, 255))
+        d.text((cx - tw / 2, cz - 10), text, font=f_dist, fill=(45, 45, 60))
+    f_small = font(13, True)
+    for text, (x, z) in [("BASE AÉREA", (0, -1000)), ("MAR", (900, 1220)), ("RÍO", (-700, -560)), ("vía del tren", (1900, -395))]:
+        if x0 < x < x1 and z0 < z < z1:
+            cx, cz = P(x, z)
+            tw = d.textlength(text, font=f_small)
+            d.text((cx - tw / 2, cz - 7), text, font=f_small, fill=(30, 30, 40))
 
-    f_small = font(14, True)
-    for text, (x, z) in [("BASE AÉREA", (0, -1000)), ("MAR", (100, 1490)), ("RÍO", (-300, -520)), ("CAMPO", (-650, -600)),
-                         ("a la base", (95, -520))]:
-        cx, cz = P(x, z)
-        tw = d.textlength(text, font=f_small)
-        d.text((cx - tw / 2, cz - 7), text, font=f_small, fill=(30, 30, 40))
-    cx, cz = P(330, 1478)
-    d.text((cx, cz), "→ aeródromo clandestino (8,7 km al SE)", font=font(13), fill=(20, 20, 40))
-
-    f_poi = font(12, True)
-    for i, poi in enumerate(POIS, start=1):
-        cx, cz = P(*poi["pos"])
+    f_poi = font(11, True)
+    for i, (_, _, pos) in enumerate(POIS, start=1):
+        if not (x0 < pos[0] < x1 and z0 < pos[1] < z1):
+            continue
+        cx, cz = P(*pos)
         r = 9
-        d.ellipse([cx - r, cz - r, cx + r, cz + r], fill=(200, 40, 40) if i == 1 else (40, 60, 120), outline=(255, 255, 255), width=2)
+        d.ellipse([cx - r, cz - r, cx + r, cz + r], fill=(205, 40, 40) if i == 1 else (35, 55, 120), outline=(255, 255, 255), width=2)
         t = str(i)
         tw = d.textlength(t, font=f_poi)
-        d.text((cx - tw / 2, cz - 7), t, font=f_poi, fill=(255, 255, 255))
+        d.text((cx - tw / 2, cz - 6), t, font=f_poi, fill=(255, 255, 255))
 
-    # escala y norte
     sx, sz = margin + 20, h - margin - 30
     d.rectangle([sx, sz, sx + 500 * k, sz + 6], fill=(30, 30, 30))
     d.text((sx, sz + 9), "500 m", font=font(13), fill=(30, 30, 30))
@@ -335,42 +754,57 @@ def write_png() -> None:
     d.polygon([(nx, nz - 28), (nx - 10, nz), (nx + 10, nz)], fill=(30, 30, 30))
     d.text((nx - 5, nz + 4), "N", font=font(16, True), fill=(30, 30, 30))
 
-    # leyenda
+    full = Image.new("RGB", (w + legend_w, h), (234, 230, 218))
+    full.paste(img, (0, 0))
+    img = full
+    d = ImageDraw.Draw(img)
     lx = w + 16
-    d.text((lx, 20), "Plano provisional", font=font(22, True), fill=(30, 30, 40))
-    d.text((lx, 50), "Ciudad: nombre por decidir", font=font(14), fill=(80, 80, 90))
-    y = 90
-    f_leg = font(14)
-    for i, poi in enumerate(POIS, start=1):
-        d.ellipse([lx, y, lx + 18, y + 18], fill=(200, 40, 40) if i == 1 else (40, 60, 120))
+    d.text((lx, 18), title, font=font(21, True), fill=(30, 30, 40))
+    d.text((lx, 46), "Ciudad: nombre por decidir", font=font(13), fill=(80, 80, 90))
+    y = 76
+    f_leg = font(13)
+    for i, (_, name, _) in enumerate(POIS, start=1):
+        d.ellipse([lx, y, lx + 17, y + 17], fill=(205, 40, 40) if i == 1 else (35, 55, 120))
         t = str(i)
         tw = d.textlength(t, font=f_poi)
-        d.text((lx + 9 - tw / 2, y + 2), t, font=f_poi, fill=(255, 255, 255))
-        d.text((lx + 26, y + 1), poi["name"], font=f_leg, fill=(30, 30, 40))
-        y += 26
-    y += 14
-    for label, col in [("Autovía", (230, 160, 60)), ("Avenida", (250, 250, 250)), ("Calle / callejón", (238, 238, 232)),
-                       ("Puente", (150, 110, 70)), ("Agua", (92, 150, 200)), ("Parque", (120, 170, 100))]:
-        d.rectangle([lx, y + 3, lx + 30, y + 15], fill=col, outline=(120, 120, 120))
+        d.text((lx + 8.5 - tw / 2, y + 2), t, font=f_poi, fill=(255, 255, 255))
+        d.text((lx + 25, y + 1), name, font=f_leg, fill=(30, 30, 40))
+        y += 21
+    y += 10
+    for label, col in [("Autovía", (236, 160, 55)), ("Avenida", (252, 248, 236)), ("Calle / callejón", (240, 240, 234)),
+                       ("Puente", (150, 105, 65)), ("Agua", (92, 150, 200)), ("Parque / golf", (115, 176, 98))]:
+        d.rectangle([lx, y + 3, lx + 30, y + 14], fill=col, outline=(120, 120, 120))
         d.text((lx + 40, y + 1), label, font=f_leg, fill=(30, 30, 40))
-        y += 24
-    y += 14
+        y += 20
+    y += 8
     total = sum(math.dist(nodes[r["a"]], nodes[r["b"]]) for r in roads)
-    stats = [
-        f"Ciudad: 1,57 × 1,48 km",
-        f"Calles: {len(roads)} tramos, {total / 1000:.1f} km",
-        f"Cruces: {len(nodes)}",
-        f"Puentes: {sum(1 for r in roads if r['bridge'])}",
-    ]
-    for s in stats:
+    for s in [f"Calles: {total / 1000:.1f} km, {len(nodes)} cruces",
+              f"Puentes: {sum(1 for r in roads if r['bridge'])} tramos"]:
         d.text((lx, y), s, font=f_leg, fill=(30, 30, 40))
-        y += 22
+        y += 19
+    path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(path)
 
-    OUT_PNG.parent.mkdir(parents=True, exist_ok=True)
-    img.save(OUT_PNG)
+
+def main() -> None:
+    build_old_town()
+    build_districts()
+    build_arterials()
+    g = build_graph()
+    contract_short(g, 14.0)
+    prune_stubs(g, 40.0)
+    remove_bad_edges(g)
+    prune_stubs(g, 40.0)
+    drop_random(g, "bajos", 0.16)
+    drop_random(g, "casco", 0.08)
+    prune_stubs(g, 40.0)
+    largest_component(g)
+    nodes, roads = compact(g)
+    write_json(nodes, roads)
+    render(OUT_PNG, nodes, roads, -1950, 3150, -1380, 1300, 0.3, "Plano provisional")
+    render(OUT_PNG_CITY, nodes, roads, -1900, 1500, -720, 1260, 0.5, "Plano de la ciudad")
+    print(f"{len(nodes)} cruces, {len(roads)} tramos, {sum(1 for r in roads if r['bridge'])} tramos de puente")
 
 
 if __name__ == "__main__":
-    write_json()
-    write_png()
-    print(f"{len(nodes)} cruces, {len(roads)} tramos -> {OUT_JSON.relative_to(ROOT)}, {OUT_PNG.relative_to(ROOT)}")
+    main()
