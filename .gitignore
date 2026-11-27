@@ -4,3 +4,6 @@ web/site/downloads/*
 !web/site/downloads/.gitkeep
 web/.deploy.env
 web/.env
+
+# Plan de trabajo local (no se sube)
+PLAN_MEJORAS.md
