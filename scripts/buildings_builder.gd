@@ -15,10 +15,16 @@ const PALETTES: Dictionary = {
 	"nave": [Color(0.7, 0.72, 0.74), Color(0.55, 0.62, 0.68), Color(0.75, 0.7, 0.6), Color(0.62, 0.64, 0.6)],
 	"almacen": [Color(0.72, 0.55, 0.42), Color(0.5, 0.58, 0.5), Color(0.6, 0.6, 0.65)],
 	"mansion": [Color(0.96, 0.95, 0.92), Color(0.92, 0.88, 0.8), Color(0.95, 0.9, 0.85), Color(0.85, 0.82, 0.78)],
+	"casa_campo": [Color(0.95, 0.93, 0.86), Color(0.88, 0.78, 0.6), Color(0.8, 0.7, 0.55)],
 }
+## Colores de los contenedores.
+const CONTAINER_COLORS: Array[Color] = [Color(0.75, 0.2, 0.15), Color(0.15, 0.35, 0.65), Color(0.2, 0.5, 0.3),
+	Color(0.85, 0.6, 0.15), Color(0.55, 0.55, 0.58), Color(0.45, 0.25, 0.5), Color(0.85, 0.85, 0.82)]
+## Medidas de un contenedor de 40 pies (m).
+const CONTAINER: Vector3 = Vector3(12.2, 2.6, 2.45)
 const FACADE: Dictionary = {
 	"casa": "windows", "bloque": "windows", "bloque_pobre": "windows", "hotel": "windows", "mansion": "windows",
-	"torre": "glass", "chabola": "plain", "nave": "plain", "almacen": "plain",
+	"torre": "glass", "chabola": "plain", "nave": "plain", "almacen": "plain", "casa_campo": "windows",
 }
 const NEON: Array[Color] = [Color(1.0, 0.2, 0.6), Color(0.2, 0.9, 1.0), Color(1.0, 0.75, 0.2), Color(0.6, 0.3, 1.0)]
 
@@ -42,9 +48,25 @@ func build() -> void:
 	parent.add_child(_body)
 	for i: int in map.building_count():
 		_building(i)
+	for i: int in map.c_pos.size():
+		_containers(i)
 	for lm: Dictionary in map.landmarks:
 		_landmark(lm)
 	_flush()
+
+
+func _containers(i: int) -> void:
+	var c: Vector2 = map.c_pos[i]
+	var yaw: float = map.c_yaw[i]
+	var levels: int = map.c_levels[i]
+	var base := Vector3(c.x, _base_y(c, yaw, CONTAINER.x, CONTAINER.z), c.y)
+	var box: Mesh = _unit_box()
+	var mat: Material = Build.facade_mat("plain")
+	for k: int in levels:
+		var col: Color = CONTAINER_COLORS[(map.c_var[i] + k * 3) % CONTAINER_COLORS.size()]
+		var off: Vector3 = _local(yaw, (float((map.c_var[i] + k) % 3) - 1.0) * 0.15, 0.0)
+		_add("container", box, mat, _box_t(base + off + Vector3(0, k * CONTAINER.y, 0), yaw, CONTAINER), col)
+	_collide(base, yaw, Vector3(CONTAINER.x, CONTAINER.y * levels, CONTAINER.z))
 
 
 ## Altura del suelo bajo un rectángulo (la esquina más baja: en pendiente, el resto queda enterrado).
@@ -99,7 +121,7 @@ func _building(i: int) -> void:
 	var top: Vector3 = base + Vector3(0, size.y, 0)
 	var plain: Material = Build.facade_mat("plain")
 	match kind:
-		"casa":
+		"casa", "casa_campo":
 			var roof_col: Color = [Color(0.62, 0.3, 0.2), Color(0.55, 0.27, 0.18), Color(0.68, 0.38, 0.25)][v % 3]
 			var t := Transform3D(Basis(Vector3.UP, yaw) * Basis.from_scale(Vector3(size.x + 0.6, 2.4, size.z + 0.8)), top)
 			_add("roof_gable", _prism(), plain, t, roof_col)
@@ -260,6 +282,18 @@ func _landmark(lm: Dictionary) -> void:
 					Build.cyl(root, 0.25, 5.5, Vector3(s * w * 0.35, 2.75, -d * 0.15 + t * d * 0.18), Color(0.8, 0.8, 0.8))
 				_part(root, Vector3(0.8, 1.6, 0.6), Vector3(s * w * 0.18, 0, -d * 0.15), Color(0.2, 0.4, 0.7), "plain")
 			_sign(root, "GASOLINERA", Vector3(0, 7.0, -d * 0.15 - d * 0.28), 3.0, Color(1, 1, 1))
+		"grua":
+			var yellow := Color(0.92, 0.7, 0.12)
+			for sx: float in [-1.0, 1.0]:
+				for sz: float in [-1.0, 1.0]:
+					_part(root, Vector3(1.2, 34, 1.2), Vector3(sx * (w / 2.0 - 1.0), 0, sz * (d / 2.0 - 1.0)), yellow, "plain")
+			_part(root, Vector3(w, 2.5, d), Vector3(0, 34, 0), yellow, "plain")
+			_part(root, Vector3(3, 2, 70), Vector3(0, 33, d / 2.0 + 27.0), yellow, "plain")  # pluma sobre el agua
+			_part(root, Vector3(3, 2, 22), Vector3(0, 33, -d / 2.0 - 9.0), yellow, "plain")  # contrapeso
+			_part(root, Vector3(5, 4, 6), Vector3(0, 30, 6), Color(0.85, 0.85, 0.82), "plain")  # cabina
+			_part(root, Vector3(0.3, 18, 0.3), Vector3(0, 15, d / 2.0 + 38.0), Color(0.2, 0.2, 0.2), "plain")  # cable
+			_collide(base, yaw, Vector3(w, 6.0, d))
+			return
 		"mercado":
 			_part(root, Vector3(w, 9, d), Vector3.ZERO, Color(0.7, 0.62, 0.5), "windows")
 			var vault: MeshInstance3D = Build.cyl(root, w * 0.5, d + 1.0, Vector3(0, 9, 0), Color(0.45, 0.5, 0.48), Vector3(PI / 2.0, 0, 0))

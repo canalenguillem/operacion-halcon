@@ -3,6 +3,7 @@ extends Node
 ## Ayudas de desarrollo por línea de órdenes:
 ## godot --path . -- [--play] [--at=x,y,z] [--yaw=grados] [--test-jet] [--test-takeoff]
 ##                   [--menu] [--pause] [--controls] [--options] [--map] [--shot=/ruta/captura.png] [--fps]
+##                   [--cine=x,z,radio,altura]  (vista aérea girando alrededor de un punto)
 
 var main: Main
 ## Imprime el estado del caza cada segundo (lo usa `tools/check.sh`).
@@ -25,6 +26,12 @@ func parse_args() -> bool:
 			main.player.position = Vector3(p[0], p[1], p[2])
 		elif a.begins_with("--yaw="):
 			main.camera.yaw = deg_to_rad(float(a.trim_prefix("--yaw=")))
+		elif a.begins_with("--cine="):
+			var c: PackedFloat64Array = a.trim_prefix("--cine=").split_floats(",")
+			main.camera.cine_center = Vector3(c[0], 10, c[1])
+			main.camera.cine_radius = c[2]
+			main.camera.cine_height = c[3]
+			main.camera.cinematic = true
 		elif a == "--map":
 			main.map_screen.open.call_deferred(false)
 		elif a == "--fps":

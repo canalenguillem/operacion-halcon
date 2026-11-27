@@ -664,6 +664,7 @@ BUILDING_STYLES = {
     "naves": ((30, 60), (25, 45), (8, 14), 8.0, 8.0, "nave"),
     "muelles": ((30, 55), (20, 35), (9, 14), 6.0, 10.0, "nave"),
     "mansiones": ((16, 24), (12, 18), (6, 8), 12.0, 22.0, "mansion"),
+    "campo": ((9, 13), (8, 11), (5, 7), 14.0, 200.0, "casa_campo"),
 }
 FINANCIAL_CORE: Vec = (560.0, 430.0)
 
@@ -681,6 +682,10 @@ LANDMARKS = [
     ("motel", "motel", 46, 14, (-760, 640)),
     ("gasolinera", "gasolinera", 30, 20, (60, -520)),
     ("mercado", "mercado", 40, 30, (-30, 580)),
+    ("grua_1", "grua", 30, 16, (760, 1135)),
+    ("grua_2", "grua", 30, 16, (900, 1138)),
+    ("grua_3", "grua", 30, 16, (1100, 1140)),
+    ("grua_4", "grua", 30, 16, (1290, 1140)),
 ]
 
 
@@ -833,6 +838,8 @@ def place_buildings(pl: Placer) -> list[list]:
             while t < length - 6.0:
                 probe = (a[0] + u[0] * t + n[0] * side * (half + 6), a[1] + u[1] * t + n[1] * side * (half + 6))
                 style = style_at(probe)
+                if style is None and point_in_poly(probe, COAST) and rng.random() < 0.02:
+                    style = "campo"
                 if style not in BUILDING_STYLES:
                     t += 10
                     continue
@@ -871,7 +878,47 @@ def to_list(poly):
     return [[float(x), float(z)] for x, z in poly]
 
 
-def write_json(nodes, roads, buildings, landmarks) -> None:
+def infill_slums(pl: Placer, tries: int) -> list[list]:
+    """Chabolas también dentro de las manzanas de Los Bajos (no solo mirando a la calle)."""
+    out = []
+    polys = [d["poly"] for d in DISTRICTS if d["style"] == "chabolas"]
+    for _ in range(tries):
+        poly = rng.choice(polys)
+        xs = [p[0] for p in poly]
+        zs = [p[1] for p in poly]
+        c = (rng.uniform(min(xs), max(xs)), rng.uniform(min(zs), max(zs)))
+        if not point_in_poly(c, poly):
+            continue
+        w, d, h = rng.uniform(5, 9), rng.uniform(5, 8), rng.uniform(2.8, 4.2)
+        yaw = math.radians(rng.choice((-9, 8)) + rng.uniform(-6, 6))
+        corners = rect_corners(c, (math.cos(yaw), math.sin(yaw)), w, d)
+        if pl.free(corners, 1.0):
+            pl.take(corners)
+            out.append([round(c[0], 1), round(c[1], 1), round(-yaw, 3), round(w, 1), round(d, 1), round(h, 1),
+                        "chabola", rng.randrange(100)])
+    return out
+
+
+def place_containers(pl: Placer) -> list[list]:
+    """Pilas de contenedores en los patios libres del puerto: [x, z, yaw, pisos, variante]."""
+    out = []
+    yaw = math.radians(-12)
+    u = (math.cos(yaw), math.sin(yaw))
+    v = (-u[1], u[0])
+    port = next(d["poly"] for d in DISTRICTS if d["id"] == "puerto")
+    for i in range(-40, 40):
+        for j in range(-80, 80):
+            c = (1000 + u[0] * i * 14.0 + v[0] * j * 3.4, 950 + u[1] * i * 14.0 + v[1] * j * 3.4)
+            if c[1] < 760 or not point_in_poly(c, port):
+                continue
+            corners = rect_corners(c, u, 12.6, 2.9)
+            if pl.free(corners, 1.5):
+                pl.take(corners)
+                out.append([round(c[0], 1), round(c[1], 1), round(-yaw, 3), rng.choice((1, 2, 2, 3, 3, 4)), rng.randrange(100)])
+    return out
+
+
+def write_json(nodes, roads, buildings, landmarks, containers) -> None:
     data = {
         "version": 2,
         "note": "Generado por tools/map/layout.py; no editar a mano.",
@@ -895,12 +942,15 @@ def write_json(nodes, roads, buildings, landmarks) -> None:
         "landmarks": landmarks,
         "buildings_format": ["x", "z", "yaw", "ancho", "fondo", "alto", "tipo", "variante"],
         "buildings": buildings,
+        "containers_format": ["x", "z", "yaw", "pisos", "variante"],
+        "containers": containers,
     }
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     OUT_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
 
 
 BUILDINGS: list[list] = []
+CONTAINERS: list[list] = []
 LANDMARK_LIST: list[dict] = []
 
 
@@ -979,6 +1029,9 @@ def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float,
         cs = rect_corners((b[0], b[1]), (math.cos(b[2]), -math.sin(b[2])), b[3], b[4])
         shade = max(60, 150 - int(b[5]))
         d.polygon([P(x, z) for x, z in cs], fill=(shade, shade - 6, shade - 12))
+    for c in CONTAINERS:
+        cs = rect_corners((c[0], c[1]), (math.cos(c[2]), -math.sin(c[2])), 12.2, 2.5)
+        d.polygon([P(x, z) for x, z in cs], fill=(150, 80, 60))
     for lm in LANDMARK_LIST:
         cs = rect_corners((lm["x"], lm["z"]), (math.cos(lm["yaw"]), -math.sin(lm["yaw"])), lm["w"], lm["d"])
         d.polygon([P(x, z) for x, z in cs], fill=(150, 40, 40))
@@ -1070,13 +1123,16 @@ def main() -> None:
     pl = Placer(nodes, roads)
     landmarks = place_landmarks(pl)
     buildings = place_buildings(pl)
-    write_json(nodes, roads, buildings, landmarks)
+    buildings += infill_slums(pl, 6000)
+    containers = place_containers(pl)
+    write_json(nodes, roads, buildings, landmarks, containers)
+    CONTAINERS.extend(containers)
     BUILDINGS.extend(buildings)
     LANDMARK_LIST.extend(landmarks)
     render(OUT_PNG, nodes, roads, -2350, 3600, -1850, 1450, 0.28, "Plano provisional")
     render(OUT_PNG_CITY, nodes, roads, -1900, 1500, -720, 1260, 0.5, "Plano de la ciudad")
     print(f"{len(nodes)} cruces, {len(roads)} tramos, {sum(1 for r in roads if r['bridge'])} tramos de puente, "
-          f"{len(buildings)} edificios, {len(landmarks)} singulares")
+          f"{len(buildings)} edificios, {len(landmarks)} singulares, {len(containers)} pilas de contenedores")
 
 
 if __name__ == "__main__":

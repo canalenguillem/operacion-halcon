@@ -42,6 +42,11 @@ var b_yaw: PackedFloat32Array = PackedFloat32Array()
 var b_size: PackedVector3Array = PackedVector3Array()
 var b_kind: PackedStringArray = PackedStringArray()
 var b_var: PackedInt32Array = PackedInt32Array()
+## Pilas de contenedores del puerto: posición, giro (yaw de Godot), pisos y variante (color).
+var c_pos: PackedVector2Array = PackedVector2Array()
+var c_yaw: PackedFloat32Array = PackedFloat32Array()
+var c_levels: PackedInt32Array = PackedInt32Array()
+var c_var: PackedInt32Array = PackedInt32Array()
 ## Edificios singulares: {id, kind, pos: Vector2, yaw, w, d}.
 var landmarks: Array[Dictionary] = []
 
@@ -124,6 +129,12 @@ func _read(d: Dictionary) -> void:
 		b_size.append(Vector3(float(ba[3]), float(ba[5]), float(ba[4])))
 		b_kind.append(str(ba[6]))
 		b_var.append(int(ba[7]))
+	for c: Variant in (d.get("containers", []) as Array):
+		var ca: Array = c as Array
+		c_pos.append(Vector2(float(ca[0]), float(ca[1])))
+		c_yaw.append(float(ca[2]))
+		c_levels.append(int(ca[3]))
+		c_var.append(int(ca[4]))
 	for l: Variant in (d.get("landmarks", []) as Array):
 		var ld: Dictionary = l as Dictionary
 		landmarks.append({"id": str(ld["id"]), "kind": str(ld["kind"]), "pos": Vector2(float(ld["x"]), float(ld["z"])),
