@@ -239,7 +239,7 @@ def write_json() -> None:
         "pois": [{**p, "pos": [float(p["pos"][0]), float(p["pos"][1])]} for p in POIS],
     }
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    OUT_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+    OUT_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
 
 
 # ------------------------------------------------------------------ plano PNG
