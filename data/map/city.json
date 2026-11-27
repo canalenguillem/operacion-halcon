@@ -35,8 +35,8 @@
    511.8
   ],
   [
-   238.0,
-   534.7
+   238.4,
+   534.0
   ],
   [
    219.3,
@@ -47,48 +47,52 @@
    586.3
   ],
   [
-   182.2,
-   605.2
+   188.3,
+   598.4
   ],
   [
-   153.3,
-   632.2
+   177.5,
+   610.4
   ],
   [
-   134.0,
-   645.3
+   144.9,
+   638.5
+  ],
+  [
+   128.1,
+   648.4
   ],
   [
    95.3,
    661.5
   ],
   [
-   63.1,
-   666.6
+   67.1,
+   666.0
   ],
   [
    30.9,
    666.7
   ],
   [
-   -5.0,
-   663.7
+   -0.1,
+   664.1
   ],
   [
    -30.0,
    661.6
   ],
   [
-   -59.4,
-   660.2
+   -61.9,
+   660.1
   ],
   [
    -89.4,
    659.3
   ],
   [
-   -117.1,
-   657.0
+   -119.9,
+   656.8
   ],
   [
    -150.4,
@@ -99,20 +103,12 @@
    638.8
   ],
   [
-   -191.5,
-   631.3
-  ],
-  [
    -206.1,
    622.4
   ],
   [
-   -230.5,
-   602.7
-  ],
-  [
-   -242.0,
-   592.0
+   -236.4,
+   597.2
   ],
   [
    -253.6,
@@ -123,16 +119,16 @@
    560.6
   ],
   [
-   -300.7,
-   531.1
+   -300.6,
+   531.2
   ],
   [
    -319.9,
    504.1
   ],
   [
-   -333.1,
-   478.5
+   -332.9,
+   485.1
   ],
   [
    -341.5,
@@ -147,16 +143,16 @@
    380.0
   ],
   [
-   -323.4,
-   340.3
+   -324.8,
+   344.3
   ],
   [
    -315.5,
    319.3
   ],
   [
-   -304.7,
-   290.7
+   -303.4,
+   287.2
   ],
   [
    -288.3,
@@ -167,12 +163,12 @@
    234.7
   ],
   [
-   -267.6,
-   210.9
+   -266.1,
+   208.4
   ],
   [
-   -246.7,
-   184.9
+   -248.4,
+   186.9
   ],
   [
    -239.2,
@@ -183,12 +179,12 @@
    163.1
   ],
   [
-   -199.4,
-   146.8
+   -195.1,
+   144.0
   ],
   [
-   -169.8,
-   127.3
+   -174.2,
+   130.2
   ],
   [
    -146.2,
@@ -211,6 +207,10 @@
    67.4
   ],
   [
+   -48.9,
+   59.6
+  ],
+  [
    -30.0,
    61.6
   ],
@@ -219,8 +219,12 @@
    63.3
   ],
   [
-   32.5,
-   65.8
+   35.4,
+   72.4
+  ],
+  [
+   48.3,
+   78.3
   ],
   [
    65.5,
@@ -243,24 +247,28 @@
    156.8
   ],
   [
-   186.3,
-   173.3
+   181.6,
+   168.3
   ],
   [
-   209.3,
-   206.1
+   192.3,
+   179.8
+  ],
+  [
+   193.0,
+   199.5
   ],
   [
    221.6,
    234.7
   ],
   [
-   230.3,
-   264.1
+   228.8,
+   259.2
   ],
   [
-   233.4,
-   288.8
+   234.4,
+   288.5
   ],
   [
    242.4,
@@ -279,36 +287,44 @@
    399.8
   ],
   [
-   7.0,
-   423.5
+   16.1,
+   414.4
   ],
   [
-   -19.9,
-   437.1
+   1.6,
+   428.1
+  ],
+  [
+   -18.0,
+   436.4
   ],
   [
    -40.1,
    437.1
   ],
   [
-   -61.1,
-   428.5
+   -59.0,
+   430.2
   ],
   [
-   -79.2,
-   409.1
+   -72.7,
+   418.7
   ],
   [
-   -88.0,
-   380.0
+   -84.5,
+   399.8
   ],
   [
-   -79.4,
-   351.3
+   -86.2,
+   369.7
   ],
   [
-   -59.4,
-   330.1
+   -74.4,
+   342.7
+  ],
+  [
+   -60.7,
+   331.2
   ],
   [
    -40.1,
@@ -323,468 +339,452 @@
    329.8
   ],
   [
-   14.4,
-   342.7
+   19.5,
+   351.5
   ],
   [
-   24.9,
-   362.2
-  ],
-  [
-   117.1,
-   376.2
-  ],
-  [
-   111.0,
-   417.8
-  ],
-  [
-   95.9,
-   434.7
-  ],
-  [
-   76.8,
-   441.7
-  ],
-  [
-   66.0,
-   480.6
-  ],
-  [
-   36.4,
-   495.1
-  ],
-  [
-   5.2,
-   511.2
-  ],
-  [
-   -30.0,
-   504.6
-  ],
-  [
-   -62.7,
-   502.1
-  ],
-  [
-   -100.6,
-   491.3
-  ],
-  [
-   -119.9,
-   469.9
-  ],
-  [
-   -142.4,
-   461.6
-  ],
-  [
-   -145.8,
-   446.9
-  ],
-  [
-   -147.5,
-   411.5
-  ],
-  [
-   -153.4,
+   93.3,
    380.0
   ],
   [
-   -164.4,
-   348.4
+   102.4,
+   412.2
   ],
   [
-   -145.0,
-   313.6
+   94.6,
+   430.0
   ],
   [
-   -141.9,
-   296.4
+   86.9,
+   453.7
   ],
   [
-   -126.6,
-   285.6
+   66.1,
+   476.1
+  ],
+  [
+   39.4,
+   488.8
+  ],
+  [
+   -0.9,
+   503.3
+  ],
+  [
+   -30.0,
+   513.4
+  ],
+  [
+   -62.9,
+   502.9
+  ],
+  [
+   -96.9,
+   495.8
+  ],
+  [
+   -109.8,
+   480.2
   ],
   [
    -116.1,
-   265.0
+   466.1
   ],
   [
-   -101.2,
-   261.5
+   -136.9,
+   441.7
+  ],
+  [
+   -163.4,
+   422.5
+  ],
+  [
+   -162.8,
+   380.0
+  ],
+  [
+   -163.9,
+   350.4
+  ],
+  [
+   -156.4,
+   326.0
+  ],
+  [
+   -150.6,
+   311.4
+  ],
+  [
+   -135.4,
+   296.6
+  ],
+  [
+   -116.3,
+   281.8
+  ],
+  [
+   -91.3,
+   273.8
   ],
   [
    -67.0,
-   253.7
+   241.9
   ],
   [
-   -30.0,
-   257.4
+   -25.6,
+   240.9
   ],
   [
-   3.2,
+   6.1,
    245.3
   ],
   [
-   38.7,
-   260.9
+   21.6,
+   252.3
   ],
   [
-   68.6,
-   281.4
+   39.2,
+   260.2
   ],
   [
-   80.2,
-   297.4
+   74.8,
+   275.2
   ],
   [
-   89.8,
-   310.8
+   76.6,
+   292.7
   ],
   [
-   105.3,
-   327.5
+   83.6,
+   314.4
   ],
   [
-   113.1,
-   341.6
+   98.7,
+   328.2
   ],
   [
-   185.2,
-   373.4
+   107.4,
+   343.2
   ],
   [
-   189.5,
-   438.8
+   101.5,
+   358.8
   ],
   [
-   157.4,
-   488.1
+   186.3,
+   380.0
   ],
   [
-   127.0,
-   537.0
+   184.5,
+   437.5
   ],
   [
-   112.1,
-   542.2
+   170.7,
+   475.2
   ],
   [
-   103.5,
-   556.6
+   164.4,
+   492.2
   ],
   [
-   82.2,
-   574.4
+   121.9,
+   531.9
   ],
   [
-   25.6,
-   587.5
+   106.1,
+   546.7
   ],
   [
-   -12.5,
-   588.1
+   74.2,
+   560.5
   ],
   [
-   -35.2,
-   588.7
-  ],
-  [
-   -86.4,
+   26.8,
    591.8
   ],
   [
-   -143.1,
-   575.8
+   -30.0,
+   606.1
   ],
   [
-   -158.8,
-   562.1
+   -69.2,
+   595.1
   ],
   [
-   -187.4,
-   537.4
+   -87.6,
+   595.0
   ],
   [
-   -221.1,
-   485.8
+   -139.3,
+   569.3
   ],
   [
-   -246.4,
-   438.0
+   -183.5,
+   535.9
   ],
   [
-   -246.2,
-   404.5
+   -206.7,
+   506.4
   ],
   [
-   -244.4,
-   385.1
+   -212.8,
+   485.5
   ],
   [
-   -236.1,
-   342.6
+   -232.6,
+   437.5
   ],
   [
-   -233.8,
-   325.4
+   -245.1,
+   380.0
   ],
   [
-   -217.3,
-   266.1
+   -245.2,
+   345.6
   ],
   [
-   -191.8,
-   218.2
+   -251.0,
+   320.8
   ],
   [
-   -138.5,
-   197.9
+   -232.7,
+   302.7
   ],
   [
-   -87.4,
-   182.2
+   -213.1,
+   274.3
   ],
   [
-   -59.2,
-   174.8
+   -191.0,
+   247.7
+  ],
+  [
+   -177.9,
+   232.1
+  ],
+  [
+   -139.0,
+   193.9
+  ],
+  [
+   -84.5,
+   180.3
+  ],
+  [
+   -61.9,
+   175.6
+  ],
+  [
+   -41.6,
+   165.3
   ],
   [
    -30.0,
-   171.2
+   166.3
   ],
   [
-   23.6,
-   180.0
+   23.3,
+   165.6
   ],
   [
-   49.2,
-   187.9
+   84.5,
+   181.7
   ],
   [
-   80.0,
-   193.5
+   122.2,
+   227.8
   ],
   [
-   127.0,
-   223.0
+   156.1,
+   270.2
   ],
   [
-   136.5,
-   236.8
+   163.7,
+   289.0
   ],
   [
-   168.3,
-   265.5
+   176.8,
+   324.6
   ],
   [
-   178.1,
-   307.1
+   181.9,
+   354.2
   ],
   [
-   177.9,
-   324.3
+   155.5,
+   371.5
   ],
   [
-   152.8,
-   393.8
+   195.2,
+   345.4
   ],
   [
-   196.6,
-   356.1
+   240.8,
+   385.4
   ],
   [
-   239.6,
-   365.4
+   281.4,
+   376.1
   ],
   [
-   280.3,
-   341.6
+   130.1,
+   466.2
   ],
   [
-   128.8,
-   441.1
+   198.5,
+   495.0
   ],
   [
-   227.3,
-   468.8
+   138.6,
+   589.7
   ],
   [
-   137.5,
-   592.8
+   144.1,
+   654.2
   ],
   [
-   161.9,
-   600.7
+   -1.8,
+   520.7
   ],
   [
-   -18.8,
+   63.3,
+   619.9
+  ],
+  [
+   -41.6,
    514.5
   ],
   [
-   -10.4,
-   559.0
+   -61.2,
+   557.0
   ],
   [
-   -13.6,
-   604.2
-  ],
-  [
-   -15.1,
-   642.5
-  ],
-  [
-   0.3,
-   704.6
-  ],
-  [
-   -53.9,
-   512.9
-  ],
-  [
-   -84.8,
-   558.4
+   -46.8,
+   640.9
   ],
   [
    -99.7,
-   627.6
-  ],
-  [
-   -159.7,
-   547.4
+   698.5
   ],
   [
    -156.5,
-   601.7
+   516.7
   ],
   [
-   -189.3,
-   474.1
+   -227.2,
+   552.1
   ],
   [
-   -246.7,
-   508.7
+   -230.7,
+   568.2
   ],
   [
-   -209.9,
-   354.9
+   -269.7,
+   475.3
   ],
   [
-   -249.1,
-   336.6
+   -298.2,
+   481.2
   ],
   [
-   -280.4,
-   335.3
+   -292.9,
+   353.8
   ],
   [
-   -350.4,
-   332.6
+   -352.6,
+   347.5
   ],
   [
-   -244.9,
-   239.8
+   -194.0,
+   303.1
   ],
   [
-   -161.7,
-   146.7
+   -282.2,
+   287.1
   ],
   [
-   -167.8,
+   -335.8,
+   280.0
+  ],
+  [
+   -122.8,
+   250.1
+  ],
+  [
+   -186.0,
+   169.7
+  ],
+  [
+   -197.0,
+   105.2
+  ],
+  [
+   -25.4,
+   112.1
+  ],
+  [
+   16.7,
+   207.1
+  ],
+  [
+   60.2,
+   138.1
+  ],
+  [
+   54.6,
    110.0
   ],
   [
-   -74.1,
-   209.4
+   96.6,
+   254.8
   ],
   [
-   -98.2,
-   168.2
+   156.3,
+   201.6
   ],
   [
-   -86.1,
-   130.0
+   234.7,
+   189.8
   ],
   [
-   -108.7,
-   110.1
+   178.0,
+   280.2
   ],
   [
-   32.7,
-   126.0
+   209.2,
+   283.0
   ],
   [
-   30.0,
-   110.0
+   248.2,
+   221.1
   ],
   [
-   100.2,
-   274.2
+   -208.4,
+   394.3
   ],
   [
-   159.7,
-   205.0
+   -83.8,
+   503.8
   ],
   [
-   168.0,
-   185.6
+   -145.1,
+   244.7
   ],
   [
-   199.4,
-   152.4
+   -116.0,
+   224.5
   ],
   [
-   281.1,
-   282.5
+   98.4,
+   494.2
   ],
   [
-   -130.4,
-   471.7
+   -96.2,
+   262.3
   ],
   [
-   -200.7,
-   449.1
-  ],
-  [
-   -51.8,
-   246.8
-  ],
-  [
-   -2.9,
-   203.4
-  ],
-  [
-   118.7,
-   486.6
-  ],
-  [
-   -198.1,
-   429.3
-  ],
-  [
-   32.7,
-   499.6
-  ],
-  [
-   0.6,
-   557.1
-  ],
-  [
-   -110.7,
-   232.7
-  ],
-  [
-   -240.6,
-   443.6
-  ],
-  [
-   -38.0,
-   245.2
-  ],
-  [
-   14.5,
-   203.3
+   -73.3,
+   200.8
   ],
   [
    -440.0,
@@ -1027,6 +1027,10 @@
    110.0
   ],
   [
+   -110.0,
+   112.9
+  ],
+  [
    220.0,
    110.0
   ],
@@ -1139,8 +1143,8 @@
    75.1
   ],
   [
-   -330.0,
-   184.0
+   -326.6,
+   170.2
   ],
   [
    -440.0,
@@ -1305,10 +1309,6 @@
   [
    1000.0,
    531.7
-  ],
-  [
-   183.2,
-   198.6
   ],
   [
    260.3,
@@ -1557,6 +1557,10 @@
   [
    407.5,
    138.8
+  ],
+  [
+   229.9,
+   472.9
   ],
   [
    1000.0,
@@ -2299,28 +2303,12 @@
    1047.0
   ],
   [
-   -489.7,
-   196.6
+   -420.5,
+   155.6
   ],
   [
-   -427.8,
-   210.0
-  ],
-  [
-   -407.0,
-   206.2
-  ],
-  [
-   -375.1,
-   206.4
-  ],
-  [
-   -331.5,
-   206.7
-  ],
-  [
-   -251.8,
-   215.2
+   -369.5,
+   163.6
   ],
   [
    -485.7,
@@ -2345,6 +2333,10 @@
   [
    -382.0,
    327.7
+  ],
+  [
+   -348.6,
+   333.7
   ],
   [
    -466.2,
@@ -2391,10 +2383,6 @@
    555.3
   ],
   [
-   -232.1,
-   568.0
-  ],
-  [
    -443.1,
    610.1
   ],
@@ -2427,16 +2415,8 @@
    690.1
   ],
   [
-   -295.4,
-   455.9
-  ],
-  [
-   -314.7,
-   136.3
-  ],
-  [
-   -334.1,
-   284.2
+   -331.4,
+   203.3
   ],
   [
    -357.7,
@@ -2455,8 +2435,8 @@
    649.3
   ],
   [
-   -365.8,
-   136.1
+   -375.3,
+   208.0
   ],
   [
    -383.5,
@@ -2481,6 +2461,10 @@
   [
    -426.2,
    136.1
+  ],
+  [
+   -427.9,
+   216.2
   ],
   [
    -440.5,
@@ -4017,8 +4001,22 @@
   },
   {
    "a": 0,
-   "b": 63,
+   "b": 65,
    "type": "avenida",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 0,
+   "b": 151,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 0,
+   "b": 152,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -4031,7 +4029,7 @@
   },
   {
    "a": 1,
-   "b": 335,
+   "b": 152,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -4072,13 +4070,6 @@
    "bridge": false
   },
   {
-   "a": 3,
-   "b": 148,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 4,
    "b": 5,
    "type": "avenida",
@@ -4096,6 +4087,13 @@
    "a": 5,
    "b": 6,
    "type": "avenida",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 5,
+   "b": 154,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -4136,13 +4134,6 @@
   },
   {
    "a": 8,
-   "b": 150,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 8,
    "b": 384,
    "type": "avenida",
    "district": "radial",
@@ -4164,15 +4155,22 @@
   },
   {
    "a": 10,
-   "b": 150,
-   "type": "calle",
-   "district": "financiero",
+   "b": 155,
+   "type": "callejon",
+   "district": "casco",
    "bridge": false
   },
   {
    "a": 10,
-   "b": 365,
-   "type": "avenida",
+   "b": 156,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 10,
+   "b": 360,
+   "type": "calle",
    "district": "financiero",
    "bridge": false
   },
@@ -4181,6 +4179,13 @@
    "b": 12,
    "type": "avenida",
    "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 11,
+   "b": 156,
+   "type": "avenida",
+   "district": "financiero",
    "bridge": false
   },
   {
@@ -4198,23 +4203,16 @@
    "bridge": false
   },
   {
+   "a": 13,
+   "b": 158,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 14,
    "b": 15,
    "type": "avenida",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 14,
-   "b": 154,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 14,
-   "b": 155,
-   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -4226,17 +4224,17 @@
    "bridge": false
   },
   {
-   "a": 15,
-   "b": 514,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": false
-  },
-  {
    "a": 16,
    "b": 17,
    "type": "avenida",
    "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 16,
+   "b": 515,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
@@ -4247,16 +4245,23 @@
    "bridge": false
   },
   {
-   "a": 18,
-   "b": 19,
-   "type": "avenida",
+   "a": 17,
+   "b": 161,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 17,
+   "b": 162,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 18,
-   "b": 158,
-   "type": "callejon",
+   "b": 19,
+   "type": "avenida",
    "district": "casco",
    "bridge": false
   },
@@ -4282,13 +4287,6 @@
    "bridge": false
   },
   {
-   "a": 21,
-   "b": 160,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 22,
    "b": 23,
    "type": "avenida",
@@ -4303,6 +4301,20 @@
    "bridge": false
   },
   {
+   "a": 23,
+   "b": 165,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 23,
+   "b": 596,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": false
+  },
+  {
    "a": 24,
    "b": 25,
    "type": "avenida",
@@ -4310,17 +4322,24 @@
    "bridge": false
   },
   {
-   "a": 24,
-   "b": 599,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": false
-  },
-  {
    "a": 25,
    "b": 26,
    "type": "avenida",
    "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 25,
+   "b": 165,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 25,
+   "b": 591,
+   "type": "callejon",
+   "district": "bajos",
    "bridge": false
   },
   {
@@ -4332,14 +4351,14 @@
   },
   {
    "a": 26,
-   "b": 593,
+   "b": 587,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 26,
-   "b": 594,
+   "b": 591,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -4353,21 +4372,7 @@
   },
   {
    "a": 27,
-   "b": 162,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 27,
-   "b": 589,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 27,
-   "b": 593,
+   "b": 587,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -4381,16 +4386,9 @@
   },
   {
    "a": 28,
-   "b": 588,
+   "b": 167,
    "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 28,
-   "b": 589,
-   "type": "callejon",
-   "district": "bajos",
+   "district": "casco",
    "bridge": false
   },
   {
@@ -4416,9 +4414,9 @@
   },
   {
    "a": 31,
-   "b": 585,
-   "type": "callejon",
-   "district": "bajos",
+   "b": 601,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
@@ -4430,29 +4428,29 @@
   },
   {
    "a": 32,
-   "b": 606,
-   "type": "avenida",
-   "district": "radial",
+   "b": 168,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 32,
+   "b": 169,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 32,
+   "b": 580,
+   "type": "callejon",
+   "district": "bajos",
    "bridge": false
   },
   {
    "a": 33,
    "b": 34,
    "type": "avenida",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 33,
-   "b": 165,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 33,
-   "b": 166,
-   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -4464,10 +4462,31 @@
    "bridge": false
   },
   {
+   "a": 34,
+   "b": 171,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 34,
+   "b": 172,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 35,
    "b": 36,
    "type": "avenida",
    "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 35,
+   "b": 577,
+   "type": "callejon",
+   "district": "bajos",
    "bridge": false
   },
   {
@@ -4478,23 +4497,9 @@
    "bridge": false
   },
   {
-   "a": 36,
-   "b": 580,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 37,
    "b": 38,
    "type": "avenida",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 37,
-   "b": 167,
-   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -4507,14 +4512,7 @@
   },
   {
    "a": 38,
-   "b": 575,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 38,
-   "b": 576,
+   "b": 282,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -4528,9 +4526,9 @@
   },
   {
    "a": 39,
-   "b": 576,
-   "type": "callejon",
-   "district": "bajos",
+   "b": 251,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
@@ -4542,9 +4540,9 @@
   },
   {
    "a": 40,
-   "b": 251,
-   "type": "avenida",
-   "district": "radial",
+   "b": 252,
+   "type": "calle",
+   "district": "ensanche",
    "bridge": false
   },
   {
@@ -4556,9 +4554,9 @@
   },
   {
    "a": 41,
-   "b": 252,
-   "type": "calle",
-   "district": "ensanche",
+   "b": 174,
+   "type": "callejon",
+   "district": "casco",
    "bridge": false
   },
   {
@@ -4577,16 +4575,16 @@
   },
   {
    "a": 43,
-   "b": 168,
-   "type": "callejon",
-   "district": "casco",
+   "b": 175,
+   "type": "calle",
+   "district": "ensanche",
    "bridge": false
   },
   {
    "a": 43,
-   "b": 169,
-   "type": "callejon",
-   "district": "casco",
+   "b": 253,
+   "type": "calle",
+   "district": "ensanche",
    "bridge": false
   },
   {
@@ -4594,20 +4592,6 @@
    "b": 45,
    "type": "avenida",
    "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 44,
-   "b": 169,
-   "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 44,
-   "b": 173,
-   "type": "calle",
-   "district": "ensanche",
    "bridge": false
   },
   {
@@ -4619,9 +4603,16 @@
   },
   {
    "a": 45,
-   "b": 173,
-   "type": "callejon",
-   "district": "casco",
+   "b": 238,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 45,
+   "b": 253,
+   "type": "calle",
+   "district": "ensanche",
    "bridge": false
   },
   {
@@ -4629,20 +4620,6 @@
    "b": 47,
    "type": "avenida",
    "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 46,
-   "b": 173,
-   "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 46,
-   "b": 238,
-   "type": "calle",
-   "district": "ensanche",
    "bridge": false
   },
   {
@@ -4656,6 +4633,13 @@
    "a": 48,
    "b": 49,
    "type": "avenida",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 48,
+   "b": 176,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -4675,6 +4659,13 @@
   },
   {
    "a": 50,
+   "b": 51,
+   "type": "avenida",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 50,
    "b": 240,
    "type": "avenida",
    "district": "ensanche",
@@ -4682,7 +4673,7 @@
   },
   {
    "a": 50,
-   "b": 276,
+   "b": 277,
    "type": "avenida",
    "district": "ensanche",
    "bridge": false
@@ -4695,16 +4686,16 @@
    "bridge": false
   },
   {
-   "a": 51,
-   "b": 175,
-   "type": "callejon",
+   "a": 52,
+   "b": 53,
+   "type": "avenida",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 52,
-   "b": 53,
-   "type": "avenida",
+   "b": 179,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -4723,24 +4714,24 @@
    "bridge": false
   },
   {
-   "a": 54,
-   "b": 175,
-   "type": "calle",
-   "district": "ensanche",
+   "a": 55,
+   "b": 56,
+   "type": "avenida",
+   "district": "casco",
    "bridge": false
   },
   {
-   "a": 54,
-   "b": 253,
+   "a": 55,
+   "b": 179,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
    "a": 55,
-   "b": 56,
-   "type": "avenida",
-   "district": "casco",
+   "b": 254,
+   "type": "calle",
+   "district": "ensanche",
    "bridge": false
   },
   {
@@ -4758,34 +4749,6 @@
    "bridge": false
   },
   {
-   "a": 57,
-   "b": 178,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 57,
-   "b": 179,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 57,
-   "b": 272,
-   "type": "avenida",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 57,
-   "b": 323,
-   "type": "avenida",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
    "a": 58,
    "b": 59,
    "type": "avenida",
@@ -4794,16 +4757,9 @@
   },
   {
    "a": 58,
-   "b": 323,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 58,
-   "b": 324,
-   "type": "calle",
-   "district": "financiero",
+   "b": 273,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
@@ -4814,6 +4770,13 @@
    "bridge": false
   },
   {
+   "a": 59,
+   "b": 273,
+   "type": "avenida",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
    "a": 60,
    "b": 61,
    "type": "avenida",
@@ -4821,31 +4784,31 @@
    "bridge": false
   },
   {
+   "a": 60,
+   "b": 181,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 60,
+   "b": 182,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 60,
+   "b": 185,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
    "a": 61,
    "b": 62,
    "type": "avenida",
    "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 61,
-   "b": 141,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 61,
-   "b": 180,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 61,
-   "b": 324,
-   "type": "calle",
-   "district": "financiero",
    "bridge": false
   },
   {
@@ -4857,56 +4820,56 @@
   },
   {
    "a": 62,
-   "b": 146,
+   "b": 184,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 63,
+   "b": 64,
+   "type": "avenida",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 63,
+   "b": 324,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 63,
-   "b": 145,
-   "type": "callejon",
+   "a": 64,
+   "b": 65,
+   "type": "avenida",
    "district": "casco",
    "bridge": false
   },
   {
-   "a": 63,
-   "b": 146,
-   "type": "callejon",
-   "district": "casco",
+   "a": 64,
+   "b": 335,
+   "type": "calle",
+   "district": "financiero",
    "bridge": false
   },
   {
-   "a": 63,
+   "a": 65,
    "b": 335,
    "type": "avenida",
    "district": "aeropuerto_av",
    "bridge": false
   },
   {
-   "a": 64,
-   "b": 65,
-   "type": "calle",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 64,
-   "b": 78,
-   "type": "calle",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 65,
-   "b": 66,
+   "a": 66,
+   "b": 67,
    "type": "calle",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 66,
-   "b": 67,
+   "b": 81,
    "type": "calle",
    "district": "casco",
    "bridge": false
@@ -4933,13 +4896,6 @@
    "bridge": false
   },
   {
-   "a": 69,
-   "b": 88,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 70,
    "b": 71,
    "type": "calle",
@@ -4948,7 +4904,7 @@
   },
   {
    "a": 70,
-   "b": 90,
+   "b": 88,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -4968,13 +4924,6 @@
    "bridge": false
   },
   {
-   "a": 72,
-   "b": 96,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 73,
    "b": 74,
    "type": "calle",
@@ -4983,7 +4932,7 @@
   },
   {
    "a": 73,
-   "b": 98,
+   "b": 92,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -4996,9 +4945,23 @@
    "bridge": false
   },
   {
+   "a": 74,
+   "b": 95,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 75,
    "b": 76,
    "type": "calle",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 75,
+   "b": 97,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -5017,8 +4980,22 @@
    "bridge": false
   },
   {
+   "a": 77,
+   "b": 101,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 78,
-   "b": 107,
+   "b": 79,
+   "type": "calle",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 78,
+   "b": 104,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5031,20 +5008,6 @@
    "bridge": false
   },
   {
-   "a": 79,
-   "b": 108,
-   "type": "calle",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 79,
-   "b": 143,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 80,
    "b": 81,
    "type": "calle",
@@ -5053,21 +5016,7 @@
   },
   {
    "a": 81,
-   "b": 82,
-   "type": "calle",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 81,
-   "b": 147,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 81,
-   "b": 185,
+   "b": 111,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5075,6 +5024,13 @@
   {
    "a": 82,
    "b": 83,
+   "type": "calle",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 82,
+   "b": 113,
    "type": "calle",
    "district": "casco",
    "bridge": false
@@ -5088,7 +5044,7 @@
   },
   {
    "a": 83,
-   "b": 113,
+   "b": 153,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5108,6 +5064,20 @@
    "bridge": false
   },
   {
+   "a": 85,
+   "b": 153,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 85,
+   "b": 190,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 86,
    "b": 87,
    "type": "calle",
@@ -5122,6 +5092,13 @@
    "bridge": false
   },
   {
+   "a": 87,
+   "b": 119,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 88,
    "b": 89,
    "type": "calle",
@@ -5130,7 +5107,7 @@
   },
   {
    "a": 88,
-   "b": 159,
+   "b": 157,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5150,30 +5127,9 @@
    "bridge": false
   },
   {
-   "a": 90,
-   "b": 181,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 90,
-   "b": 182,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 91,
    "b": 92,
    "type": "calle",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 91,
-   "b": 186,
-   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -5199,16 +5155,23 @@
    "bridge": false
   },
   {
-   "a": 94,
-   "b": 163,
+   "a": 95,
+   "b": 96,
+   "type": "calle",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 95,
+   "b": 129,
    "type": "callejon",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 95,
-   "b": 96,
-   "type": "calle",
+   "b": 186,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -5220,16 +5183,23 @@
    "bridge": false
   },
   {
-   "a": 96,
-   "b": 129,
+   "a": 97,
+   "b": 98,
+   "type": "calle",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 97,
+   "b": 131,
    "type": "callejon",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 97,
-   "b": 98,
-   "type": "calle",
+   "b": 170,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -5242,28 +5212,14 @@
   },
   {
    "a": 98,
-   "b": 131,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 98,
-   "b": 189,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 99,
-   "b": 100,
-   "type": "calle",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 99,
    "b": 170,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 99,
+   "b": 188,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5277,7 +5233,7 @@
   },
   {
    "a": 100,
-   "b": 170,
+   "b": 173,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5286,6 +5242,13 @@
    "a": 101,
    "b": 102,
    "type": "calle",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 101,
+   "b": 173,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -5311,6 +5274,13 @@
    "bridge": false
   },
   {
+   "a": 104,
+   "b": 139,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 105,
    "b": 106,
    "type": "calle",
@@ -5318,16 +5288,9 @@
    "bridge": false
   },
   {
-   "a": 105,
-   "b": 176,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 106,
-   "b": 107,
-   "type": "calle",
+   "b": 177,
+   "type": "callejon",
    "district": "casco",
    "bridge": false
   },
@@ -5340,35 +5303,28 @@
   },
   {
    "a": 107,
-   "b": 141,
+   "b": 180,
    "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 108,
+   "b": 109,
+   "type": "calle",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 109,
    "b": 110,
-   "type": "callejon",
+   "type": "calle",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 109,
-   "b": 142,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 109,
-   "b": 143,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 109,
-   "b": 144,
+   "b": 180,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5376,27 +5332,20 @@
   {
    "a": 110,
    "b": 111,
-   "type": "callejon",
+   "type": "calle",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 111,
    "b": 112,
-   "type": "callejon",
+   "type": "calle",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 111,
-   "b": 147,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 111,
-   "b": 148,
+   "b": 146,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5404,14 +5353,7 @@
   {
    "a": 112,
    "b": 113,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 113,
-   "b": 114,
-   "type": "callejon",
+   "type": "calle",
    "district": "casco",
    "bridge": false
   },
@@ -5423,15 +5365,15 @@
    "bridge": false
   },
   {
-   "a": 113,
-   "b": 185,
+   "a": 114,
+   "b": 115,
    "type": "callejon",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 114,
-   "b": 115,
+   "b": 148,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5451,22 +5393,22 @@
    "bridge": false
   },
   {
+   "a": 116,
+   "b": 153,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 116,
+   "b": 154,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 117,
    "b": 118,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 117,
-   "b": 152,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 117,
-   "b": 153,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5487,14 +5429,21 @@
   },
   {
    "a": 119,
-   "b": 157,
+   "b": 153,
    "type": "callejon",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 119,
-   "b": 158,
+   "b": 155,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 119,
+   "b": 190,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5515,14 +5464,14 @@
   },
   {
    "a": 121,
-   "b": 159,
+   "b": 157,
    "type": "callejon",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 121,
-   "b": 160,
+   "b": 158,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5543,14 +5492,14 @@
   },
   {
    "a": 123,
-   "b": 161,
+   "b": 160,
    "type": "callejon",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 123,
-   "b": 162,
+   "b": 161,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5570,13 +5519,6 @@
    "bridge": false
   },
   {
-   "a": 125,
-   "b": 182,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 126,
    "b": 127,
    "type": "callejon",
@@ -5585,7 +5527,14 @@
   },
   {
    "a": 126,
-   "b": 186,
+   "b": 163,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 126,
+   "b": 164,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5600,13 +5549,6 @@
   {
    "a": 127,
    "b": 163,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 127,
-   "b": 164,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5627,7 +5569,7 @@
   },
   {
    "a": 129,
-   "b": 167,
+   "b": 166,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5654,29 +5596,15 @@
    "bridge": false
   },
   {
+   "a": 131,
+   "b": 186,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 132,
    "b": 133,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 132,
-   "b": 170,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 132,
-   "b": 171,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 132,
-   "b": 189,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5691,6 +5619,13 @@
   {
    "a": 133,
    "b": 170,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 133,
+   "b": 171,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5717,27 +5652,6 @@
    "bridge": false
   },
   {
-   "a": 136,
-   "b": 174,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 136,
-   "b": 184,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 136,
-   "b": 192,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 137,
    "b": 138,
    "type": "callejon",
@@ -5745,8 +5659,36 @@
    "bridge": false
   },
   {
+   "a": 137,
+   "b": 173,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 137,
+   "b": 174,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 137,
+   "b": 188,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 138,
    "b": 139,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 138,
+   "b": 189,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5767,7 +5709,7 @@
   },
   {
    "a": 139,
-   "b": 177,
+   "b": 192,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5787,6 +5729,34 @@
    "bridge": false
   },
   {
+   "a": 142,
+   "b": 143,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 142,
+   "b": 177,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 142,
+   "b": 178,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 143,
+   "b": 144,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 144,
    "b": 145,
    "type": "callejon",
@@ -5794,21 +5764,63 @@
    "bridge": false
   },
   {
+   "a": 144,
+   "b": 180,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 144,
+   "b": 181,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 145,
+   "b": 146,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 145,
+   "b": 180,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
    "a": 146,
-   "b": 335,
-   "type": "calle",
-   "district": "financiero",
+   "b": 147,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 146,
+   "b": 183,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 147,
+   "b": 148,
+   "type": "callejon",
+   "district": "casco",
    "bridge": false
   },
   {
    "a": 148,
-   "b": 346,
-   "type": "calle",
-   "district": "financiero",
+   "b": 149,
+   "type": "callejon",
+   "district": "casco",
    "bridge": false
   },
   {
-   "a": 149,
+   "a": 148,
    "b": 150,
    "type": "callejon",
    "district": "casco",
@@ -5816,49 +5828,35 @@
   },
   {
    "a": 150,
-   "b": 360,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 151,
-   "b": 152,
+   "b": 151,
    "type": "callejon",
    "district": "casco",
    "bridge": false
   },
   {
    "a": 152,
-   "b": 188,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 153,
-   "b": 154,
-   "type": "callejon",
-   "district": "casco",
+   "b": 335,
+   "type": "calle",
+   "district": "financiero",
    "bridge": false
   },
   {
    "a": 156,
-   "b": 157,
+   "b": 365,
+   "type": "avenida",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 159,
+   "b": 160,
    "type": "callejon",
    "district": "casco",
    "bridge": false
   },
   {
-   "a": 161,
-   "b": 181,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 161,
-   "b": 190,
+   "a": 163,
+   "b": 187,
    "type": "callejon",
    "district": "casco",
    "bridge": false
@@ -5872,72 +5870,58 @@
   },
   {
    "a": 166,
-   "b": 582,
+   "b": 167,
    "type": "callejon",
-   "district": "bajos",
+   "district": "casco",
    "bridge": false
   },
   {
-   "a": 166,
-   "b": 605,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 166,
-   "b": 606,
+   "a": 169,
+   "b": 580,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 169,
+   "b": 601,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 172,
+   "b": 577,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 172,
+   "b": 580,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 173,
+   "b": 189,
+   "type": "callejon",
+   "district": "casco",
+   "bridge": false
+  },
+  {
+   "a": 175,
    "b": 252,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
-   "a": 171,
-   "b": 172,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 172,
-   "b": 173,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 174,
-   "b": 175,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
-   "a": 177,
-   "b": 178,
-   "type": "callejon",
-   "district": "casco",
-   "bridge": false
-  },
-  {
    "a": 178,
-   "b": 323,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 179,
-   "b": 272,
-   "type": "avenida",
-   "district": "radial",
+   "b": 179,
+   "type": "callejon",
+   "district": "casco",
    "bridge": false
   },
   {
@@ -5948,10 +5932,10 @@
    "bridge": false
   },
   {
-   "a": 187,
-   "b": 188,
-   "type": "callejon",
-   "district": "casco",
+   "a": 185,
+   "b": 324,
+   "type": "calle",
+   "district": "financiero",
    "bridge": false
   },
   {
@@ -5991,7 +5975,7 @@
   },
   {
    "a": 194,
-   "b": 279,
+   "b": 280,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6012,7 +5996,7 @@
   },
   {
    "a": 195,
-   "b": 278,
+   "b": 279,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6033,7 +6017,7 @@
   },
   {
    "a": 196,
-   "b": 277,
+   "b": 278,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6054,7 +6038,7 @@
   },
   {
    "a": 197,
-   "b": 288,
+   "b": 289,
    "type": "avenida",
    "district": "granvia",
    "bridge": false
@@ -6075,7 +6059,7 @@
   },
   {
    "a": 198,
-   "b": 275,
+   "b": 276,
    "type": "avenida",
    "district": "ensanche",
    "bridge": false
@@ -6096,7 +6080,7 @@
   },
   {
    "a": 199,
-   "b": 274,
+   "b": 275,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6117,7 +6101,7 @@
   },
   {
    "a": 200,
-   "b": 271,
+   "b": 272,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6138,7 +6122,7 @@
   },
   {
    "a": 201,
-   "b": 268,
+   "b": 269,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6159,7 +6143,7 @@
   },
   {
    "a": 202,
-   "b": 265,
+   "b": 266,
    "type": "avenida",
    "district": "ensanche",
    "bridge": false
@@ -6173,7 +6157,7 @@
   },
   {
    "a": 203,
-   "b": 263,
+   "b": 264,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6187,7 +6171,7 @@
   },
   {
    "a": 204,
-   "b": 260,
+   "b": 261,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6201,14 +6185,14 @@
   },
   {
    "a": 205,
-   "b": 289,
+   "b": 290,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
    "a": 205,
-   "b": 399,
+   "b": 400,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -6229,7 +6213,7 @@
   },
   {
    "a": 206,
-   "b": 286,
+   "b": 287,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6376,7 +6360,7 @@
   },
   {
    "a": 218,
-   "b": 290,
+   "b": 291,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6390,14 +6374,14 @@
   },
   {
    "a": 219,
-   "b": 283,
+   "b": 284,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
    "a": 219,
-   "b": 988,
+   "b": 984,
    "type": "avenida",
    "district": "radial",
    "bridge": true
@@ -6411,7 +6395,7 @@
   },
   {
    "a": 220,
-   "b": 283,
+   "b": 284,
    "type": "avenida",
    "district": "ensanche",
    "bridge": false
@@ -6523,7 +6507,7 @@
   },
   {
    "a": 229,
-   "b": 266,
+   "b": 267,
    "type": "avenida",
    "district": "ensanche",
    "bridge": false
@@ -6544,14 +6528,14 @@
   },
   {
    "a": 230,
-   "b": 261,
+   "b": 262,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
    "a": 230,
-   "b": 266,
+   "b": 267,
    "type": "avenida",
    "district": "radial",
    "bridge": false
@@ -6572,7 +6556,7 @@
   },
   {
    "a": 231,
-   "b": 261,
+   "b": 262,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6586,7 +6570,7 @@
   },
   {
    "a": 232,
-   "b": 291,
+   "b": 292,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6614,7 +6598,7 @@
   },
   {
    "a": 234,
-   "b": 283,
+   "b": 284,
    "type": "avenida",
    "district": "ensanche",
    "bridge": false
@@ -6628,14 +6612,14 @@
   },
   {
    "a": 235,
-   "b": 280,
+   "b": 281,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
    "a": 235,
-   "b": 283,
+   "b": 284,
    "type": "avenida",
    "district": "radial",
    "bridge": false
@@ -6649,7 +6633,7 @@
   },
   {
    "a": 236,
-   "b": 280,
+   "b": 281,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6698,7 +6682,7 @@
   },
   {
    "a": 242,
-   "b": 269,
+   "b": 270,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6712,14 +6696,14 @@
   },
   {
    "a": 243,
-   "b": 266,
+   "b": 267,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
    "a": 243,
-   "b": 269,
+   "b": 270,
    "type": "avenida",
    "district": "radial",
    "bridge": false
@@ -6733,14 +6717,14 @@
   },
   {
    "a": 244,
-   "b": 256,
+   "b": 257,
    "type": "avenida",
    "district": "ensanche",
    "bridge": false
   },
   {
    "a": 244,
-   "b": 266,
+   "b": 267,
    "type": "avenida",
    "district": "ensanche",
    "bridge": false
@@ -6754,7 +6738,7 @@
   },
   {
    "a": 245,
-   "b": 257,
+   "b": 258,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6768,13 +6752,6 @@
   },
   {
    "a": 246,
-   "b": 258,
-   "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 247,
    "b": 259,
    "type": "calle",
    "district": "ensanche",
@@ -6782,7 +6759,14 @@
   },
   {
    "a": 247,
-   "b": 412,
+   "b": 260,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 247,
+   "b": 413,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -6803,7 +6787,7 @@
   },
   {
    "a": 249,
-   "b": 284,
+   "b": 285,
    "type": "avenida",
    "district": "ensanche",
    "bridge": false
@@ -6817,14 +6801,14 @@
   },
   {
    "a": 250,
-   "b": 280,
+   "b": 281,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
    "a": 250,
-   "b": 281,
+   "b": 282,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6838,23 +6822,9 @@
   },
   {
    "a": 251,
-   "b": 280,
+   "b": 281,
    "type": "avenida",
    "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 253,
-   "b": 254,
-   "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 253,
-   "b": 272,
-   "type": "calle",
-   "district": "ensanche",
    "bridge": false
   },
   {
@@ -6866,16 +6836,9 @@
   },
   {
    "a": 254,
-   "b": 269,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 254,
-   "b": 272,
-   "type": "avenida",
-   "district": "radial",
+   "b": 273,
+   "type": "calle",
+   "district": "ensanche",
    "bridge": false
   },
   {
@@ -6887,16 +6850,16 @@
   },
   {
    "a": 255,
-   "b": 269,
-   "type": "calle",
-   "district": "ensanche",
+   "b": 270,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
    "a": 255,
-   "b": 270,
-   "type": "calle",
-   "district": "ensanche",
+   "b": 273,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
@@ -6908,8 +6871,15 @@
   },
   {
    "a": 256,
-   "b": 267,
-   "type": "avenida",
+   "b": 270,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 256,
+   "b": 271,
+   "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
@@ -6922,8 +6892,8 @@
   },
   {
    "a": 257,
-   "b": 264,
-   "type": "calle",
+   "b": 268,
+   "type": "avenida",
    "district": "ensanche",
    "bridge": false
   },
@@ -6936,20 +6906,20 @@
   },
   {
    "a": 258,
-   "b": 262,
+   "b": 265,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
    "a": 259,
-   "b": 292,
+   "b": 260,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
-   "a": 260,
+   "a": 259,
    "b": 263,
    "type": "calle",
    "district": "ensanche",
@@ -6957,7 +6927,14 @@
   },
   {
    "a": 260,
-   "b": 289,
+   "b": 293,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 261,
+   "b": 264,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -6965,47 +6942,47 @@
   {
    "a": 261,
    "b": 290,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 262,
+   "b": 291,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
-   "a": 262,
-   "b": 297,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
    "a": 263,
-   "b": 265,
+   "b": 298,
    "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 265,
-   "b": 268,
-   "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 268,
-   "b": 271,
-   "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 270,
-   "b": 311,
-   "type": "avenida",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 270,
+   "a": 264,
+   "b": 266,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 266,
+   "b": 269,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 269,
+   "b": 272,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 271,
    "b": 312,
    "type": "avenida",
    "district": "financiero",
@@ -7013,42 +6990,35 @@
   },
   {
    "a": 271,
-   "b": 274,
-   "type": "calle",
-   "district": "ensanche",
+   "b": 313,
+   "type": "avenida",
+   "district": "financiero",
    "bridge": false
   },
   {
    "a": 272,
-   "b": 273,
-   "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 274,
    "b": 275,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
+   "a": 273,
+   "b": 274,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
    "a": 275,
-   "b": 288,
+   "b": 276,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
-   "a": 277,
-   "b": 278,
-   "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 277,
-   "b": 288,
+   "a": 276,
+   "b": 289,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -7061,99 +7031,99 @@
    "bridge": false
   },
   {
+   "a": 278,
+   "b": 289,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
    "a": 279,
-   "b": 282,
+   "b": 280,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 280,
+   "b": 283,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
    "a": 282,
-   "b": 285,
-   "type": "calle",
-   "district": "ensanche",
+   "b": 600,
+   "type": "callejon",
+   "district": "bajos",
    "bridge": false
   },
   {
-   "a": 285,
-   "b": 287,
-   "type": "calle",
-   "district": "ensanche",
-   "bridge": false
-  },
-  {
-   "a": 286,
-   "b": 995,
+   "a": 283,
+   "b": 286,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
    "a": 286,
-   "b": 996,
+   "b": 288,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 287,
+   "b": 991,
+   "type": "calle",
+   "district": "ensanche",
+   "bridge": false
+  },
+  {
+   "a": 287,
+   "b": 992,
    "type": "calle",
    "district": "ensanche",
    "bridge": true
   },
   {
-   "a": 288,
-   "b": 959,
+   "a": 289,
+   "b": 955,
    "type": "avenida",
    "district": "granvia",
    "bridge": false
   },
   {
-   "a": 289,
-   "b": 429,
+   "a": 290,
+   "b": 430,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
-   "a": 290,
-   "b": 291,
+   "a": 291,
+   "b": 292,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
   },
   {
-   "a": 290,
-   "b": 430,
+   "a": 291,
+   "b": 431,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
-   "a": 291,
-   "b": 406,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
    "a": 292,
-   "b": 431,
+   "b": 407,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
    "a": 293,
-   "b": 294,
-   "type": "avenida",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 293,
-   "b": 374,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 293,
-   "b": 376,
+   "b": 432,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -7167,16 +7137,16 @@
   },
   {
    "a": 294,
-   "b": 299,
+   "b": 374,
    "type": "calle",
-   "district": "financiero",
+   "district": "poligono",
    "bridge": false
   },
   {
    "a": 294,
-   "b": 374,
+   "b": 376,
    "type": "calle",
-   "district": "financiero",
+   "district": "poligono",
    "bridge": false
   },
   {
@@ -7195,44 +7165,51 @@
   },
   {
    "a": 295,
+   "b": 374,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 296,
+   "b": 297,
+   "type": "avenida",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 296,
+   "b": 301,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 296,
    "b": 371,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 296,
+   "a": 297,
    "b": 370,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 296,
-   "b": 386,
+   "a": 297,
+   "b": 387,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 296,
-   "b": 438,
+   "a": 297,
+   "b": 439,
    "type": "calle",
    "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 297,
-   "b": 298,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 297,
-   "b": 304,
-   "type": "calle",
-   "district": "financiero",
    "bridge": false
   },
   {
@@ -7245,14 +7222,7 @@
   {
    "a": 298,
    "b": 305,
-   "type": "avenida",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 298,
-   "b": 376,
-   "type": "avenida",
+   "type": "calle",
    "district": "financiero",
    "bridge": false
   },
@@ -7266,7 +7236,14 @@
   {
    "a": 299,
    "b": 306,
-   "type": "calle",
+   "type": "avenida",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 299,
+   "b": 376,
+   "type": "avenida",
    "district": "financiero",
    "bridge": false
   },
@@ -7279,65 +7256,65 @@
   },
   {
    "a": 300,
-   "b": 372,
+   "b": 307,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
    "a": 301,
-   "b": 309,
-   "type": "avenida",
+   "b": 302,
+   "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
    "a": 301,
+   "b": 372,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 302,
+   "b": 310,
+   "type": "avenida",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 302,
    "b": 370,
    "type": "avenida",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 301,
+   "a": 302,
    "b": 372,
    "type": "avenida",
    "district": "aeropuerto_av",
    "bridge": false
   },
   {
-   "a": 301,
-   "b": 387,
+   "a": 302,
+   "b": 388,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 301,
-   "b": 441,
+   "a": 302,
+   "b": 442,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
-   "a": 301,
-   "b": 489,
+   "a": 302,
+   "b": 490,
    "type": "avenida",
    "district": "aeropuerto_av",
-   "bridge": false
-  },
-  {
-   "a": 302,
-   "b": 303,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 302,
-   "b": 313,
-   "type": "avenida",
-   "district": "financiero",
    "bridge": false
   },
   {
@@ -7350,14 +7327,7 @@
   {
    "a": 303,
    "b": 314,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 303,
-   "b": 380,
-   "type": "calle",
+   "type": "avenida",
    "district": "financiero",
    "bridge": false
   },
@@ -7376,6 +7346,13 @@
    "bridge": false
   },
   {
+   "a": 304,
+   "b": 380,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
    "a": 305,
    "b": 306,
    "type": "calle",
@@ -7384,8 +7361,8 @@
   },
   {
    "a": 305,
-   "b": 377,
-   "type": "avenida",
+   "b": 316,
+   "type": "calle",
    "district": "financiero",
    "bridge": false
   },
@@ -7398,8 +7375,8 @@
   },
   {
    "a": 306,
-   "b": 375,
-   "type": "calle",
+   "b": 377,
+   "type": "avenida",
    "district": "financiero",
    "bridge": false
   },
@@ -7412,16 +7389,9 @@
   },
   {
    "a": 307,
-   "b": 372,
-   "type": "avenida",
-   "district": "aeropuerto_av",
-   "bridge": false
-  },
-  {
-   "a": 307,
    "b": 375,
-   "type": "avenida",
-   "district": "aeropuerto_av",
+   "type": "calle",
+   "district": "financiero",
    "bridge": false
   },
   {
@@ -7433,16 +7403,16 @@
   },
   {
    "a": 308,
-   "b": 319,
-   "type": "calle",
-   "district": "financiero",
+   "b": 372,
+   "type": "avenida",
+   "district": "aeropuerto_av",
    "bridge": false
   },
   {
    "a": 308,
-   "b": 372,
-   "type": "calle",
-   "district": "financiero",
+   "b": 375,
+   "type": "avenida",
+   "district": "aeropuerto_av",
    "bridge": false
   },
   {
@@ -7455,48 +7425,48 @@
   {
    "a": 309,
    "b": 320,
-   "type": "avenida",
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 309,
+   "b": 372,
+   "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
    "a": 310,
+   "b": 311,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 310,
+   "b": 321,
+   "type": "avenida",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 311,
    "b": 368,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 310,
-   "b": 387,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
    "a": 311,
+   "b": 388,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 312,
    "b": 324,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 312,
-   "b": 313,
-   "type": "avenida",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 312,
-   "b": 325,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 312,
-   "b": 385,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -7510,8 +7480,15 @@
   },
   {
    "a": 313,
-   "b": 326,
-   "type": "avenida",
+   "b": 325,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 313,
+   "b": 385,
+   "type": "calle",
    "district": "financiero",
    "bridge": false
   },
@@ -7524,8 +7501,8 @@
   },
   {
    "a": 314,
-   "b": 327,
-   "type": "calle",
+   "b": 326,
+   "type": "avenida",
    "district": "financiero",
    "bridge": false
   },
@@ -7538,7 +7515,7 @@
   },
   {
    "a": 315,
-   "b": 379,
+   "b": 327,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -7552,16 +7529,9 @@
   },
   {
    "a": 316,
-   "b": 377,
-   "type": "avenida",
-   "district": "aeropuerto_av",
-   "bridge": false
-  },
-  {
-   "a": 316,
    "b": 379,
-   "type": "avenida",
-   "district": "aeropuerto_av",
+   "type": "calle",
+   "district": "financiero",
    "bridge": false
   },
   {
@@ -7573,16 +7543,16 @@
   },
   {
    "a": 317,
-   "b": 329,
+   "b": 377,
    "type": "avenida",
-   "district": "financiero",
+   "district": "aeropuerto_av",
    "bridge": false
   },
   {
    "a": 317,
-   "b": 377,
+   "b": 379,
    "type": "avenida",
-   "district": "financiero",
+   "district": "aeropuerto_av",
    "bridge": false
   },
   {
@@ -7594,15 +7564,15 @@
   },
   {
    "a": 318,
-   "b": 330,
-   "type": "calle",
+   "b": 329,
+   "type": "avenida",
    "district": "financiero",
    "bridge": false
   },
   {
    "a": 318,
-   "b": 375,
-   "type": "calle",
+   "b": 377,
+   "type": "avenida",
    "district": "financiero",
    "bridge": false
   },
@@ -7615,7 +7585,14 @@
   },
   {
    "a": 319,
-   "b": 331,
+   "b": 330,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 319,
+   "b": 375,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -7629,8 +7606,8 @@
   },
   {
    "a": 320,
-   "b": 332,
-   "type": "avenida",
+   "b": 331,
+   "type": "calle",
    "district": "financiero",
    "bridge": false
   },
@@ -7643,19 +7620,26 @@
   },
   {
    "a": 321,
+   "b": 332,
+   "type": "avenida",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 322,
+   "b": 323,
+   "type": "avenida",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 322,
    "b": 333,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 321,
-   "b": 368,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
    "a": 322,
    "b": 368,
    "type": "calle",
@@ -7663,8 +7647,15 @@
    "bridge": false
   },
   {
-   "a": 322,
-   "b": 388,
+   "a": 323,
+   "b": 368,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 323,
+   "b": 389,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -7832,7 +7823,7 @@
   },
   {
    "a": 334,
-   "b": 388,
+   "b": 389,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -7993,16 +7984,9 @@
   },
   {
    "a": 345,
-   "b": 389,
+   "b": 390,
    "type": "calle",
    "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 345,
-   "b": 454,
-   "type": "calle",
-   "district": "puerto",
    "bridge": false
   },
   {
@@ -8014,9 +7998,23 @@
   },
   {
    "a": 345,
-   "b": 464,
+   "b": 456,
    "type": "calle",
    "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 345,
+   "b": 465,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 346,
+   "b": 386,
+   "type": "calle",
+   "district": "financiero",
    "bridge": false
   },
   {
@@ -8112,21 +8110,21 @@
   },
   {
    "a": 353,
-   "b": 391,
+   "b": 392,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 354,
-   "b": 390,
+   "b": 391,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
    "a": 354,
-   "b": 391,
+   "b": 392,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -8189,14 +8187,14 @@
   },
   {
    "a": 359,
-   "b": 392,
+   "b": 393,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
    "a": 359,
-   "b": 393,
+   "b": 394,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -8238,21 +8236,21 @@
   },
   {
    "a": 363,
-   "b": 395,
+   "b": 396,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 364,
-   "b": 394,
+   "b": 395,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
    "a": 364,
-   "b": 395,
+   "b": 396,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -8273,58 +8271,51 @@
   },
   {
    "a": 365,
-   "b": 398,
+   "b": 399,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
    "a": 365,
-   "b": 517,
+   "b": 518,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 366,
-   "b": 397,
+   "b": 398,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
    "a": 367,
-   "b": 389,
-   "type": "calle",
-   "district": "financiero",
-   "bridge": false
-  },
-  {
-   "a": 369,
    "b": 390,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
-   "a": 371,
-   "b": 386,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 371,
-   "b": 428,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 373,
+   "a": 369,
    "b": 391,
    "type": "calle",
    "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 371,
+   "b": 387,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 371,
+   "b": 429,
+   "type": "calle",
+   "district": "poligono",
    "bridge": false
   },
   {
@@ -8335,43 +8326,50 @@
    "bridge": false
   },
   {
-   "a": 374,
-   "b": 428,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 375,
-   "b": 980,
-   "type": "avenida",
-   "district": "aeropuerto_av",
-   "bridge": false
-  },
-  {
-   "a": 376,
-   "b": 431,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 377,
-   "b": 980,
-   "type": "avenida",
-   "district": "aeropuerto_av",
-   "bridge": false
-  },
-  {
-   "a": 378,
+   "a": 373,
    "b": 393,
    "type": "calle",
    "district": "financiero",
    "bridge": false
   },
   {
+   "a": 374,
+   "b": 429,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 375,
+   "b": 976,
+   "type": "avenida",
+   "district": "aeropuerto_av",
+   "bridge": false
+  },
+  {
+   "a": 376,
+   "b": 432,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 377,
+   "b": 976,
+   "type": "avenida",
+   "district": "aeropuerto_av",
+   "bridge": false
+  },
+  {
    "a": 378,
    "b": 394,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 378,
+   "b": 395,
    "type": "calle",
    "district": "financiero",
    "bridge": false
@@ -8392,16 +8390,9 @@
   },
   {
    "a": 381,
-   "b": 396,
+   "b": 397,
    "type": "avenida",
    "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 382,
-   "b": 396,
-   "type": "calle",
-   "district": "financiero",
    "bridge": false
   },
   {
@@ -8412,108 +8403,94 @@
    "bridge": false
   },
   {
-   "a": 386,
-   "b": 425,
+   "a": 382,
+   "b": 398,
+   "type": "calle",
+   "district": "financiero",
+   "bridge": false
+  },
+  {
+   "a": 387,
+   "b": 426,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
-   "a": 387,
-   "b": 441,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
    "a": 388,
-   "b": 447,
+   "b": 442,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
-   "a": 390,
-   "b": 454,
+   "a": 389,
+   "b": 448,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 391,
-   "b": 453,
+   "b": 455,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 392,
-   "b": 452,
+   "b": 454,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 393,
-   "b": 537,
+   "b": 453,
    "type": "calle",
-   "district": "milla",
+   "district": "puerto",
    "bridge": false
   },
   {
    "a": 394,
-   "b": 540,
+   "b": 538,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 395,
-   "b": 396,
+   "b": 541,
+   "type": "calle",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 396,
+   "b": 397,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
-   "a": 395,
+   "a": 396,
+   "b": 520,
+   "type": "calle",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 396,
+   "b": 541,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": false
+  },
+  {
+   "a": 398,
    "b": 519,
    "type": "calle",
    "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 395,
-   "b": 540,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 397,
-   "b": 518,
-   "type": "calle",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 399,
-   "b": 400,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 399,
-   "b": 429,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 399,
-   "b": 430,
-   "type": "calle",
-   "district": "poligono",
    "bridge": false
   },
   {
@@ -8525,14 +8502,14 @@
   },
   {
    "a": 400,
-   "b": 426,
+   "b": 430,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
    "a": 400,
-   "b": 427,
+   "b": 431,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8546,14 +8523,14 @@
   },
   {
    "a": 401,
-   "b": 423,
+   "b": 427,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
    "a": 401,
-   "b": 424,
+   "b": 428,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8567,14 +8544,14 @@
   },
   {
    "a": 402,
-   "b": 409,
+   "b": 424,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
    "a": 402,
-   "b": 421,
+   "b": 425,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8588,16 +8565,16 @@
   },
   {
    "a": 403,
-   "b": 419,
-   "type": "autovia",
-   "district": "autovia",
+   "b": 410,
+   "type": "calle",
+   "district": "poligono",
    "bridge": false
   },
   {
    "a": 403,
-   "b": 432,
-   "type": "autovia",
-   "district": "autovia",
+   "b": 422,
+   "type": "calle",
+   "district": "poligono",
    "bridge": false
   },
   {
@@ -8609,13 +8586,27 @@
   },
   {
    "a": 404,
-   "b": 418,
+   "b": 420,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 404,
+   "b": 433,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 405,
+   "b": 406,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
-   "a": 404,
+   "a": 405,
    "b": 419,
    "type": "calle",
    "district": "poligono",
@@ -8623,13 +8614,13 @@
   },
   {
    "a": 405,
-   "b": 433,
+   "b": 420,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
-   "a": 405,
+   "a": 406,
    "b": 434,
    "type": "calle",
    "district": "poligono",
@@ -8637,21 +8628,7 @@
   },
   {
    "a": 406,
-   "b": 407,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 406,
-   "b": 412,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 406,
-   "b": 430,
+   "b": 435,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8672,7 +8649,7 @@
   },
   {
    "a": 407,
-   "b": 427,
+   "b": 431,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8693,7 +8670,7 @@
   },
   {
    "a": 408,
-   "b": 424,
+   "b": 428,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8713,6 +8690,13 @@
    "bridge": false
   },
   {
+   "a": 409,
+   "b": 425,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
    "a": 410,
    "b": 411,
    "type": "calle",
@@ -8727,8 +8711,8 @@
    "bridge": false
   },
   {
-   "a": 410,
-   "b": 419,
+   "a": 411,
+   "b": 412,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8742,21 +8726,21 @@
   },
   {
    "a": 411,
-   "b": 434,
+   "b": 420,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
    "a": 412,
-   "b": 413,
+   "b": 418,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
    "a": 412,
-   "b": 431,
+   "b": 435,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8770,7 +8754,7 @@
   },
   {
    "a": 413,
-   "b": 428,
+   "b": 432,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8784,7 +8768,7 @@
   },
   {
    "a": 414,
-   "b": 425,
+   "b": 429,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8798,7 +8782,7 @@
   },
   {
    "a": 415,
-   "b": 422,
+   "b": 426,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8812,27 +8796,34 @@
   },
   {
    "a": 416,
-   "b": 420,
+   "b": 423,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
    "a": 417,
-   "b": 435,
+   "b": 418,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 417,
+   "b": 421,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
    "a": 418,
-   "b": 432,
+   "b": 436,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
-   "a": 418,
+   "a": 419,
    "b": 433,
    "type": "calle",
    "district": "poligono",
@@ -8841,97 +8832,97 @@
   {
    "a": 419,
    "b": 434,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 420,
-   "b": 435,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
    "a": 420,
+   "b": 435,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 421,
    "b": 436,
    "type": "calle",
    "district": "poligono",
    "bridge": false
   },
   {
-   "a": 420,
+   "a": 421,
+   "b": 437,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 421,
+   "b": 441,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 422,
+   "b": 424,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 422,
+   "b": 433,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 423,
+   "b": 437,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 423,
+   "b": 438,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 423,
    "b": 440,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
-   "a": 421,
-   "b": 423,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 421,
-   "b": 432,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 422,
-   "b": 436,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 422,
-   "b": 437,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
-   "a": 422,
-   "b": 439,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 423,
-   "b": 426,
-   "type": "calle",
-   "district": "poligono",
-   "bridge": false
-  },
-  {
    "a": 424,
    "b": 427,
-   "type": "avenida",
-   "district": "radial",
+   "type": "calle",
+   "district": "poligono",
    "bridge": false
   },
   {
-   "a": 424,
-   "b": 989,
+   "a": 425,
+   "b": 428,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
    "a": 425,
-   "b": 437,
-   "type": "calle",
-   "district": "poligono",
+   "b": 985,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
    "a": 426,
-   "b": 429,
+   "b": 438,
    "type": "calle",
    "district": "poligono",
    "bridge": false
@@ -8939,41 +8930,41 @@
   {
    "a": 427,
    "b": 430,
+   "type": "calle",
+   "district": "poligono",
+   "bridge": false
+  },
+  {
+   "a": 428,
+   "b": 431,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
-   "a": 432,
-   "b": 956,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 434,
-   "b": 955,
+   "a": 433,
+   "b": 952,
    "type": "autovia",
    "district": "autovia",
    "bridge": false
   },
   {
    "a": 435,
-   "b": 446,
-   "type": "calle",
-   "district": "puerto",
+   "b": 951,
+   "type": "autovia",
+   "district": "autovia",
    "bridge": false
   },
   {
    "a": 436,
-   "b": 440,
+   "b": 447,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 437,
-   "b": 438,
+   "b": 441,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -8986,13 +8977,6 @@
    "bridge": false
   },
   {
-   "a": 438,
-   "b": 489,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
    "a": 439,
    "b": 440,
    "type": "calle",
@@ -9001,28 +8985,28 @@
   },
   {
    "a": 439,
-   "b": 486,
+   "b": 490,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 440,
-   "b": 445,
+   "b": 441,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 440,
+   "b": 487,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 441,
-   "b": 442,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 441,
-   "b": 447,
+   "b": 446,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9037,13 +9021,6 @@
   {
    "a": 442,
    "b": 448,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 442,
-   "b": 489,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9064,7 +9041,7 @@
   },
   {
    "a": 443,
-   "b": 486,
+   "b": 490,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9072,55 +9049,62 @@
   {
    "a": 444,
    "b": 445,
-   "type": "avenida",
-   "district": "aeropuerto_av",
-   "bridge": false
-  },
-  {
-   "a": 444,
-   "b": 486,
-   "type": "avenida",
-   "district": "aeropuerto_av",
-   "bridge": false
-  },
-  {
-   "a": 445,
-   "b": 446,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
-   "a": 445,
+   "a": 444,
    "b": 450,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
+   "a": 444,
+   "b": 487,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
    "a": 445,
-   "b": 505,
+   "b": 446,
+   "type": "avenida",
+   "district": "aeropuerto_av",
+   "bridge": false
+  },
+  {
+   "a": 445,
+   "b": 487,
    "type": "avenida",
    "district": "aeropuerto_av",
    "bridge": false
   },
   {
    "a": 446,
-   "b": 505,
+   "b": 447,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
-   "a": 447,
-   "b": 448,
+   "a": 446,
+   "b": 451,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
+   "a": 446,
+   "b": 506,
+   "type": "avenida",
+   "district": "aeropuerto_av",
+   "bridge": false
+  },
+  {
    "a": 447,
-   "b": 455,
+   "b": 506,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9155,21 +9139,28 @@
   },
   {
    "a": 450,
-   "b": 485,
+   "b": 451,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 450,
-   "b": 505,
+   "b": 458,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 451,
-   "b": 452,
+   "b": 486,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 451,
+   "b": 506,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9177,13 +9168,6 @@
   {
    "a": 452,
    "b": 453,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 452,
-   "b": 501,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9197,28 +9181,28 @@
   },
   {
    "a": 453,
-   "b": 498,
+   "b": 502,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 454,
-   "b": 462,
+   "b": 455,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 454,
+   "b": 499,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 455,
-   "b": 456,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 455,
-   "b": 465,
+   "b": 463,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9253,21 +9237,28 @@
   },
   {
    "a": 458,
-   "b": 468,
+   "b": 459,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 458,
-   "b": 485,
+   "b": 468,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 459,
-   "b": 460,
+   "b": 469,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 459,
+   "b": 486,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9275,20 +9266,6 @@
   {
    "a": 460,
    "b": 461,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 460,
-   "b": 471,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 460,
-   "b": 502,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9309,7 +9286,7 @@
   },
   {
    "a": 461,
-   "b": 498,
+   "b": 503,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9317,8 +9294,8 @@
   {
    "a": 462,
    "b": 463,
-   "type": "avenida",
-   "district": "milla",
+   "type": "calle",
+   "district": "puerto",
    "bridge": false
   },
   {
@@ -9330,9 +9307,9 @@
   },
   {
    "a": 462,
-   "b": 498,
-   "type": "avenida",
-   "district": "milla",
+   "b": 499,
+   "type": "calle",
+   "district": "puerto",
    "bridge": false
   },
   {
@@ -9343,22 +9320,22 @@
    "bridge": false
   },
   {
-   "a": 464,
-   "b": 465,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 464,
+   "a": 463,
    "b": 474,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
+   "a": 463,
+   "b": 499,
+   "type": "avenida",
+   "district": "milla",
+   "bridge": false
+  },
+  {
    "a": 464,
-   "b": 492,
+   "b": 465,
    "type": "avenida",
    "district": "milla",
    "bridge": false
@@ -9372,9 +9349,16 @@
   },
   {
    "a": 465,
-   "b": 492,
+   "b": 475,
    "type": "calle",
    "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 465,
+   "b": 493,
+   "type": "avenida",
+   "district": "milla",
    "bridge": false
   },
   {
@@ -9386,7 +9370,7 @@
   },
   {
    "a": 466,
-   "b": 490,
+   "b": 493,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9400,21 +9384,28 @@
   },
   {
    "a": 467,
-   "b": 487,
+   "b": 491,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 468,
-   "b": 506,
+   "b": 469,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 468,
+   "b": 488,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 469,
-   "b": 470,
+   "b": 507,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9427,20 +9418,6 @@
    "bridge": false
   },
   {
-   "a": 470,
-   "b": 503,
-   "type": "avenida",
-   "district": "paseo",
-   "bridge": false
-  },
-  {
-   "a": 470,
-   "b": 971,
-   "type": "avenida",
-   "district": "paseo",
-   "bridge": false
-  },
-  {
    "a": 471,
    "b": 472,
    "type": "calle",
@@ -9449,9 +9426,16 @@
   },
   {
    "a": 471,
-   "b": 503,
-   "type": "calle",
-   "district": "puerto",
+   "b": 504,
+   "type": "avenida",
+   "district": "paseo",
+   "bridge": false
+  },
+  {
+   "a": 471,
+   "b": 967,
+   "type": "avenida",
+   "district": "paseo",
    "bridge": false
   },
   {
@@ -9463,7 +9447,7 @@
   },
   {
    "a": 472,
-   "b": 499,
+   "b": 504,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9477,7 +9461,7 @@
   },
   {
    "a": 473,
-   "b": 496,
+   "b": 500,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9491,7 +9475,7 @@
   },
   {
    "a": 474,
-   "b": 495,
+   "b": 497,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9505,14 +9489,7 @@
   },
   {
    "a": 475,
-   "b": 492,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 475,
-   "b": 493,
+   "b": 496,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9526,14 +9503,14 @@
   },
   {
    "a": 476,
-   "b": 483,
+   "b": 493,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 476,
-   "b": 490,
+   "b": 494,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9547,14 +9524,21 @@
   },
   {
    "a": 477,
-   "b": 487,
+   "b": 484,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 477,
-   "b": 488,
+   "b": 491,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 478,
+   "b": 479,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9568,21 +9552,21 @@
   },
   {
    "a": 478,
-   "b": 506,
+   "b": 489,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 479,
-   "b": 480,
+   "b": 489,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 479,
-   "b": 495,
+   "b": 507,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9596,14 +9580,7 @@
   },
   {
    "a": 480,
-   "b": 493,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 480,
-   "b": 494,
+   "b": 496,
    "type": "calle",
    "district": "puerto",
    "bridge": false
@@ -9617,90 +9594,104 @@
   },
   {
    "a": 481,
-   "b": 508,
-   "type": "muelle",
+   "b": 494,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 481,
+   "b": 495,
+   "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
    "a": 482,
    "b": 483,
-   "type": "avenida",
-   "district": "paseo",
+   "type": "calle",
+   "district": "puerto",
    "bridge": false
   },
   {
    "a": 482,
-   "b": 493,
-   "type": "avenida",
-   "district": "paseo",
+   "b": 509,
+   "type": "muelle",
+   "district": "puerto",
    "bridge": false
   },
   {
    "a": 483,
    "b": 484,
-   "type": "calle",
-   "district": "puerto",
+   "type": "avenida",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 483,
-   "b": 491,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 484,
-   "b": 488,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 484,
-   "b": 507,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 486,
-   "b": 489,
+   "b": 494,
    "type": "avenida",
-   "district": "aeropuerto_av",
+   "district": "paseo",
+   "bridge": false
+  },
+  {
+   "a": 484,
+   "b": 485,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 484,
+   "b": 492,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 485,
+   "b": 489,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 485,
+   "b": 508,
+   "type": "calle",
+   "district": "puerto",
    "bridge": false
   },
   {
    "a": 487,
    "b": 490,
    "type": "avenida",
-   "district": "milla",
+   "district": "aeropuerto_av",
    "bridge": false
   },
   {
-   "a": 487,
-   "b": 506,
+   "a": 488,
+   "b": 491,
    "type": "avenida",
    "district": "milla",
    "bridge": false
   },
   {
-   "a": 490,
-   "b": 492,
+   "a": 488,
+   "b": 507,
    "type": "avenida",
    "district": "milla",
    "bridge": false
   },
   {
-   "a": 493,
-   "b": 495,
+   "a": 491,
+   "b": 493,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
-   "a": 495,
+   "a": 494,
    "b": 496,
    "type": "avenida",
    "district": "paseo",
@@ -9709,118 +9700,104 @@
   {
    "a": 496,
    "b": 497,
-   "type": "calle",
-   "district": "puerto",
-   "bridge": false
-  },
-  {
-   "a": 496,
-   "b": 499,
    "type": "avenida",
    "district": "paseo",
    "bridge": false
   },
   {
-   "a": 498,
-   "b": 977,
-   "type": "avenida",
-   "district": "milla",
+   "a": 497,
+   "b": 498,
+   "type": "calle",
+   "district": "puerto",
    "bridge": false
   },
   {
-   "a": 499,
+   "a": 497,
    "b": 500,
-   "type": "calle",
-   "district": "puerto",
+   "type": "avenida",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 499,
-   "b": 972,
+   "b": 973,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
-   "a": 501,
-   "b": 502,
+   "a": 500,
+   "b": 501,
    "type": "calle",
    "district": "puerto",
    "bridge": false
   },
   {
-   "a": 501,
-   "b": 522,
+   "a": 500,
+   "b": 968,
    "type": "avenida",
-   "district": "radial",
+   "district": "paseo",
    "bridge": false
   },
   {
-   "a": 501,
-   "b": 977,
+   "a": 502,
+   "b": 503,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 502,
+   "b": 523,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
    "a": 502,
-   "b": 976,
+   "b": 973,
    "type": "avenida",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 502,
-   "b": 977,
-   "type": "avenida",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 503,
-   "b": 504,
-   "type": "calle",
-   "district": "puerto",
+   "district": "radial",
    "bridge": false
   },
   {
    "a": 503,
    "b": 972,
    "type": "avenida",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 503,
+   "b": 973,
+   "type": "avenida",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 504,
+   "b": 505,
+   "type": "calle",
+   "district": "puerto",
+   "bridge": false
+  },
+  {
+   "a": 504,
+   "b": 968,
+   "type": "avenida",
    "district": "paseo",
    "bridge": false
   },
   {
-   "a": 505,
-   "b": 954,
+   "a": 506,
+   "b": 950,
    "type": "avenida",
    "district": "aeropuerto_av",
    "bridge": false
   },
   {
-   "a": 509,
-   "b": 510,
-   "type": "calle",
-   "district": "milla",
-   "bridge": false
-  },
-  {
    "a": 510,
    "b": 511,
-   "type": "calle",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 510,
-   "b": 567,
-   "type": "calle",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 510,
-   "b": 568,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -9834,14 +9811,14 @@
   },
   {
    "a": 511,
-   "b": 564,
+   "b": 568,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 511,
-   "b": 565,
+   "b": 569,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -9855,14 +9832,14 @@
   },
   {
    "a": 512,
-   "b": 561,
+   "b": 565,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 512,
-   "b": 562,
+   "b": 566,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -9876,14 +9853,14 @@
   },
   {
    "a": 513,
-   "b": 558,
+   "b": 562,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 513,
-   "b": 559,
+   "b": 563,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -9897,23 +9874,16 @@
   },
   {
    "a": 514,
-   "b": 555,
+   "b": 559,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 514,
-   "b": 556,
+   "b": 560,
    "type": "calle",
    "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 514,
-   "b": 974,
-   "type": "avenida",
-   "district": "radial",
    "bridge": false
   },
   {
@@ -9925,16 +9895,23 @@
   },
   {
    "a": 515,
-   "b": 552,
+   "b": 556,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 515,
-   "b": 553,
+   "b": 557,
    "type": "calle",
    "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 515,
+   "b": 970,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
@@ -9946,14 +9923,14 @@
   },
   {
    "a": 516,
-   "b": 549,
+   "b": 553,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 516,
-   "b": 550,
+   "b": 554,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -9967,7 +9944,14 @@
   },
   {
    "a": 517,
-   "b": 547,
+   "b": 550,
+   "type": "calle",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 517,
+   "b": 551,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -9981,7 +9965,7 @@
   },
   {
    "a": 518,
-   "b": 545,
+   "b": 548,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -9995,7 +9979,7 @@
   },
   {
    "a": 519,
-   "b": 543,
+   "b": 546,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10009,14 +9993,7 @@
   },
   {
    "a": 520,
-   "b": 540,
-   "type": "calle",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 520,
-   "b": 541,
+   "b": 544,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10030,13 +10007,27 @@
   },
   {
    "a": 521,
-   "b": 537,
+   "b": 541,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 521,
+   "b": 542,
+   "type": "calle",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 522,
+   "b": 523,
+   "type": "calle",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 522,
    "b": 538,
    "type": "calle",
    "district": "milla",
@@ -10044,30 +10035,16 @@
   },
   {
    "a": 522,
-   "b": 537,
+   "b": 539,
+   "type": "calle",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 523,
+   "b": 538,
    "type": "avenida",
    "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 523,
-   "b": 524,
-   "type": "calle",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 523,
-   "b": 568,
-   "type": "calle",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 523,
-   "b": 569,
-   "type": "calle",
-   "district": "milla",
    "bridge": false
   },
   {
@@ -10079,14 +10056,14 @@
   },
   {
    "a": 524,
-   "b": 565,
+   "b": 569,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 524,
-   "b": 566,
+   "b": 570,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10100,14 +10077,14 @@
   },
   {
    "a": 525,
-   "b": 562,
+   "b": 566,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 525,
-   "b": 563,
+   "b": 567,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10121,14 +10098,14 @@
   },
   {
    "a": 526,
-   "b": 559,
+   "b": 563,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 526,
-   "b": 560,
+   "b": 564,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10142,14 +10119,14 @@
   },
   {
    "a": 527,
-   "b": 556,
+   "b": 560,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 527,
-   "b": 557,
+   "b": 561,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10163,16 +10140,16 @@
   },
   {
    "a": 528,
-   "b": 970,
-   "type": "avenida",
-   "district": "radial",
+   "b": 557,
+   "type": "calle",
+   "district": "milla",
    "bridge": false
   },
   {
    "a": 528,
-   "b": 974,
-   "type": "avenida",
-   "district": "radial",
+   "b": 558,
+   "type": "calle",
+   "district": "milla",
    "bridge": false
   },
   {
@@ -10184,16 +10161,16 @@
   },
   {
    "a": 529,
-   "b": 553,
-   "type": "calle",
-   "district": "milla",
+   "b": 966,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
    "a": 529,
-   "b": 554,
-   "type": "calle",
-   "district": "milla",
+   "b": 970,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
@@ -10205,14 +10182,14 @@
   },
   {
    "a": 530,
-   "b": 550,
+   "b": 554,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 530,
-   "b": 551,
+   "b": 555,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10226,14 +10203,14 @@
   },
   {
    "a": 531,
-   "b": 547,
+   "b": 551,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 531,
-   "b": 548,
+   "b": 552,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10247,14 +10224,14 @@
   },
   {
    "a": 532,
-   "b": 545,
+   "b": 548,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 532,
-   "b": 546,
+   "b": 549,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10268,14 +10245,14 @@
   },
   {
    "a": 533,
-   "b": 543,
+   "b": 546,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 533,
-   "b": 544,
+   "b": 547,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10289,14 +10266,14 @@
   },
   {
    "a": 534,
-   "b": 541,
+   "b": 544,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 534,
-   "b": 542,
+   "b": 545,
    "type": "calle",
    "district": "milla",
    "bridge": false
@@ -10310,283 +10287,304 @@
   },
   {
    "a": 535,
-   "b": 538,
+   "b": 542,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
    "a": 535,
+   "b": 543,
+   "type": "calle",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 536,
+   "b": 537,
+   "type": "calle",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 536,
    "b": 539,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
-   "a": 537,
-   "b": 981,
+   "a": 536,
+   "b": 540,
+   "type": "calle",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 538,
+   "b": 977,
    "type": "avenida",
    "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 538,
-   "b": 541,
-   "type": "avenida",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 538,
-   "b": 976,
-   "type": "avenida",
-   "district": "milla",
    "bridge": false
   },
   {
    "a": 539,
    "b": 542,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
    "a": 539,
-   "b": 971,
+   "b": 972,
+   "type": "avenida",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 540,
+   "b": 543,
    "type": "avenida",
    "district": "paseo",
    "bridge": false
   },
   {
    "a": 540,
-   "b": 981,
+   "b": 967,
    "type": "avenida",
-   "district": "radial",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 541,
-   "b": 543,
+   "b": 977,
    "type": "avenida",
-   "district": "milla",
+   "district": "radial",
    "bridge": false
   },
   {
    "a": 542,
    "b": 544,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
    "a": 543,
    "b": 545,
    "type": "avenida",
-   "district": "milla",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 544,
    "b": 546,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
    "a": 545,
    "b": 547,
    "type": "avenida",
-   "district": "milla",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 546,
    "b": 548,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
    "a": 547,
-   "b": 550,
+   "b": 549,
    "type": "avenida",
-   "district": "milla",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 548,
    "b": 551,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
-   "a": 550,
-   "b": 975,
+   "a": 549,
+   "b": 552,
    "type": "avenida",
-   "district": "milla",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 551,
-   "b": 554,
+   "b": 971,
+   "type": "avenida",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 552,
+   "b": 555,
    "type": "avenida",
    "district": "paseo",
-   "bridge": false
-  },
-  {
-   "a": 553,
-   "b": 974,
-   "type": "avenida",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 553,
-   "b": 975,
-   "type": "avenida",
-   "district": "milla",
    "bridge": false
   },
   {
    "a": 554,
    "b": 970,
    "type": "avenida",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 554,
+   "b": 971,
+   "type": "avenida",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 555,
+   "b": 966,
+   "type": "avenida",
    "district": "paseo",
-   "bridge": false
-  },
-  {
-   "a": 556,
-   "b": 559,
-   "type": "avenida",
-   "district": "milla",
-   "bridge": false
-  },
-  {
-   "a": 556,
-   "b": 974,
-   "type": "avenida",
-   "district": "milla",
    "bridge": false
   },
   {
    "a": 557,
    "b": 560,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
    "a": 557,
    "b": 970,
    "type": "avenida",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 558,
+   "b": 561,
+   "type": "avenida",
    "district": "paseo",
    "bridge": false
   },
   {
-   "a": 559,
-   "b": 562,
+   "a": 558,
+   "b": 966,
    "type": "avenida",
-   "district": "milla",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 560,
    "b": 563,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
-   "a": 562,
-   "b": 565,
+   "a": 561,
+   "b": 564,
    "type": "avenida",
-   "district": "milla",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 563,
    "b": 566,
    "type": "avenida",
-   "district": "paseo",
+   "district": "milla",
    "bridge": false
   },
   {
-   "a": 565,
-   "b": 568,
+   "a": 564,
+   "b": 567,
    "type": "avenida",
-   "district": "milla",
+   "district": "paseo",
    "bridge": false
   },
   {
    "a": 566,
-   "b": 570,
+   "b": 569,
+   "type": "avenida",
+   "district": "milla",
+   "bridge": false
+  },
+  {
+   "a": 567,
+   "b": 571,
    "type": "avenida",
    "district": "paseo",
    "bridge": false
   },
   {
-   "a": 567,
-   "b": 598,
+   "a": 568,
+   "b": 595,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 567,
-   "b": 599,
+   "a": 568,
+   "b": 596,
    "type": "avenida",
    "district": "radial",
    "bridge": false
-  },
-  {
-   "a": 567,
-   "b": 982,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": true
   },
   {
    "a": 568,
-   "b": 973,
+   "b": 599,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 568,
+   "b": 978,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": true
+  },
+  {
+   "a": 569,
+   "b": 969,
    "type": "avenida",
    "district": "milla",
    "bridge": false
   },
   {
-   "a": 569,
-   "b": 570,
+   "a": 570,
+   "b": 571,
    "type": "calle",
    "district": "milla",
    "bridge": false
   },
   {
-   "a": 569,
-   "b": 993,
+   "a": 570,
+   "b": 989,
    "type": "calle",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 569,
-   "b": 994,
+   "a": 570,
+   "b": 990,
    "type": "calle",
    "district": "bajos",
-   "bridge": true
-  },
-  {
-   "a": 570,
-   "b": 969,
-   "type": "autovia",
-   "district": "autovia",
    "bridge": true
   },
   {
    "a": 571,
-   "b": 572,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
+   "b": 965,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": true
   },
   {
    "a": 572,
@@ -10596,22 +10594,8 @@
    "bridge": false
   },
   {
-   "a": 572,
-   "b": 578,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 572,
-   "b": 616,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 573,
-   "b": 574,
+   "b": 605,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -10624,36 +10608,50 @@
    "bridge": false
   },
   {
-   "a": 574,
-   "b": 579,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 574,
-   "b": 610,
+   "a": 575,
+   "b": 576,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 575,
-   "b": 580,
+   "b": 612,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 575,
-   "b": 604,
+   "b": 613,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 576,
+   "b": 577,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 576,
+   "b": 605,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 576,
+   "b": 606,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 577,
-   "b": 578,
+   "b": 600,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -10667,7 +10665,7 @@
   },
   {
    "a": 578,
-   "b": 617,
+   "b": 613,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -10681,14 +10679,14 @@
   },
   {
    "a": 579,
-   "b": 611,
+   "b": 606,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 580,
-   "b": 605,
+   "a": 579,
+   "b": 607,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -10701,92 +10699,92 @@
    "bridge": false
   },
   {
-   "a": 581,
-   "b": 617,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 581,
-   "b": 618,
+   "a": 582,
+   "b": 583,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 582,
-   "b": 611,
+   "b": 607,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 582,
-   "b": 612,
+   "b": 608,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 583,
-   "b": 584,
+   "b": 601,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 583,
+   "b": 602,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 584,
-   "b": 612,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 584,
-   "b": 613,
+   "b": 585,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 585,
-   "b": 607,
+   "b": 586,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 585,
+   "b": 589,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 585,
+   "b": 608,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 586,
-   "b": 587,
+   "b": 590,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 587,
-   "b": 588,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 587,
-   "b": 591,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 587,
-   "b": 613,
+   "a": 586,
+   "b": 602,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 588,
-   "b": 607,
+   "b": 589,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 589,
+   "b": 590,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -10807,14 +10805,7 @@
   },
   {
    "a": 591,
-   "b": 592,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 591,
-   "b": 608,
+   "b": 595,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -10827,15 +10818,36 @@
    "bridge": false
   },
   {
-   "a": 592,
-   "b": 608,
+   "a": 593,
+   "b": 594,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 593,
-   "b": 598,
+   "b": 604,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 593,
+   "b": 609,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 593,
+   "b": 610,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 594,
+   "b": 595,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -10855,34 +10867,6 @@
    "bridge": false
   },
   {
-   "a": 596,
-   "b": 608,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 596,
-   "b": 609,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 596,
-   "b": 614,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 596,
-   "b": 615,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 597,
    "b": 598,
    "type": "callejon",
@@ -10890,73 +10874,122 @@
    "bridge": false
   },
   {
-   "a": 598,
-   "b": 599,
+   "a": 599,
+   "b": 604,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 599,
-   "b": 600,
+   "b": 610,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 600,
-   "b": 601,
-   "type": "callejon",
-   "district": "bajos",
+   "a": 601,
+   "b": 607,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
-   "a": 602,
+   "a": 603,
    "b": 609,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 602,
+   "a": 603,
+   "b": 986,
+   "type": "calle",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 603,
+   "b": 987,
+   "type": "calle",
+   "district": "bajos",
+   "bridge": true
+  },
+  {
+   "a": 607,
+   "b": 980,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": false
+  },
+  {
+   "a": 611,
+   "b": 612,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 614,
    "b": 615,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 606,
-   "b": 612,
+   "a": 614,
+   "b": 980,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
-   "a": 608,
-   "b": 614,
+   "a": 614,
+   "b": 981,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": true
+  },
+  {
+   "a": 616,
+   "b": 617,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 608,
-   "b": 990,
-   "type": "calle",
+   "a": 616,
+   "b": 802,
+   "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 608,
-   "b": 991,
-   "type": "calle",
+   "a": 616,
+   "b": 803,
+   "type": "callejon",
    "district": "bajos",
-   "bridge": true
+   "bridge": false
   },
   {
-   "a": 612,
-   "b": 984,
-   "type": "avenida",
-   "district": "radial",
+   "a": 617,
+   "b": 618,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 617,
+   "b": 794,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 617,
+   "b": 795,
+   "type": "callejon",
+   "district": "bajos",
    "bridge": false
   },
   {
@@ -10967,36 +11000,22 @@
    "bridge": false
   },
   {
-   "a": 618,
-   "b": 984,
-   "type": "avenida",
-   "district": "radial",
+   "a": 619,
+   "b": 781,
+   "type": "calle",
+   "district": "bajos",
    "bridge": false
   },
   {
-   "a": 618,
-   "b": 985,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": true
+   "a": 619,
+   "b": 794,
+   "type": "calle",
+   "district": "bajos",
+   "bridge": false
   },
   {
    "a": 620,
    "b": 621,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 620,
-   "b": 806,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 620,
-   "b": 807,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11010,14 +11029,28 @@
   },
   {
    "a": 621,
-   "b": 798,
+   "b": 796,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 621,
-   "b": 799,
+   "b": 797,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 621,
+   "b": 804,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 621,
+   "b": 805,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11031,14 +11064,42 @@
   },
   {
    "a": 623,
-   "b": 785,
-   "type": "calle",
+   "b": 624,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 623,
+   "b": 782,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 623,
+   "b": 783,
+   "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 624,
    "b": 625,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 624,
+   "b": 789,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 624,
+   "b": 790,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11052,28 +11113,14 @@
   },
   {
    "a": 625,
-   "b": 800,
+   "b": 777,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 625,
-   "b": 801,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 625,
-   "b": 808,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 625,
-   "b": 809,
+   "b": 778,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11094,14 +11141,14 @@
   },
   {
    "a": 627,
-   "b": 786,
+   "b": 642,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 627,
-   "b": 787,
+   "b": 771,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11114,36 +11161,8 @@
    "bridge": false
   },
   {
-   "a": 628,
-   "b": 793,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 628,
-   "b": 794,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 629,
    "b": 630,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 629,
-   "b": 781,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 629,
-   "b": 782,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11156,22 +11175,29 @@
    "bridge": false
   },
   {
+   "a": 630,
+   "b": 645,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 630,
+   "b": 755,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 630,
+   "b": 764,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 631,
    "b": 632,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 631,
-   "b": 646,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 631,
-   "b": 775,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11184,36 +11210,22 @@
    "bridge": false
   },
   {
+   "a": 632,
+   "b": 647,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 632,
+   "b": 750,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 633,
    "b": 634,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 634,
-   "b": 635,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 634,
-   "b": 649,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 634,
-   "b": 759,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 634,
-   "b": 768,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11234,14 +11246,14 @@
   },
   {
    "a": 636,
-   "b": 651,
+   "b": 803,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 636,
-   "b": 754,
+   "b": 804,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11254,6 +11266,27 @@
    "bridge": false
   },
   {
+   "a": 637,
+   "b": 795,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 637,
+   "b": 796,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 638,
+   "b": 639,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 639,
    "b": 640,
    "type": "callejon",
@@ -11261,15 +11294,43 @@
    "bridge": false
   },
   {
-   "a": 640,
-   "b": 807,
+   "a": 639,
+   "b": 781,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 639,
+   "b": 782,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 639,
+   "b": 789,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 640,
-   "b": 808,
+   "b": 641,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 640,
+   "b": 776,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 640,
+   "b": 777,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11282,22 +11343,15 @@
    "bridge": false
   },
   {
-   "a": 641,
-   "b": 799,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 641,
-   "b": 800,
+   "a": 642,
+   "b": 643,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 642,
-   "b": 643,
+   "b": 770,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11310,43 +11364,8 @@
    "bridge": false
   },
   {
-   "a": 643,
-   "b": 785,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 643,
-   "b": 786,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 643,
-   "b": 793,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 644,
    "b": 645,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 644,
-   "b": 780,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 644,
-   "b": 781,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11359,15 +11378,29 @@
    "bridge": false
   },
   {
-   "a": 646,
-   "b": 647,
+   "a": 645,
+   "b": 754,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 645,
+   "b": 763,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 645,
+   "b": 764,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 646,
-   "b": 774,
+   "b": 647,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11380,36 +11413,15 @@
    "bridge": false
   },
   {
+   "a": 647,
+   "b": 749,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 648,
    "b": 649,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 649,
-   "b": 650,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 649,
-   "b": 758,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 649,
-   "b": 767,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 649,
-   "b": 768,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11429,15 +11441,43 @@
    "bridge": false
   },
   {
-   "a": 651,
-   "b": 753,
+   "a": 652,
+   "b": 653,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 652,
-   "b": 653,
+   "b": 797,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 652,
+   "b": 798,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 652,
+   "b": 805,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 652,
+   "b": 806,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 653,
+   "b": 654,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11450,8 +11490,43 @@
    "bridge": false
   },
   {
+   "a": 654,
+   "b": 670,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 654,
+   "b": 784,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 655,
    "b": 656,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 655,
+   "b": 671,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 655,
+   "b": 778,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 655,
+   "b": 791,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11464,36 +11539,22 @@
    "bridge": false
   },
   {
-   "a": 656,
-   "b": 801,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 656,
-   "b": 802,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 656,
-   "b": 809,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 656,
-   "b": 810,
+   "a": 657,
+   "b": 658,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 657,
-   "b": 658,
+   "b": 673,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 657,
+   "b": 771,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11506,43 +11567,8 @@
    "bridge": false
   },
   {
-   "a": 658,
-   "b": 674,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 658,
-   "b": 788,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 659,
    "b": 660,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 659,
-   "b": 675,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 659,
-   "b": 782,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 659,
-   "b": 795,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11555,22 +11581,29 @@
    "bridge": false
   },
   {
+   "a": 660,
+   "b": 676,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 660,
+   "b": 757,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 660,
+   "b": 766,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 661,
    "b": 662,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 661,
-   "b": 677,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 661,
-   "b": 775,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11583,43 +11616,22 @@
    "bridge": false
   },
   {
+   "a": 662,
+   "b": 679,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 662,
+   "b": 750,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 663,
    "b": 664,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 664,
-   "b": 665,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 664,
-   "b": 680,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 664,
-   "b": 681,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 664,
-   "b": 761,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 664,
-   "b": 770,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11639,15 +11651,43 @@
    "bridge": false
   },
   {
-   "a": 666,
-   "b": 754,
+   "a": 667,
+   "b": 668,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 667,
-   "b": 668,
+   "b": 719,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 667,
+   "b": 720,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 667,
+   "b": 798,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 667,
+   "b": 806,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 668,
+   "b": 669,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11667,6 +11707,13 @@
    "bridge": false
   },
   {
+   "a": 670,
+   "b": 785,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 671,
    "b": 672,
    "type": "callejon",
@@ -11675,28 +11722,7 @@
   },
   {
    "a": 671,
-   "b": 723,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 671,
-   "b": 724,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 671,
-   "b": 802,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 671,
-   "b": 810,
+   "b": 792,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11716,15 +11742,15 @@
    "bridge": false
   },
   {
-   "a": 674,
-   "b": 675,
+   "a": 673,
+   "b": 772,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 674,
-   "b": 789,
+   "b": 675,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11737,22 +11763,15 @@
    "bridge": false
   },
   {
-   "a": 675,
-   "b": 727,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 675,
-   "b": 796,
+   "a": 676,
+   "b": 677,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 676,
-   "b": 677,
+   "b": 758,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11766,7 +11785,7 @@
   },
   {
    "a": 677,
-   "b": 776,
+   "b": 695,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11786,22 +11805,15 @@
    "bridge": false
   },
   {
+   "a": 679,
+   "b": 751,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 680,
-   "b": 762,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 681,
-   "b": 682,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 681,
-   "b": 699,
+   "b": 681,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11821,15 +11833,36 @@
    "bridge": false
   },
   {
-   "a": 683,
-   "b": 755,
+   "a": 684,
+   "b": 685,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 684,
-   "b": 685,
+   "b": 799,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 685,
+   "b": 686,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 685,
+   "b": 702,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 685,
+   "b": 807,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11864,21 +11897,21 @@
   },
   {
    "a": 688,
-   "b": 803,
+   "b": 786,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 689,
-   "b": 690,
+   "b": 706,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 689,
-   "b": 811,
+   "b": 723,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11891,8 +11924,36 @@
    "bridge": false
   },
   {
+   "a": 690,
+   "b": 707,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 690,
+   "b": 723,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 691,
    "b": 692,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 691,
+   "b": 708,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 691,
+   "b": 725,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11905,22 +11966,8 @@
    "bridge": false
   },
   {
-   "a": 692,
-   "b": 709,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 692,
-   "b": 790,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 693,
-   "b": 710,
+   "b": 694,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11947,6 +11994,13 @@
    "bridge": false
   },
   {
+   "a": 694,
+   "b": 758,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 695,
    "b": 696,
    "type": "callejon",
@@ -11955,14 +12009,7 @@
   },
   {
    "a": 695,
-   "b": 712,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 695,
-   "b": 729,
+   "b": 713,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -11975,36 +12022,43 @@
    "bridge": false
   },
   {
+   "a": 696,
+   "b": 713,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": false
+  },
+  {
+   "a": 696,
+   "b": 714,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 696,
+   "b": 728,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 696,
+   "b": 729,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": false
+  },
+  {
+   "a": 696,
+   "b": 751,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 697,
    "b": 698,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 698,
-   "b": 699,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 698,
-   "b": 715,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 698,
-   "b": 731,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 698,
-   "b": 762,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12017,13 +12071,6 @@
    "bridge": false
   },
   {
-   "a": 699,
-   "b": 717,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 700,
    "b": 701,
    "type": "callejon",
@@ -12031,43 +12078,29 @@
    "bridge": false
   },
   {
-   "a": 700,
-   "b": 717,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 700,
-   "b": 718,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 700,
-   "b": 732,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 700,
-   "b": 733,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 700,
-   "b": 755,
+   "a": 701,
+   "b": 702,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 701,
-   "b": 702,
+   "b": 800,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 702,
+   "b": 703,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 702,
+   "b": 808,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12088,14 +12121,7 @@
   },
   {
    "a": 705,
-   "b": 706,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 705,
-   "b": 804,
+   "b": 787,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12109,14 +12135,14 @@
   },
   {
    "a": 706,
-   "b": 812,
+   "b": 779,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 707,
-   "b": 708,
+   "b": 793,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12129,8 +12155,15 @@
    "bridge": false
   },
   {
+   "a": 708,
+   "b": 773,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 709,
-   "b": 791,
+   "b": 710,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12143,29 +12176,36 @@
    "bridge": false
   },
   {
-   "a": 710,
-   "b": 783,
+   "a": 711,
+   "b": 712,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 711,
-   "b": 797,
+   "b": 713,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": false
+  },
+  {
+   "a": 711,
+   "b": 759,
    "type": "callejon",
    "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 711,
+   "b": 979,
+   "type": "avenida",
+   "district": "radial",
    "bridge": false
   },
   {
    "a": 712,
    "b": 713,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 712,
-   "b": 777,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12178,8 +12218,22 @@
    "bridge": false
   },
   {
+   "a": 713,
+   "b": 767,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 714,
    "b": 715,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 714,
+   "b": 752,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12192,43 +12246,8 @@
    "bridge": false
   },
   {
-   "a": 715,
-   "b": 717,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 715,
-   "b": 763,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 715,
-   "b": 983,
-   "type": "avenida",
-   "district": "radial",
-   "bridge": false
-  },
-  {
-   "a": 716,
-   "b": 717,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 717,
    "b": 718,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 717,
-   "b": 771,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12241,15 +12260,29 @@
    "bridge": false
   },
   {
-   "a": 718,
-   "b": 756,
+   "a": 719,
+   "b": 720,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 719,
-   "b": 720,
+   "b": 799,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 720,
+   "b": 721,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 720,
+   "b": 807,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12263,7 +12296,14 @@
   },
   {
    "a": 722,
-   "b": 723,
+   "b": 785,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 722,
+   "b": 786,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12277,7 +12317,7 @@
   },
   {
    "a": 723,
-   "b": 803,
+   "b": 792,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12290,13 +12330,6 @@
    "bridge": false
   },
   {
-   "a": 724,
-   "b": 811,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
    "a": 725,
    "b": 726,
    "type": "callejon",
@@ -12304,36 +12337,15 @@
    "bridge": false
   },
   {
+   "a": 725,
+   "b": 772,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
    "a": 726,
    "b": 727,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 726,
-   "b": 789,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 726,
-   "b": 790,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 727,
-   "b": 728,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 727,
-   "b": 796,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12354,15 +12366,22 @@
   },
   {
    "a": 729,
-   "b": 776,
+   "b": 978,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": false
+  },
+  {
+   "a": 731,
+   "b": 732,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 730,
-   "b": 731,
-   "type": "callejon",
+   "a": 731,
+   "b": 801,
+   "type": "calle",
    "district": "bajos",
    "bridge": false
   },
@@ -12382,9 +12401,37 @@
   },
   {
    "a": 733,
-   "b": 982,
-   "type": "avenida",
-   "district": "radial",
+   "b": 800,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 733,
+   "b": 801,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 734,
+   "b": 735,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 734,
+   "b": 808,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 734,
+   "b": 809,
+   "type": "callejon",
+   "district": "bajos",
    "bridge": false
   },
   {
@@ -12395,15 +12442,15 @@
    "bridge": false
   },
   {
-   "a": 735,
-   "b": 805,
-   "type": "calle",
+   "a": 736,
+   "b": 787,
+   "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 736,
-   "b": 737,
+   "b": 788,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12417,14 +12464,7 @@
   },
   {
    "a": 737,
-   "b": 804,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 737,
-   "b": 805,
+   "b": 779,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12437,22 +12477,22 @@
    "bridge": false
   },
   {
-   "a": 738,
-   "b": 812,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 738,
-   "b": 813,
+   "a": 739,
+   "b": 740,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 739,
-   "b": 740,
+   "b": 775,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 739,
+   "b": 793,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12466,14 +12506,14 @@
   },
   {
    "a": 740,
-   "b": 791,
+   "b": 773,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 740,
-   "b": 792,
+   "b": 774,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12481,20 +12521,6 @@
   {
    "a": 741,
    "b": 742,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 741,
-   "b": 783,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 741,
-   "b": 784,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12508,14 +12534,21 @@
   },
   {
    "a": 743,
-   "b": 779,
+   "b": 744,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 743,
-   "b": 797,
+   "b": 760,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 743,
+   "b": 761,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
@@ -12529,29 +12562,50 @@
   },
   {
    "a": 744,
-   "b": 777,
+   "b": 752,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 744,
-   "b": 778,
+   "b": 753,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 745,
-   "b": 746,
+   "a": 744,
+   "b": 768,
    "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 744,
+   "b": 769,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 744,
+   "b": 990,
+   "type": "calle",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 746,
    "b": 747,
-   "type": "callejon",
+   "type": "calle",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 746,
+   "b": 762,
+   "type": "calle",
    "district": "bajos",
    "bridge": false
   },
@@ -12564,134 +12618,71 @@
   },
   {
    "a": 747,
-   "b": 764,
+   "b": 753,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 747,
-   "b": 765,
+   "b": 762,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 747,
+   "b": 769,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 748,
-   "b": 749,
-   "type": "callejon",
+   "a": 747,
+   "b": 811,
+   "type": "calle",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 748,
+   "a": 747,
+   "b": 965,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 749,
+   "b": 810,
+   "type": "calle",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 754,
+   "b": 763,
+   "type": "calle",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 755,
    "b": 756,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 748,
+   "a": 755,
+   "b": 765,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 756,
    "b": 757,
    "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 748,
-   "b": 772,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 748,
-   "b": 773,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 748,
-   "b": 994,
-   "type": "calle",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 750,
-   "b": 751,
-   "type": "calle",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 750,
-   "b": 766,
-   "type": "calle",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 751,
-   "b": 752,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 751,
-   "b": 757,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 751,
-   "b": 766,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 751,
-   "b": 773,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 751,
-   "b": 815,
-   "type": "calle",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 751,
-   "b": 969,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 753,
-   "b": 758,
-   "type": "calle",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 753,
-   "b": 814,
-   "type": "calle",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 758,
-   "b": 767,
-   "type": "calle",
    "district": "bajos",
    "bridge": false
   },
@@ -12703,24 +12694,17 @@
    "bridge": false
   },
   {
-   "a": 759,
-   "b": 769,
+   "a": 761,
+   "b": 762,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 760,
-   "b": 761,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 763,
-   "b": 764,
-   "type": "callejon",
-   "district": "bajos",
+   "a": 762,
+   "b": 775,
+   "type": "autovia",
+   "district": "autovia",
    "bridge": false
   },
   {
@@ -12731,108 +12715,143 @@
    "bridge": false
   },
   {
-   "a": 766,
-   "b": 779,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 769,
-   "b": 770,
+   "a": 767,
+   "b": 768,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 771,
-   "b": 772,
-   "type": "callejon",
+   "a": 770,
+   "b": 776,
+   "type": "calle",
    "district": "bajos",
    "bridge": false
   },
   {
    "a": 774,
+   "b": 775,
+   "type": "callejon",
+   "district": "bajos",
+   "bridge": false
+  },
+  {
+   "a": 775,
    "b": 780,
    "type": "calle",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 778,
-   "b": 779,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 779,
-   "b": 784,
-   "type": "calle",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 779,
-   "b": 968,
+   "a": 775,
+   "b": 964,
    "type": "autovia",
    "district": "autovia",
    "bridge": false
   },
   {
-   "a": 784,
-   "b": 792,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 784,
-   "b": 968,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 787,
+   "a": 780,
    "b": 788,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 780,
+   "b": 964,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 783,
+   "b": 784,
    "type": "callejon",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 792,
-   "b": 813,
+   "a": 788,
+   "b": 809,
    "type": "autovia",
    "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 790,
+   "b": 791,
+   "type": "callejon",
+   "district": "bajos",
    "bridge": false
   },
   {
    "a": 794,
-   "b": 795,
-   "type": "callejon",
-   "district": "bajos",
-   "bridge": false
-  },
-  {
-   "a": 798,
-   "b": 806,
+   "b": 802,
    "type": "calle",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 805,
-   "b": 813,
+   "a": 801,
+   "b": 809,
    "type": "autovia",
    "district": "autovia",
    "bridge": false
   },
   {
-   "a": 805,
-   "b": 967,
+   "a": 801,
+   "b": 963,
    "type": "autovia",
    "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 812,
+   "b": 813,
+   "type": "avenida",
+   "district": "aeropuerto",
+   "bridge": false
+  },
+  {
+   "a": 812,
+   "b": 818,
+   "type": "avenida",
+   "district": "aeropuerto",
+   "bridge": false
+  },
+  {
+   "a": 812,
+   "b": 950,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 813,
+   "b": 814,
+   "type": "avenida",
+   "district": "aeropuerto",
+   "bridge": false
+  },
+  {
+   "a": 813,
+   "b": 819,
+   "type": "calle",
+   "district": "aeropuerto",
+   "bridge": false
+  },
+  {
+   "a": 814,
+   "b": 815,
+   "type": "avenida",
+   "district": "aeropuerto",
+   "bridge": false
+  },
+  {
+   "a": 815,
+   "b": 816,
+   "type": "avenida",
+   "district": "aeropuerto",
    "bridge": false
   },
   {
@@ -12843,20 +12862,6 @@
    "bridge": false
   },
   {
-   "a": 816,
-   "b": 822,
-   "type": "avenida",
-   "district": "aeropuerto",
-   "bridge": false
-  },
-  {
-   "a": 816,
-   "b": 954,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
    "a": 817,
    "b": 818,
    "type": "avenida",
@@ -12864,50 +12869,71 @@
    "bridge": false
   },
   {
-   "a": 817,
-   "b": 823,
-   "type": "calle",
-   "district": "aeropuerto",
-   "bridge": false
-  },
-  {
-   "a": 818,
-   "b": 819,
-   "type": "avenida",
-   "district": "aeropuerto",
-   "bridge": false
-  },
-  {
    "a": 819,
    "b": 820,
-   "type": "avenida",
-   "district": "aeropuerto",
-   "bridge": false
-  },
-  {
-   "a": 820,
-   "b": 821,
-   "type": "avenida",
+   "type": "calle",
    "district": "aeropuerto",
    "bridge": false
   },
   {
    "a": 821,
    "b": 822,
-   "type": "avenida",
-   "district": "aeropuerto",
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 822,
+   "b": 823,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 822,
+   "b": 935,
+   "type": "calle",
+   "district": "colina",
    "bridge": false
   },
   {
    "a": 823,
    "b": 824,
    "type": "calle",
-   "district": "aeropuerto",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 823,
+   "b": 901,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 823,
+   "b": 937,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 824,
+   "b": 825,
+   "type": "calle",
+   "district": "colina",
    "bridge": false
   },
   {
    "a": 825,
    "b": 826,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 825,
+   "b": 929,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -12921,7 +12947,7 @@
   },
   {
    "a": 826,
-   "b": 939,
+   "b": 941,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -12934,22 +12960,15 @@
    "bridge": false
   },
   {
-   "a": 827,
-   "b": 905,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 827,
-   "b": 941,
+   "a": 828,
+   "b": 829,
    "type": "calle",
    "district": "colina",
    "bridge": false
   },
   {
    "a": 828,
-   "b": 829,
+   "b": 933,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -12962,22 +12981,8 @@
    "bridge": false
   },
   {
-   "a": 829,
-   "b": 933,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
    "a": 830,
    "b": 831,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 830,
-   "b": 945,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -12990,15 +12995,15 @@
    "bridge": false
   },
   {
-   "a": 832,
-   "b": 833,
+   "a": 831,
+   "b": 918,
    "type": "calle",
    "district": "colina",
    "bridge": false
   },
   {
    "a": 832,
-   "b": 937,
+   "b": 833,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13025,15 +13030,22 @@
    "bridge": false
   },
   {
-   "a": 835,
-   "b": 922,
+   "a": 836,
+   "b": 837,
    "type": "calle",
    "district": "colina",
    "bridge": false
   },
   {
    "a": 836,
-   "b": 837,
+   "b": 909,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 836,
+   "b": 947,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13067,20 +13079,6 @@
    "bridge": false
   },
   {
-   "a": 840,
-   "b": 913,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 840,
-   "b": 951,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
    "a": 841,
    "b": 842,
    "type": "calle",
@@ -13097,6 +13095,13 @@
   {
    "a": 843,
    "b": 844,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 843,
+   "b": 927,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13123,6 +13128,13 @@
    "bridge": false
   },
   {
+   "a": 846,
+   "b": 917,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
    "a": 847,
    "b": 848,
    "type": "calle",
@@ -13130,15 +13142,15 @@
    "bridge": false
   },
   {
-   "a": 847,
-   "b": 931,
+   "a": 848,
+   "b": 849,
    "type": "calle",
    "district": "colina",
    "bridge": false
   },
   {
    "a": 848,
-   "b": 849,
+   "b": 939,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13158,13 +13170,6 @@
    "bridge": false
   },
   {
-   "a": 850,
-   "b": 921,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
    "a": 851,
    "b": 852,
    "type": "calle",
@@ -13179,13 +13184,6 @@
    "bridge": false
   },
   {
-   "a": 852,
-   "b": 943,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
    "a": 853,
    "b": 854,
    "type": "calle",
@@ -13195,13 +13193,6 @@
   {
    "a": 854,
    "b": 855,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 855,
-   "b": 856,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13223,6 +13214,13 @@
   {
    "a": 858,
    "b": 859,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 859,
+   "b": 860,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13312,6 +13310,13 @@
    "bridge": false
   },
   {
+   "a": 871,
+   "b": 984,
+   "type": "avenida",
+   "district": "radial",
+   "bridge": false
+  },
+  {
    "a": 872,
    "b": 873,
    "type": "calle",
@@ -13333,6 +13338,13 @@
    "bridge": false
   },
   {
+   "a": 874,
+   "b": 944,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
    "a": 875,
    "b": 876,
    "type": "calle",
@@ -13341,14 +13353,21 @@
   },
   {
    "a": 875,
-   "b": 988,
-   "type": "avenida",
-   "district": "radial",
+   "b": 943,
+   "type": "calle",
+   "district": "colina",
    "bridge": false
   },
   {
    "a": 876,
    "b": 877,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 876,
+   "b": 943,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13368,13 +13387,6 @@
    "bridge": false
   },
   {
-   "a": 878,
-   "b": 948,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
    "a": 879,
    "b": 880,
    "type": "calle",
@@ -13383,7 +13395,14 @@
   },
   {
    "a": 879,
-   "b": 947,
+   "b": 925,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 879,
+   "b": 931,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13397,7 +13416,7 @@
   },
   {
    "a": 880,
-   "b": 947,
+   "b": 895,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13425,14 +13444,7 @@
   },
   {
    "a": 883,
-   "b": 929,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 883,
-   "b": 935,
+   "b": 923,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13440,13 +13452,6 @@
   {
    "a": 884,
    "b": 885,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 884,
-   "b": 899,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13468,13 +13473,6 @@
   {
    "a": 887,
    "b": 888,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 887,
-   "b": 927,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13522,13 +13520,6 @@
    "bridge": false
   },
   {
-   "a": 894,
-   "b": 895,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
    "a": 895,
    "b": 896,
    "type": "calle",
@@ -13550,6 +13541,13 @@
    "bridge": false
   },
   {
+   "a": 898,
+   "b": 899,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
    "a": 899,
    "b": 900,
    "type": "calle",
@@ -13559,13 +13557,6 @@
   {
    "a": 900,
    "b": 901,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 901,
-   "b": 902,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13592,6 +13583,13 @@
    "bridge": false
   },
   {
+   "a": 905,
+   "b": 906,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
    "a": 906,
    "b": 907,
    "type": "calle",
@@ -13608,13 +13606,6 @@
   {
    "a": 908,
    "b": 909,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 909,
-   "b": 910,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13641,6 +13632,13 @@
    "bridge": false
   },
   {
+   "a": 913,
+   "b": 914,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
    "a": 914,
    "b": 915,
    "type": "calle",
@@ -13657,13 +13655,6 @@
   {
    "a": 916,
    "b": 917,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 917,
-   "b": 918,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13690,8 +13681,8 @@
    "bridge": false
   },
   {
-   "a": 922,
-   "b": 923,
+   "a": 921,
+   "b": 922,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13699,13 +13690,6 @@
   {
    "a": 923,
    "b": 924,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 924,
-   "b": 925,
    "type": "calle",
    "district": "colina",
    "bridge": false
@@ -13781,7 +13765,21 @@
    "bridge": false
   },
   {
-   "a": 945,
+   "a": 943,
+   "b": 949,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 944,
+   "b": 945,
+   "type": "calle",
+   "district": "colina",
+   "bridge": false
+  },
+  {
+   "a": 944,
    "b": 946,
    "type": "calle",
    "district": "colina",
@@ -13795,31 +13793,24 @@
    "bridge": false
   },
   {
-   "a": 947,
+   "a": 950,
+   "b": 951,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 952,
    "b": 953,
-   "type": "calle",
-   "district": "colina",
+   "type": "autovia",
+   "district": "autovia",
    "bridge": false
   },
   {
-   "a": 948,
-   "b": 949,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 948,
-   "b": 950,
-   "type": "calle",
-   "district": "colina",
-   "bridge": false
-  },
-  {
-   "a": 951,
-   "b": 952,
-   "type": "calle",
-   "district": "colina",
+   "a": 953,
+   "b": 954,
+   "type": "autovia",
+   "district": "autovia",
    "bridge": false
   },
   {
@@ -13830,11 +13821,25 @@
    "bridge": false
   },
   {
+   "a": 955,
+   "b": 956,
+   "type": "autovia",
+   "district": "autovia",
+   "bridge": false
+  },
+  {
+   "a": 955,
+   "b": 974,
+   "type": "avenida",
+   "district": "granvia",
+   "bridge": false
+  },
+  {
    "a": 956,
    "b": 957,
    "type": "autovia",
    "district": "autovia",
-   "bridge": false
+   "bridge": true
   },
   {
    "a": 957,
@@ -13858,18 +13863,11 @@
    "bridge": false
   },
   {
-   "a": 959,
-   "b": 978,
-   "type": "avenida",
-   "district": "granvia",
-   "bridge": false
-  },
-  {
    "a": 960,
    "b": 961,
    "type": "autovia",
    "district": "autovia",
-   "bridge": true
+   "bridge": false
   },
   {
    "a": 961,
@@ -13886,64 +13884,36 @@
    "bridge": false
   },
   {
-   "a": 963,
-   "b": 964,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 964,
-   "b": 965,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 965,
-   "b": 966,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 966,
-   "b": 967,
-   "type": "autovia",
-   "district": "autovia",
-   "bridge": false
-  },
-  {
-   "a": 978,
-   "b": 979,
+   "a": 974,
+   "b": 975,
    "type": "avenida",
    "district": "granvia",
    "bridge": false
   },
   {
-   "a": 985,
-   "b": 986,
+   "a": 981,
+   "b": 982,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
-   "a": 986,
-   "b": 987,
+   "a": 982,
+   "b": 983,
    "type": "avenida",
    "district": "radial",
    "bridge": false
   },
   {
-   "a": 991,
-   "b": 992,
+   "a": 987,
+   "b": 988,
    "type": "calle",
    "district": "bajos",
    "bridge": false
   },
   {
-   "a": 996,
-   "b": 997,
+   "a": 992,
+   "b": 993,
    "type": "calle",
    "district": "ensanche",
    "bridge": false
@@ -13952,8 +13922,8 @@
  "river": {
   "line": [
    [
-    -1000.0,
-    -1400.0
+    -960.0,
+    -1260.0
    ],
    [
     -800.0,
@@ -13978,9 +13948,9 @@
   ],
   "width": 48.0
  },
- "sea": [
+ "island": [
   [
-   -2200.0,
+   -1500.0,
    1110.0
   ],
   [
@@ -13996,17 +13966,471 @@
    1160.0
   ],
   [
-   3400.0,
+   1400.0,
    1160.0
   ],
   [
-   3400.0,
-   2200.0
+   1491.4622270088519,
+   1134.9055675221296
   ],
   [
-   -2200.0,
-   2200.0
+   1593.558151650733,
+   1136.3953791268323
+  ],
+  [
+   1685.3602392786659,
+   1112.1505981966645
+  ],
+  [
+   1767.686793697934,
+   1064.2169842448347
+  ],
+  [
+   1842.7324034033393,
+   1045.9744269251614
+  ],
+  [
+   1934.2556843410243,
+   1038.69798604484
+  ],
+  [
+   2026.3786569719216,
+   1047.913066727843
+  ],
+  [
+   2118.5139309652523,
+   1057.4664348777783
+  ],
+  [
+   2209.921518391027,
+   1047.0084224199022
+  ],
+  [
+   2300.365961605076,
+   1010.0639441395848
+  ],
+  [
+   2394.708388675685,
+   946.9795817343041
+  ],
+  [
+   2490.4574698740976,
+   901.7643573890654
+  ],
+  [
+   2590.9498276753543,
+   892.1237075651569
+  ],
+  [
+   2694.568416317577,
+   905.9297890484935
+  ],
+  [
+   2797.472721508275,
+   914.3787446453956
+  ],
+  [
+   2897.4314776422484,
+   900.7360823168619
+  ],
+  [
+   2961.5719571722484,
+   835.4292762296647
+  ],
+  [
+   3043.8908631676354,
+   778.5211508901808
+  ],
+  [
+   3143.361273275314,
+   744.4816977004184
+  ],
+  [
+   3251.1595954485388,
+   721.5461272647184
+  ],
+  [
+   3348.6737097452897,
+   684.8982796603864
+  ],
+  [
+   3398.8213439733086,
+   534.663241135231
+  ],
+  [
+   3392.20889615416,
+   419.20254175833145
+  ],
+  [
+   3394.2346141562293,
+   306.20988975892266
+  ],
+  [
+   3423.250415383612,
+   200.92869010960348
+  ],
+  [
+   3413.447307216205,
+   97.93948470108307
+  ],
+  [
+   3385.790295048544,
+   -0.3222531087379644
+  ],
+  [
+   3333.1402015828326,
+   -94.08523628490984
+  ],
+  [
+   3276.7858050254576,
+   -187.18144490458235
+  ],
+  [
+   3247.2380905340146,
+   -285.10285629612264
+  ],
+  [
+   3216.628714704225,
+   -303.2764053896707
+  ],
+  [
+   3159.4929397804226,
+   -390.90607633730025
+  ],
+  [
+   3096.7237339561634,
+   -470.08560093424524
+  ],
+  [
+   3020.2410655129406,
+   -528.6949316027443
+  ],
+  [
+   2935.402555111162,
+   -574.7704993334099
+  ],
+  [
+   2855.002113618376,
+   -627.5031704275636
+  ],
+  [
+   2761.2101011776003,
+   -669.4979805936016
+  ],
+  [
+   2672.9483092319238,
+   -721.5044688516382
+  ],
+  [
+   2581.6261353887808,
+   -758.974143096709
+  ],
+  [
+   2483.394049096678,
+   -763.621733209221
+  ],
+  [
+   2379.60775606004,
+   -741.8868412851898
+  ],
+  [
+   2275.8031490238855,
+   -720.0649578634566
+  ],
+  [
+   2176.9507858540246,
+   -721.7662328066162
+  ],
+  [
+   2083.3111759532294,
+   -748.22808577784
+  ],
+  [
+   1990.6478590656757,
+   -779.3273305619592
+  ],
+  [
+   1894.5396448516271,
+   -794.063313045229
+  ],
+  [
+   1791.5626840028394,
+   -809.9067100070985
+  ],
+  [
+   1694.186314628821,
+   -827.4657865720527
+  ],
+  [
+   1606.8780107198068,
+   -870.1950267995171
+  ],
+  [
+   1531.117180971781,
+   -941.7929524294526
+  ],
+  [
+   1459.110451625215,
+   -1022.7761290630376
+  ],
+  [
+   1380.222163296106,
+   -1086.5554082402648
+  ],
+  [
+   1289.9316456396534,
+   -1121.8291140991334
+  ],
+  [
+   1193.2035213934666,
+   -1141.0088034836667
+  ],
+  [
+   1099.2835814401242,
+   -1167.2089536003107
+  ],
+  [
+   1012.7875070687024,
+   -1211.968767671756
+  ],
+  [
+   943.3927378778695,
+   -1273.350636884097
+  ],
+  [
+   861.2160252576294,
+   -1323.0827993890653
+  ],
+  [
+   763.929635512333,
+   -1347.0396303277614
+  ],
+  [
+   656.9808692285927,
+   -1354.513583642053
+  ],
+  [
+   554.3216990747658,
+   -1369.305083295609
+  ],
+  [
+   466.86426973290986,
+   -1410.0289643342915
+  ],
+  [
+   393.5685574219631,
+   -1474.9110685433488
+  ],
+  [
+   319.4246389140613,
+   -1510.001852984461
+  ],
+  [
+   225.09743233835394,
+   -1534.889235317714
+  ],
+  [
+   127.60384383570265,
+   -1542.0976518921966
+  ],
+  [
+   30.549091610325814,
+   -1551.756237681462
+  ],
+  [
+   -62.256845746832326,
+   -1585.1373731516148
+  ],
+  [
+   -150.6733805782461,
+   -1643.0260060571732
+  ],
+  [
+   -238.74990204313843,
+   -1702.8130469258106
+  ],
+  [
+   -365.95743666511015,
+   -1699.7871833255508
+  ],
+  [
+   -462.1396007197744,
+   -1660.6980035988722
+  ],
+  [
+   -555.2819613711192,
+   -1606.4098068555961
+  ],
+  [
+   -651.2716053353137,
+   -1566.3580266765682
+  ],
+  [
+   -751.8873918485284,
+   -1549.436959242642
+  ],
+  [
+   -853.351610280364,
+   -1536.7580514018196
+  ],
+  [
+   -935.6208617727924,
+   -1473.8125473990983
+  ],
+  [
+   -1000.4161552672807,
+   -1392.9158143343568
+  ],
+  [
+   -1063.7155762799912,
+   -1309.5259604666521
+  ],
+  [
+   -1139.713021924188,
+   -1247.2994809847582
+  ],
+  [
+   -1233.7567338060828,
+   -1215.1501118990268
+  ],
+  [
+   -1337.6112347384712,
+   -1199.3520578974521
+  ],
+  [
+   -1433.4309392952046,
+   -1159.3230203385322
+  ],
+  [
+   -1514.8081189983543,
+   -1096.2328731563996
+  ],
+  [
+   -1587.2975762897988,
+   -1022.6996521405135
+  ],
+  [
+   -1668.85023993257,
+   -959.8156985874365
+  ],
+  [
+   -1766.3820523401866,
+   -915.7072448330524
+  ],
+  [
+   -1867.1217000764236,
+   -875.3679975897978
+  ],
+  [
+   -1935.6598624074732,
+   -770.6870740608795
+  ],
+  [
+   -1956.0113295902395,
+   -673.7199505094054
+  ],
+  [
+   -1959.1542039556402,
+   -568.1485305492488
+  ],
+  [
+   -1969.8691029585518,
+   -466.36312290784747
+  ],
+  [
+   -2003.8325701303727,
+   -376.2019993509006
+  ],
+  [
+   -2055.297231962338,
+   -294.7914731240264
+  ],
+  [
+   -2104.1060396764615,
+   -212.0530198382307
+  ],
+  [
+   -2085.5427353791583,
+   -120.90286062181998
+  ],
+  [
+   -2054.908570734824,
+   -21.69648981573972
+  ],
+  [
+   -2037.5140747647379,
+   77.88815723817618
+  ],
+  [
+   -2054.170183424794,
+   178.44567871009616
+  ],
+  [
+   -2098.101687303483,
+   279.78249718826277
+  ],
+  [
+   -2139.7525694225847,
+   381.0541550447269
+  ],
+  [
+   -2153.2014068708963,
+   481.5200401963113
+  ],
+  [
+   -2102.7401092431296,
+   583.3387641669649
+  ],
+  [
+   -2051.942453026375,
+   664.0269352547483
+  ],
+  [
+   -2015.061748642351,
+   750.6030475025331
+  ],
+  [
+   -1993.7817809990818,
+   843.7794714483294
+  ],
+  [
+   -1971.373807946198,
+   936.478662336212
+  ],
+  [
+   -1927.6783198564328,
+   1020.171596862337
+  ],
+  [
+   -1788.6598149207105,
+   1040.142996998818
+  ],
+  [
+   -1679.8697102320014,
+   1020.0044535287324
+  ],
+  [
+   -1576.5356875195482,
+   1018.714193249348
   ]
+ ],
+ "islets": [
+  {
+   "id": "aerodromo",
+   "center": [
+    6000.0,
+    5000.0
+   ],
+   "radius": 480.0
+  },
+  {
+   "id": "islote_militar",
+   "center": [
+    3700.0,
+    3100.0
+   ],
+   "radius": 260.0
+  }
  ],
  "beach": [
   [
@@ -14131,8 +14555,8 @@
  ],
  "railway": [
   [
-   3300.0,
-   -330.0
+   3000.0,
+   -320.0
   ],
   [
    1500.0,

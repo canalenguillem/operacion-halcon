@@ -43,10 +43,41 @@ Vec = tuple[float, float]
 
 # ================================================================== elementos fijos del mundo
 
-RIVER = [(-1000, -1400), (-800, -700), (-580, -150), (-480, 300), (-440, 700), (-425, 1140)]
+RIVER = [(-960, -1260), (-800, -700), (-580, -150), (-480, 300), (-440, 700), (-425, 1140)]
 RIVER_WIDTH = 48.0
 
-SEA = [(-2200, 1110), (-420, 1110), (620, 1100), (640, 1160), (3400, 1160), (3400, 2200), (-2200, 2200)]
+# La isla. La costa sur de la ciudad (playa y puerto) es fija; el resto lleva ruido para que sea irregular.
+COAST_FIXED = [(-1500, 1110), (-420, 1110), (620, 1100), (640, 1160), (1400, 1160)]
+COAST_FREE = [(1750, 1020), (2300, 1000), (2900, 920), (3300, 620), (3420, 200), (3330, -300), (2850, -620),
+              (1900, -820), (1000, -1180), (420, -1520), (-250, -1640), (-850, -1520), (-1350, -1220),
+              (-1820, -820), (-2120, -220), (-2100, 480), (-1880, 1000)]
+# Islotes: el del aeródromo clandestino (destino de la misión) y uno militar con una batería de misiles.
+ISLETS = [{"id": "aerodromo", "center": [6000.0, 5000.0], "radius": 480.0},
+          {"id": "islote_militar", "center": [3700.0, 3100.0], "radius": 260.0}]
+
+
+def make_coast() -> list[Vec]:
+    """Costa de la isla: los tramos libres se subdividen y se ondulan con ruido suave."""
+    pts: list[Vec] = list(COAST_FIXED)
+    free = [COAST_FIXED[-1]] + COAST_FREE + [COAST_FIXED[0]]
+    ph1, ph2 = rng.uniform(0, 6.28), rng.uniform(0, 6.28)
+    walked = 0.0
+    for a, b in zip(free, free[1:]):
+        n = max(1, int(dist(a, b) // 90))
+        nx, nz = -(b[1] - a[1]) / dist(a, b), (b[0] - a[0]) / dist(a, b)
+        for i in range(1, n + 1):
+            t = i / n
+            p = lerp(a, b, t)
+            walked += dist(a, b) / n
+            last = b == free[-1] and i == n
+            if last:
+                continue
+            amp = 55 * math.sin(walked / 260 + ph1) + 30 * math.sin(walked / 97 + ph2)
+            pts.append((p[0] + nx * amp, p[1] + nz * amp))
+    return pts
+
+
+COAST: list[Vec] = []  # se calcula en main() (necesita las funciones de geometría)
 BEACH = [(-405, 1052), (620, 1048), (620, 1100), (-420, 1110)]
 PIERS = [
     [(770, 1150), (830, 1150), (830, 1330), (770, 1330)],
@@ -374,7 +405,7 @@ def build_arterials() -> None:
     add([(-500, -250), (-660, -260), polar(HILL_CENTER, -25, 430, 360)], "calle", "ensanche", bridge=True)
 
 
-RAILWAY = [(3300, -330), (1500, -360), (1100, -380), (700, -380), (310, -380)]
+RAILWAY = [(3000, -320), (1500, -360), (1100, -380), (700, -380), (310, -380)]
 
 DISTRICTS = [
     {"id": "casco", "name": "Casco Viejo", "style": "casco_antiguo", "label": (-30, 210), "color": (222, 196, 160),
@@ -564,7 +595,7 @@ def remove_bad_edges(g: Graph) -> None:
         crosses_river = crosses_line(a, b, RIVER)
         e["bridge"] = crosses_river
         bad = crosses_river and not e["bridge_ok"]
-        bad = bad or (point_in_poly(mid, SEA) and e["kind"] != "muelle" and not any(point_in_poly(mid, p) for p in PIERS))
+        bad = bad or (not point_in_poly(mid, COAST) and e["kind"] != "muelle" and not any(point_in_poly(mid, p) for p in PIERS))
         for zone_id, zone in NO_ROADS.items():
             if e["source"] in ("aeropuerto", "aeropuerto_av", "autovia") and zone_id == "aeropuerto":
                 continue
@@ -637,7 +668,8 @@ def write_json(nodes, roads) -> None:
         "nodes": nodes,
         "roads": roads,
         "river": {"line": to_list(RIVER), "width": RIVER_WIDTH},
-        "sea": to_list(SEA),
+        "island": to_list(COAST),
+        "islets": ISLETS,
         "beach": to_list(BEACH),
         "piers": [to_list(p) for p in PIERS],
         "hills": HILLS,
@@ -671,8 +703,13 @@ def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float,
                 continue
         return ImageFont.load_default()
 
-    img = Image.new("RGB", (w, h), (178, 198, 142))
+    img = Image.new("RGB", (w, h), (92, 150, 200))
     d = ImageDraw.Draw(img)
+    d.polygon([P(x, z) for x, z in COAST], fill=(214, 204, 160))  # arena de la orilla
+    shore = [(x + (0 if z > 1090 else 0), z) for x, z in COAST]
+    d.line([P(x, z) for x, z in shore + [shore[0]]], fill=(214, 204, 160), width=max(3, int(18 * k)))
+    d.polygon([P(x, z) for x, z in COAST], fill=(178, 198, 142))
+    d.line([P(x, z) for x, z in COAST + [COAST[0]]], fill=(222, 210, 165), width=max(2, int(12 * k)))
     # relieve de la colina (anillos más oscuros)
     hc = HILLS[0]
     for i in range(8, 0, -1):
@@ -694,7 +731,6 @@ def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float,
     for poly, col in ((RUNWAY, (55, 55, 60)), (TAXIWAY, (90, 90, 95)), (APRON, (150, 150, 150)), (TERMINAL, (90, 110, 140)),
                       (PARKING, (120, 120, 120))):
         d.polygon([P(x, z) for x, z in poly], fill=col)
-    d.polygon([P(x, z) for x, z in SEA], fill=(92, 150, 200))
     d.polygon([P(x, z) for x, z in BEACH], fill=(236, 216, 160))
     for p in PIERS:
         d.polygon([P(x, z) for x, z in p], fill=(170, 170, 160))
@@ -730,7 +766,7 @@ def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float,
             d.text((cx - tw / 2 + ox, cz - 10 + oz), text, font=f_dist, fill=(255, 255, 255))
         d.text((cx - tw / 2, cz - 10), text, font=f_dist, fill=(45, 45, 60))
     f_small = font(13, True)
-    for text, (x, z) in [("BASE AÉREA", (0, -1000)), ("MAR", (900, 1220)), ("RÍO", (-700, -560)), ("vía del tren", (1900, -395))]:
+    for text, (x, z) in [("BASE AÉREA", (0, -1000)), ("MAR", (900, 1300)), ("MAR", (-1000, -1700)), ("RÍO", (-700, -560)), ("vía del tren", (1900, -395))]:
         if x0 < x < x1 and z0 < z < z1:
             cx, cz = P(x, z)
             tw = d.textlength(text, font=f_small)
@@ -747,6 +783,9 @@ def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float,
         tw = d.textlength(t, font=f_poi)
         d.text((cx - tw / 2, cz - 6), t, font=f_poi, fill=(255, 255, 255))
 
+    if x1 > 3000:
+        cx, cz = P(2700, 1330)
+        d.text((cx, cz), "→ isla del aeródromo clandestino\n   (8,7 km al SE)", font=font(14, True), fill=(255, 255, 255))
     sx, sz = margin + 20, h - margin - 30
     d.rectangle([sx, sz, sx + 500 * k, sz + 6], fill=(30, 30, 30))
     d.text((sx, sz + 9), "500 m", font=font(13), fill=(30, 30, 30))
@@ -787,6 +826,7 @@ def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float,
 
 
 def main() -> None:
+    COAST.extend(make_coast())
     build_old_town()
     build_districts()
     build_arterials()
@@ -801,7 +841,7 @@ def main() -> None:
     largest_component(g)
     nodes, roads = compact(g)
     write_json(nodes, roads)
-    render(OUT_PNG, nodes, roads, -1950, 3150, -1380, 1300, 0.3, "Plano provisional")
+    render(OUT_PNG, nodes, roads, -2350, 3600, -1850, 1450, 0.28, "Plano provisional")
     render(OUT_PNG_CITY, nodes, roads, -1900, 1500, -720, 1260, 0.5, "Plano de la ciudad")
     print(f"{len(nodes)} cruces, {len(roads)} tramos, {sum(1 for r in roads if r['bridge'])} tramos de puente")
 
