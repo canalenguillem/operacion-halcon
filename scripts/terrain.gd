@@ -12,6 +12,8 @@ const ROWS: int = 311
 ## Cuánto se ensancha la tierra hacia el agua (para que la pendiente de la orilla caiga fuera
 ## de las calles y los barrios, que llegan justo hasta la costa).
 const SHORE_PAD: float = 7.0
+## Pasadas de suavizado del relieve de las colinas.
+const SMOOTH_PASSES: int = 2
 
 var map: CityMap
 var heights: PackedFloat32Array = PackedFloat32Array()
@@ -22,6 +24,12 @@ func _init(m: CityMap) -> void:
 	map = m
 
 
+## Cerca del río el suelo queda llano (los puentes llegan a nivel): a menos de `RIVER_FLAT`
+## metros del cauce la colina no sube, y se suaviza hasta `RIVER_FADE`.
+const RIVER_FLAT: float = 45.0
+const RIVER_FADE: float = 140.0
+
+
 ## Altura de las colinas en un punto (campana suave), sin allanar las carreteras.
 static func hill_height(m: CityMap, p: Vector2) -> float:
 	var h: float = 0.0
@@ -29,7 +37,17 @@ static func hill_height(m: CityMap, p: Vector2) -> float:
 		var d: float = p.distance_to(hill["center"] as Vector2) / float(hill["radius"])
 		if d < 1.0:
 			h += float(hill["height"]) * (0.5 + 0.5 * cos(PI * d))
+	if h > 0.0:
+		h *= smoothstep(RIVER_FLAT, RIVER_FADE, river_distance(m, p))
 	return h
+
+
+## Distancia al eje del río.
+static func river_distance(m: CityMap, p: Vector2) -> float:
+	var best: float = 1e9
+	for i: int in m.river_line.size() - 1:
+		best = minf(best, p.distance_to(Geometry2D.get_closest_point_to_segment(p, m.river_line[i], m.river_line[i + 1])))
+	return best
 
 
 ## Altura del suelo firme: la de la colina, pero llana a lo ancho de las carreteras (como un bancal).
@@ -73,6 +91,27 @@ func build() -> void:
 			var k: int = row * COLS + col
 			land[k] = 1 if is_land else 0
 			heights[k] = ground_height(Vector2(x, z)) if is_land else CityBuilder.FLOOR_Y
+	_smooth_hills(SMOOTH_PASSES)
+
+
+## Promedia cada vértice de la colina con sus vecinos: quita los escalones que quedan donde
+## se juntan los bancales de dos carreteras a distinta altura.
+func _smooth_hills(passes: int) -> void:
+	for p: int in passes:
+		var out: PackedFloat32Array = heights.duplicate()
+		for row: int in range(1, ROWS - 1):
+			for col: int in range(1, COLS - 1):
+				var k: int = row * COLS + col
+				if land[k] == 0 or heights[k] < 0.05:
+					continue
+				var sum: float = heights[k] * 4.0
+				var count: float = 4.0
+				for o: int in [k - 1, k + 1, k - COLS, k + COLS]:
+					if land[o] == 1:
+						sum += heights[o]
+						count += 1.0
+				out[k] = sum / count
+		heights = out
 
 
 ## Altura de la superficie de la malla en un punto (la misma interpolación que sus triángulos).
@@ -94,7 +133,7 @@ func sample(p: Vector2) -> float:
 
 ## Altura a la que se apoya lo que va sobre el suelo: relieve en las colinas, 0 en el llano.
 func surface(p: Vector2) -> float:
-	return sample(p) if on_hill(p) else 0.0
+	return maxf(sample(p), 0.0) if on_hill(p) else 0.0  # sin hundirse hacia la orilla
 
 
 ## Tramos [x0, x1] de la fila `z` dentro del polígono, ensanchados (o encogidos si pad < 0).

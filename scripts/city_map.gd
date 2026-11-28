@@ -51,6 +51,8 @@ var c_var: PackedInt32Array = PackedInt32Array()
 var landmarks: Array[Dictionary] = []
 
 var _cells: Dictionary = {}
+## Calles que salen de cada cruce.
+var _adj: Array[PackedInt32Array] = []
 var _river_poly: PackedVector2Array = PackedVector2Array()
 
 static var _default: CityMap = null
@@ -252,7 +254,59 @@ static func rect_corners(c: Vector2, yaw: float, w: float, d: float) -> PackedVe
 	return PackedVector2Array([c - u - v, c + u - v, c + u + v, c - u + v])
 
 
+## Mapa hecho a mano (tests): cruces, calles (pares de cruces) y sus tipos.
+static func from_graph(points: PackedVector2Array, a: PackedInt32Array, b: PackedInt32Array, types: PackedStringArray) -> CityMap:
+	var m := CityMap.new()
+	m.nodes = points
+	m.road_a = a
+	m.road_b = b
+	m.road_type = types
+	for i: int in a.size():
+		m.road_bridge.append(false)
+	m.road_widths = {"autovia": 18.0, "avenida": 18.0, "calle": 11.0, "muelle": 10.0, "callejon": 7.0}
+	m._index_roads()
+	return m
+
+
+## Calles que salen del cruce `n`.
+func edges_at(n: int) -> PackedInt32Array:
+	return _adj[n]
+
+
+## Dirección (unitaria) de la calle `i` saliendo del cruce `n`.
+func dir_from(n: int, i: int) -> Vector2:
+	var other: int = road_b[i] if road_a[i] == n else road_a[i]
+	return (nodes[other] - nodes[n]).normalized()
+
+
+## Distancia desde el cruce `n`, a lo largo de la calle `i`, a partir de la cual la calzada de `i`
+## ya no pisa ninguna otra calle del cruce (ni su acera). Tiene en cuenta el ángulo: en los cruces
+## en ángulo agudo hay que alejarse mucho más. 0 si el cruce solo une dos tramos de la misma calle.
+func junction_setback(n: int, i: int) -> float:
+	var edges: PackedInt32Array = _adj[n]
+	if edges.size() <= 2:
+		return 0.0
+	var di: Vector2 = dir_from(n, i)
+	var hi: float = width(i) / 2.0
+	var best: float = 0.0
+	for j: int in edges:
+		if j == i:
+			continue
+		var dj: Vector2 = dir_from(n, j)
+		var s: float = absf(di.cross(dj))
+		var c: float = di.dot(dj)
+		if s < 0.17 and c < 0.0:
+			continue  # la misma calle que sigue recta al otro lado
+		var hj: float = width(j) / 2.0 + sidewalk
+		best = maxf(best, 40.0 if s < 0.17 else (hj + hi * absf(c)) / s)
+	return minf(best, 40.0)
+
+
 func _index_roads() -> void:
+	_adj.resize(nodes.size())
+	for i: int in road_count():
+		_adj[road_a[i]].append(i)
+		_adj[road_b[i]].append(i)
 	for i: int in road_count():
 		var a: Vector2 = road_start(i)
 		var b: Vector2 = road_end(i)

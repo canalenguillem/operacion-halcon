@@ -587,6 +587,9 @@ def prune_stubs(g: Graph, max_len: float) -> None:
             return
 
 
+RIVER_WET: list[Vec] = []  # el cauce (se calcula en main)
+
+
 def remove_bad_edges(g: Graph) -> None:
     for key in list(g.edges):
         a, b = g.pos[key[0]], g.pos[key[1]]
@@ -595,6 +598,13 @@ def remove_bad_edges(g: Graph) -> None:
         crosses_river = crosses_line(a, b, RIVER)
         e["bridge"] = crosses_river
         bad = crosses_river and not e["bridge_ok"]
+        # tampoco puede ir por dentro del agua junto a la orilla (sin cruzar el eje); si es el
+        # acceso de un puente, ese tramo también va sobre el tablero
+        if not crosses_river and any(point_in_poly(lerp(a, b, t / 12), RIVER_WET) for t in range(13)):
+            if e["bridge_ok"]:
+                e["bridge"] = True
+            else:
+                bad = True
         bad = bad or (not point_in_poly(mid, COAST) and e["kind"] != "muelle" and not any(point_in_poly(mid, p) for p in PIERS))
         for zone_id, zone in NO_ROADS.items():
             if e["source"] in ("aeropuerto", "aeropuerto_av", "autovia") and zone_id == "aeropuerto":
@@ -709,9 +719,9 @@ def rects_overlap(a: list[Vec], b: list[Vec]) -> bool:
     return True
 
 
-def river_polygon() -> list[Vec]:
+def river_polygon(margin: float = 4.0) -> list[Vec]:
     left, right = [], []
-    half = RIVER_WIDTH / 2 + 4
+    half = RIVER_WIDTH / 2 + margin
     for i, p in enumerate(RIVER):
         prev, nxt = RIVER[max(i - 1, 0)], RIVER[min(i + 1, len(RIVER) - 1)]
         dx, dz = nxt[0] - prev[0], nxt[1] - prev[1]
@@ -1107,6 +1117,7 @@ def render(path: Path, nodes, roads, x0: float, x1: float, z0: float, z1: float,
 
 def main() -> None:
     COAST.extend(make_coast())
+    RIVER_WET.extend(river_polygon(0.0))
     build_old_town()
     build_districts()
     build_arterials()

@@ -12,6 +12,8 @@ const Y_DISTRICT: float = 0.02
 const Y_SIDEWALK: float = 0.05
 const Y_ROAD: float = 0.08
 const Y_MARK: float = 0.10
+## Metros que el puente (tablero y barandillas) se alarga por cada orilla.
+const BRIDGE_PAD: float = 6.0
 
 const ASPHALT: Color = Color(0.11, 0.11, 0.12)
 const SIDEWALK_COLOR: Color = Color(0.47, 0.46, 0.44)
@@ -36,7 +38,8 @@ var map: CityMap
 var parent: Node3D
 var terrain: Terrain
 var _flat: SurfaceTool
-## Mientras es true, las capas planas no siguen el relieve (puentes).
+## Tramos sobre el agua del puente que se está dibujando: ahí las capas no siguen el relieve.
+var _level_spans: Array[PackedVector2Array] = []
 var _level: bool = false
 var _river: PackedVector2Array
 
@@ -178,14 +181,18 @@ func _poly_on_land(poly: PackedVector2Array, y: float, color: Color) -> void:
 
 ## Altura de una capa plana en `p`: el relieve más su desplazamiento (salvo en los puentes).
 func _y(p: Vector2, offset: float) -> float:
-	return offset if _level else terrain.surface(p) + offset
+	if _level:
+		for span: PackedVector2Array in _level_spans:
+			if p.distance_to(Geometry2D.get_closest_point_to_segment(p, span[0], span[1])) < 16.0:
+				return offset
+	return terrain.surface(p) + offset
 
 
 ## Banda de `a` a `b` de media anchura `half`; en la colina se trocea para seguir el relieve.
 func _quad(a: Vector2, b: Vector2, half: float, y: float, color: Color) -> void:
 	var n: Vector2 = (b - a).normalized().orthogonal() * half
 	var pieces: int = 1
-	if not _level and (terrain.on_hill(a) or terrain.on_hill(b)):
+	if _level or terrain.on_hill(a) or terrain.on_hill(b):
 		pieces = maxi(1, ceili(a.distance_to(b) / 6.0))
 	for s: int in pieces:
 		var p0: Vector2 = a.lerp(b, float(s) / pieces)
@@ -227,6 +234,9 @@ func _build_roads() -> void:
 		var b: Vector2 = map.road_end(i)
 		var half: float = map.width(i) / 2.0
 		_level = map.road_bridge[i]
+		_level_spans.clear()
+		if _level:
+			_level_spans = bridge_spans(a, b, _river, BRIDGE_PAD)
 		_quad(a, b, half + map.sidewalk, Y_SIDEWALK, SIDEWALK_COLOR)
 		_quad(a, b, half, Y_ROAD, ASPHALT)
 		_markings(i, a, b, half, node_half[map.road_a[i]], node_half[map.road_b[i]], degree[map.road_a[i]], degree[map.road_b[i]])
@@ -237,13 +247,20 @@ func _build_roads() -> void:
 			_disc(map.nodes[n], node_half[n] + 0.4, Y_ROAD + 0.001, ASPHALT)
 
 
-## Línea central discontinua y pasos de cebra en los cruces.
-func _markings(i: int, a: Vector2, b: Vector2, half: float, ra: float, rb: float, da: int, db: int) -> void:
+## Barrios con pasos de cebra.
+const CROSSWALK_DISTRICTS: Array[String] = ["casco", "ensanche", "financiero", "milla", "puerto", "poligono", "bajos", "bajos_este"]
+
+
+## Línea central discontinua y pasos de cebra a la salida de los cruces. Todo empieza donde la
+## calzada deja de pisar las otras calles del cruce (`CityMap.junction_setback`).
+func _markings(i: int, a: Vector2, b: Vector2, half: float, _ra: float, _rb: float, da: int, db: int) -> void:
 	var kind: String = map.road_type[i]
 	var length: float = a.distance_to(b)
 	var d: Vector2 = (b - a) / length
-	var start: float = ra + 4.0
-	var end: float = length - rb - 4.0
+	var sa: float = map.junction_setback(map.road_a[i], i)
+	var sb: float = map.junction_setback(map.road_b[i], i)
+	var start: float = sa + 2.0
+	var end: float = length - sb - 2.0
 	if kind == "callejon" or end - start < 6.0:
 		return
 	var dash: float = 3.0 if kind == "calle" else 4.5
@@ -256,11 +273,14 @@ func _markings(i: int, a: Vector2, b: Vector2, half: float, ra: float, rb: float
 			var off: Vector2 = d.orthogonal() * s * (half - 0.6)
 			_quad(a + d * start + off, a + d * end + off, 0.1, Y_MARK, MARK)
 		return
-	# pasos de cebra a la salida de los cruces de más de dos calles
+	# pasos de cebra a la salida de los cruces de más de dos calles, en calles de ciudad con sitio
+	if kind == "muelle" or end - start < 14.0:
+		return
 	for side: int in [0, 1]:
-		if (da if side == 0 else db) < 3:
+		var node: int = map.road_a[i] if side == 0 else map.road_b[i]
+		if (da if side == 0 else db) < 3 or not map.district_at(map.nodes[node]) in CROSSWALK_DISTRICTS:
 			continue
-		var base: float = (ra + 1.2) if side == 0 else (length - rb - 4.2)
+		var base: float = (sa + 1.0) if side == 0 else (length - sb - 4.0)
 		var nrm: Vector2 = d.orthogonal()
 		var stripe: float = -half + 0.8
 		while stripe < half - 0.8:
@@ -271,22 +291,55 @@ func _markings(i: int, a: Vector2, b: Vector2, half: float, ra: float, rb: float
 
 # ---------------------------------------------------------------- puentes
 
+## Tablero y barandillas solo sobre el agua (más `BRIDGE_PAD` por cada orilla): si cubrieran
+## el tramo entero, las barandillas cortarían las calles que llegan al puente.
 func _build_bridges() -> void:
 	for i: int in map.road_count():
 		if not map.road_bridge[i]:
 			continue
 		var a: Vector2 = map.road_start(i)
 		var b: Vector2 = map.road_end(i)
-		var d: Vector2 = b - a
-		var length: float = d.length()
-		var yaw: float = atan2(d.x, d.y)
-		var mid: Vector2 = (a + b) / 2.0
 		var w: float = map.width(i) + map.sidewalk * 2.0
-		Build.box(parent, Vector3(w, 1.2, length), Vector3(mid.x, -0.6 + Y_SIDEWALK - 0.01, mid.y), Color(0.6, 0.58, 0.54), true, Vector3(0, yaw, 0))
-		var side: Vector2 = (d / length).orthogonal() * (w / 2.0 - 0.2)
-		for s: float in [-1.0, 1.0]:
-			var p: Vector2 = mid + side * s
-			Build.box(parent, Vector3(0.35, 1.0, length), Vector3(p.x, 0.55, p.y), Color(0.5, 0.48, 0.45), true, Vector3(0, yaw, 0))
+		for span: PackedVector2Array in bridge_spans(a, b, _river, BRIDGE_PAD):
+			_deck(span[0], span[1], w)
+		for span: PackedVector2Array in bridge_spans(a, b, _river, 0.0):
+			_railings(span[0], span[1], w)
+
+
+## Tramos de la recta a-b que van sobre el agua, alargados `pad` metros por cada lado.
+static func bridge_spans(a: Vector2, b: Vector2, river: PackedVector2Array, pad: float) -> Array[PackedVector2Array]:
+	var out: Array[PackedVector2Array] = []
+	var dir: Vector2 = (b - a).normalized()
+	for part: PackedVector2Array in Geometry2D.intersect_polyline_with_polygon(PackedVector2Array([a, b]), river):
+		var p: Vector2 = part[0]
+		var q: Vector2 = part[part.size() - 1]
+		if (q - p).dot(dir) < 0.0:
+			var t: Vector2 = p
+			p = q
+			q = t
+		p = p - dir * minf(pad, p.distance_to(a))
+		q = q + dir * minf(pad, q.distance_to(b))
+		out.append(PackedVector2Array([p, q]))
+	return out
+
+
+## Tablero del puente (sobresale un poco por cada orilla para que no quede escalón).
+func _deck(a: Vector2, b: Vector2, w: float) -> void:
+	var d: Vector2 = b - a
+	var mid: Vector2 = (a + b) / 2.0
+	Build.box(parent, Vector3(w, 1.2, d.length()), Vector3(mid.x, -0.6 + Y_SIDEWALK - 0.01, mid.y), Color(0.6, 0.58, 0.54), true, Vector3(0, atan2(d.x, d.y), 0))
+
+
+## Barandillas, solo sobre el agua: así no cortan las calles que llegan a la orilla.
+func _railings(a: Vector2, b: Vector2, w: float) -> void:
+	var d: Vector2 = b - a
+	var length: float = d.length()
+	var yaw: float = atan2(d.x, d.y)
+	var mid: Vector2 = (a + b) / 2.0
+	var side: Vector2 = (d / length).orthogonal() * (w / 2.0 - 0.2)
+	for s: float in [-1.0, 1.0]:
+		var p: Vector2 = mid + side * s
+		Build.box(parent, Vector3(0.35, 1.0, length), Vector3(p.x, 0.55, p.y), Color(0.5, 0.48, 0.45), true, Vector3(0, yaw, 0))
 
 
 # ---------------------------------------------------------------- aeropuerto

@@ -7,6 +7,10 @@ extends RefCounted
 const LAMP_STEP: float = 32.0
 ## Barrios con semáforos (en el casco viejo, Los Bajos y la colina no hay).
 const LIGHTS_IN: Array[String] = ["ensanche", "financiero", "milla", "puerto", "poligono"]
+## Distancia mínima entre dos cruces con semáforos.
+const LIGHTS_SPACING: float = 150.0
+## Holgura mínima entre un poste y cualquier calzada.
+const CLEARANCE: float = 0.6
 
 var map: CityMap
 var terrain: Terrain
@@ -14,6 +18,8 @@ var parent: Node3D
 var _parts: Dictionary = {}
 ## Posición de la cabeza de cada farola.
 var lamp_heads: PackedVector3Array = PackedVector3Array()
+## Posición de cada poste (farolas y semáforos), para comprobar que no pisan calzadas.
+var poles: PackedVector2Array = PackedVector2Array()
 ## Calles que salen de cada cruce.
 var _adj: Array[PackedInt32Array] = []
 
@@ -27,24 +33,23 @@ func _init(m: CityMap, t: Terrain, p: Node3D) -> void:
 func build() -> void:
 	var node_half: PackedFloat32Array = PackedFloat32Array()
 	node_half.resize(map.nodes.size())
-	var degree: PackedInt32Array = PackedInt32Array()
-	degree.resize(map.nodes.size())
-	var major: PackedByteArray = PackedByteArray()
-	major.resize(map.nodes.size())
 	_adj.resize(map.nodes.size())
 	for i: int in map.road_count():
 		for n: int in [map.road_a[i], map.road_b[i]]:
 			_adj[n].append(i)
 			node_half[n] = maxf(node_half[n], map.width(i) / 2.0)
-			degree[n] += 1
-			if map.road_type[i] in ["avenida", "calle"]:
-				major[n] = 1
 	for i: int in map.road_count():
 		if map.road_type[i] in ["avenida", "calle", "autovia"] and not map.road_bridge[i]:
 			_lamps(i, node_half)
+	var lit: PackedVector2Array = PackedVector2Array()
 	for n: int in map.nodes.size():
-		if degree[n] >= 3 and major[n] == 1 and map.district_at(map.nodes[n]) in LIGHTS_IN:
-			_traffic_lights(n, node_half[n])
+		if _wants_lights(n) and map.district_at(map.nodes[n]) in LIGHTS_IN:
+			var near: bool = false
+			for p: Vector2 in lit:
+				near = near or p.distance_to(map.nodes[n]) < LIGHTS_SPACING
+			if not near:
+				lit.append(map.nodes[n])
+				_traffic_lights(n, node_half[n])
 	_flush()
 
 
@@ -55,15 +60,16 @@ func _lamps(i: int, node_half: PackedFloat32Array) -> void:
 	var d: Vector2 = (b - a) / length
 	var n: Vector2 = d.orthogonal()
 	var half: float = map.width(i) / 2.0
-	var start: float = node_half[map.road_a[i]] + 8.0
-	var end: float = length - node_half[map.road_b[i]] - 8.0
+	var start: float = maxf(node_half[map.road_a[i]], map.junction_setback(map.road_a[i], i)) + 6.0
+	var end: float = length - maxf(node_half[map.road_b[i]], map.junction_setback(map.road_b[i], i)) - 6.0
 	var both: bool = map.road_type[i] == "avenida"
 	var t: float = start + fmod(float(i) * 7.0, LAMP_STEP * 0.5)
 	var side: float = 1.0
 	while t < end:
 		for s: float in ([1.0, -1.0] if both else [side]):
 			var p: Vector2 = a + d * t + n * s * (half + map.sidewalk - 0.6)
-			_lamp(Vector3(p.x, terrain.surface(p), p.y), -n * s)
+			if _free(p):
+				_lamp(Vector3(p.x, terrain.surface(p), p.y), -n * s)
 		side = -side
 		t += LAMP_STEP
 
@@ -74,6 +80,7 @@ func _lamp(at: Vector3, toward: Vector2) -> void:
 	var basis := Basis(Vector3.UP, yaw)
 	_add("pole", _cyl(), Transform3D(Basis.from_scale(Vector3(0.24, 7.5, 0.24)), at + Vector3(0, 3.75, 0)), Color(0.22, 0.23, 0.25))
 	_add("arm", _box(), Transform3D(basis * Basis.from_scale(Vector3(0.12, 0.12, 2.4)), at + Vector3(toward.x, 0, toward.y) * 1.1 + Vector3(0, 7.4, 0)), Color(0.22, 0.23, 0.25))
+	poles.append(Vector2(at.x, at.z))
 	var head: Vector3 = at + Vector3(toward.x, 0, toward.y) * 2.2 + Vector3(0, 7.3, 0)
 	_add("lamp", _box(), Transform3D(basis * Basis.from_scale(Vector3(0.4, 0.18, 0.9)), head), Color(1.0, 0.92, 0.7))
 	lamp_heads.append(head)
@@ -85,8 +92,12 @@ func _traffic_lights(node: int, half: float) -> void:
 		var other: int = map.road_b[i] if map.road_a[i] == node else map.road_a[i]
 		var d: Vector2 = (map.nodes[other] - c).normalized()
 		var n: Vector2 = d.orthogonal()
-		var p: Vector2 = c + d * (half + map.sidewalk + 1.5) - n * (map.width(i) / 2.0 + map.sidewalk - 0.8)
+		var back: float = maxf(half, map.junction_setback(node, i)) + 1.5
+		var p: Vector2 = c + d * back - n * (map.width(i) / 2.0 + map.sidewalk - 0.8)
+		if not _free(p):
+			continue
 		var at := Vector3(p.x, terrain.surface(p), p.y)
+		poles.append(p)
 		var yaw: float = atan2(-d.x, -d.y)  # el semáforo mira a los coches que llegan
 		var basis := Basis(Vector3.UP, yaw)
 		_add("pole", _cyl(), Transform3D(Basis.from_scale(Vector3(0.2, 4.2, 0.2)), at + Vector3(0, 2.1, 0)), Color(0.18, 0.19, 0.2))
@@ -95,6 +106,27 @@ func _traffic_lights(node: int, half: float) -> void:
 		for k: int in 3:
 			var colr: Color = [Color(0.9, 0.1, 0.08), Color(0.35, 0.25, 0.05), Color(0.15, 0.35, 0.15)][k]
 			_add("light", _box(), Transform3D(basis * Basis.from_scale(Vector3(0.28, 0.28, 0.05)), at + face + Vector3(0, 5.0 - k * 0.38, 0)), colr)
+
+
+## ¿Se puede plantar un poste aquí? En tierra y sin tocar ninguna calzada.
+func _free(p: Vector2) -> bool:
+	return map.on_land(p) and map.road_clearance(p) > CLEARANCE
+
+
+## Solo los cruces importantes llevan semáforos: donde se cruzan dos avenidas, o una avenida
+## con dos calles (un cruce en X).
+func _wants_lights(n: int) -> bool:
+	var edges: PackedInt32Array = map.edges_at(n)
+	if edges.size() < 3:
+		return false
+	var avenues: int = 0
+	var streets: int = 0
+	for i: int in edges:
+		if map.road_type[i] == "avenida":
+			avenues += 1
+		elif map.road_type[i] == "calle":
+			streets += 1
+	return avenues >= 3 or (avenues >= 2 and streets >= 2)
 
 
 func _add(part: String, mesh: Mesh, t: Transform3D, color: Color) -> void:

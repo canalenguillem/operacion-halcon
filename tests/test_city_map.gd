@@ -93,3 +93,26 @@ func test_esquinas_de_un_rectangulo_girado() -> void:
 	var r: PackedVector2Array = CityMap.rect_corners(Vector2.ZERO, PI / 2.0, 4.0, 2.0)
 	assert_almost_eq(r[0].x, -1.0, 0.001, "girado 90°, el ancho va a lo largo de z")
 	assert_almost_eq(r[0].y, 2.0, 0.001)
+
+
+## Cruce en T: una calle (0→1) y otra que sale de su centro con un ángulo dado.
+func _tee(angle_deg: float) -> CityMap:
+	var a: float = deg_to_rad(angle_deg)
+	var pts := PackedVector2Array([Vector2(-100, 0), Vector2(100, 0), Vector2(0, 0), Vector2(cos(a), sin(a)) * 100.0])
+	return CityMap.from_graph(pts, PackedInt32Array([0, 2, 2]), PackedInt32Array([2, 1, 3]), PackedStringArray(["calle", "calle", "calle"]))
+
+
+func test_en_un_cruce_recto_basta_con_el_ancho_de_la_otra_calle() -> void:
+	var t: CityMap = _tee(90.0)
+	# la calle 2 sale hacia arriba; la otra calle mide 11 m (5,5 de media) más 3 de acera
+	assert_almost_eq(t.junction_setback(2, 2), 8.5, 0.01)
+
+
+func test_en_un_cruce_agudo_hay_que_alejarse_mas() -> void:
+	assert_gt(_tee(25.0).junction_setback(2, 2), _tee(90.0).junction_setback(2, 2) * 2.0)
+
+
+func test_un_tramo_que_solo_sigue_la_curva_no_tiene_retranqueo() -> void:
+	var pts := PackedVector2Array([Vector2(0, 0), Vector2(50, 0), Vector2(90, 20)])
+	var m2: CityMap = CityMap.from_graph(pts, PackedInt32Array([0, 1]), PackedInt32Array([1, 2]), PackedStringArray(["calle", "calle"]))
+	assert_eq(m2.junction_setback(1, 0), 0.0)

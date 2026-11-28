@@ -46,6 +46,8 @@ var env: Environment
 var sky_mat: ProceduralSkyMaterial
 ## Cabezas de las farolas (para dar luz de verdad a las cercanas de noche).
 var lamp_positions: PackedVector3Array = PackedVector3Array()
+## Postes de farolas y semáforos.
+var lamp_poles: PackedVector2Array = PackedVector2Array()
 
 
 ## ¿Está el punto dentro del recinto de la base?
@@ -164,6 +166,7 @@ func _build_ground() -> void:
 	var furniture := StreetFurniture.new(map, terrain, self)
 	furniture.build()
 	lamp_positions = furniture.lamp_heads
+	lamp_poles = furniture.poles
 
 	# árboles (solo visuales)
 	var spots: Array[Transform3D] = []
