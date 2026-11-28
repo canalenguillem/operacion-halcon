@@ -17,6 +17,12 @@ static func next_speed(speed: float, throttle: float, handbrake: bool, dt: float
 	return out
 
 
+## Dirección de avance sobre una pendiente de normal `floor_normal` (unitaria).
+static func along_slope(forward: Vector3, floor_normal: Vector3) -> Vector3:
+	var d: Vector3 = forward - floor_normal * forward.dot(floor_normal)
+	return d.normalized() if d.length() > 0.001 else forward
+
+
 ## Giro en rad/s. `steer` va de -1 (derecha) a 1 (izquierda). Marcha atrás invierte el giro.
 static func turn_rate(speed: float, steer: float, d: CarData) -> float:
 	var grip: float = clampf(speed / d.grip_speed, -1.0, 1.0) / (1.0 + absf(speed) / d.understeer_speed)

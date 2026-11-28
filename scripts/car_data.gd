@@ -21,6 +21,14 @@ extends Resource
 ## Cuanto más bajo, menos gira a alta velocidad.
 @export var understeer_speed: float = 45.0
 
+@export_group("Suelo")
+## Gravedad en el aire (m/s²).
+@export var gravity: float = 25.0
+## Distancia a la que el coche se «pega» al suelo al bajar una cuesta.
+@export var floor_snap: float = 1.2
+## Rapidez con la que la carrocería se inclina con la pendiente.
+@export var tilt_speed: float = 8.0
+
 @export_group("Daño")
 @export var max_hp: float = 100.0
 ## Velocidad de choque frontal a partir de la cual se daña.

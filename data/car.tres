@@ -4,3 +4,6 @@
 
 [resource]
 script = ExtResource("1")
+gravity = 25.0
+floor_snap = 1.2
+tilt_speed = 8.0

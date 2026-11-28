@@ -5,11 +5,15 @@ extends Vehicle
 var data: CarData = preload("res://data/car.tres")
 var color: Color = Color(0.8, 0.1, 0.1)
 var model: Node3D
+## Velocidad vertical (en el aire cae con la gravedad).
+var _vy: float = 0.0
 
 
 func _ready() -> void:
 	hp = data.max_hp
 	enter_range = data.enter_range
+	floor_snap_length = data.floor_snap
+	floor_max_angle = deg_to_rad(50.0)
 	var sh := BoxShape3D.new()
 	sh.size = Vector3(2.0, 1.3, 4.4)
 	Build.collider(self, sh, Vector3(0, 0.65, 0))
@@ -53,8 +57,20 @@ func _physics_process(dt: float) -> void:
 	speed = CarLogic.next_speed(speed, throttle, handbrake, dt, data)
 	rotate_y(CarLogic.turn_rate(speed, steer, data) * dt)
 	var forward: Vector3 = -global_transform.basis.z
-	velocity = forward * speed + Vector3(0, -3, 0)
+	var up: Vector3 = Vector3.UP
+	if is_on_floor():
+		# sigue la pendiente del suelo y se queda pegado a él
+		up = get_floor_normal()
+		velocity = CarLogic.along_slope(forward, up) * speed + Vector3(0, -1.0, 0)
+		_vy = 0.0
+	else:
+		_vy -= data.gravity * dt
+		velocity = forward * speed + Vector3(0, _vy, 0)
 	move_and_slide()
+	# la carrocería se inclina con la cuesta (el cuerpo de colisión sigue recto)
+	var local_up: Vector3 = (global_transform.basis.inverse() * up).normalized()
+	var want := Basis(Quaternion(Vector3.UP, local_up))
+	model.basis = model.basis.slerp(want, clampf(data.tilt_speed * dt, 0.0, 1.0)).orthonormalized()
 	resolve_bumps(forward, data.min_impact, data.impact_damage, data.run_over_speed)
 	update_smoke(data.max_hp, Vector3(0, 1.0, -1.6))
 
